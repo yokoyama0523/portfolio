@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マイページ｜ASAGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"><link rel="stylesheet" href="site.css"><script src="data.js"></script><script src="store.js"></script>
+<style>
+.auth{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);max-width:960px;margin-top:12px}
+.auth h2{font-size:16px;font-weight:500;margin-bottom:14px}.auth .f{grid-template-columns:1fr}
+.demo{background:var(--bg);padding:12px 14px;font-size:12px;margin-bottom:14px}.demo code{font-family:'Inter',var(--f);font-weight:500}
+.lay{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:start;margin-top:12px}
+.mn a{display:block;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.mn a[aria-current]{font-weight:500}.mn a.out{color:var(--mute);font-size:12px;margin-top:16px;border:0}
+.tab{display:none}.tab.on{display:block}
+.tab h2{font-size:16px;font-weight:500;margin-bottom:14px}
+.od{border:1px solid var(--line);margin-bottom:12px}.od .h{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:12px 16px;background:var(--bg);font-size:12px;align-items:center}.od .h b{font-family:'Inter',var(--f);font-weight:500;font-size:13px;letter-spacing:.03em}
+.od .it{display:grid;grid-template-columns:56px 1fr auto;gap:12px;padding:10px 16px;border-top:1px solid var(--line);font-size:12.5px;align-items:center}.od .it img{aspect-ratio:3/4;object-fit:cover;background:var(--bg)}.od .it small{color:var(--mute);display:block}
+.od .ft{padding:10px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12.5px;margin:0}.od .ft .btns{display:flex;gap:8px}
+.od .det{display:none;padding:12px 16px;border-top:1px solid var(--line);font-size:12.5px;display:none;grid-template-columns:7em 1fr;gap:4px 12px}.od.open .det{display:grid}.od .det b{font-weight:500}
+.ad{border:1px solid var(--line);padding:14px 16px;font-size:12.5px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto;gap:8px}.ad .main{font-size:10.5px;background:var(--ink);color:#fff;padding:1px 6px;margin-left:6px}.ad .btns{display:flex;gap:10px;align-items:flex-start}.ad .btns button{font-size:11.5px;color:var(--mute);border-bottom:1px solid var(--line)}
+.addf{border:1px solid var(--line);padding:18px;margin-top:14px}.addf h3{font-size:14px;font-weight:500;margin-bottom:10px}
+@media (max-width:900px){.auth,.lay{grid-template-columns:1fr}.mn{display:flex;flex-wrap:wrap;gap:6px}.mn a{border:1px solid var(--line);padding:6px 12px;font-size:12px}.mn a.out{margin:0}}
+</style>
+</head>
+<body>
+<div id="hd"></div>
+<main class="wrap">
+  <nav class="bc" aria-label="現在地"><a href="index.html">ホーム</a><span>／</span><span id="bc">ログイン</span></nav>
+  <h1 class="ttl" id="ttl">ログイン</h1>
+  <div id="authbox" class="auth" hidden>
+    <section><h2>ログイン</h2><div class="demo">デモ用のアカウント：<code>demo@example.com</code>／パスワード <code>demo1234</code></div>
+      <form id="login" novalidate class="f"><div><label class="t" for="le">メールアドレス</label><input type="email" id="le" required value="demo@example.com"><div class="errmsg">メールアドレスを確認してください</div></div><div><label class="t" for="lp">パスワード</label><input type="password" id="lp" required value="demo1234"><div class="errmsg">パスワードを入力してください</div></div><div class="note" id="lmsg" style="color:var(--sale)"></div><div><button type="submit" class="btn full">ログイン</button></div></form></section>
+    <section id="register"><h2>会員登録（無料）</h2><p class="note" style="margin-bottom:12px">登録後の初回のご注文で、クーポン WELCOME10（10%OFF）が使えます。</p>
+      <form id="reg" novalidate class="f"><div><label class="t" for="rn">お名前<em>必須</em></label><input type="text" id="rn" required placeholder="佐藤 あおい"><div class="errmsg">お名前を入力してください</div></div><div><label class="t" for="rk">フリガナ<em>必須</em></label><input type="text" id="rk" required placeholder="サトウ アオイ"><div class="errmsg">フリガナを入力してください</div></div><div><label class="t" for="re">メールアドレス<em>必須</em></label><input type="email" id="re" required placeholder="aoi@example.com"><div class="errmsg">メールアドレスを確認してください</div></div><div><label class="t" for="rp">パスワード（6文字以上）<em>必須</em></label><input type="password" id="rp" required minlength="6"><div class="errmsg">6文字以上にしてください</div></div><div class="note" id="rmsg" style="color:var(--sale)"></div><div><button type="submit" class="btn w full">登録する</button></div></form></section>
+  </div>
+  <div id="mybox" class="lay" hidden>
+    <nav class="mn" aria-label="マイページ"><a href="#orders">注文履歴</a><a href="#addr">お届け先</a><a href="#wish">お気に入り</a><a href="#profile">会員情報</a><a href="#" class="out" id="logout">ログアウト</a></nav>
+    <div>
+      <section class="tab" id="t-orders"><h2>注文履歴</h2><div id="orders"></div></section>
+      <section class="tab" id="t-addr"><h2>お届け先</h2><div id="addrs"></div><div class="addf"><h3 id="aftitle">お届け先を追加</h3><form id="af" novalidate class="f"><input type="hidden" id="aidx" value=""><div><label class="t" for="an">お名前</label><input type="text" id="an" required></div><div><label class="t" for="ak">フリガナ</label><input type="text" id="ak"></div><div><label class="t" for="az">郵便番号</label><input type="text" id="az" required pattern="^\d{3}-?\d{4}$"></div><div><label class="t" for="ap">都道府県</label><select id="ap" required></select></div><div class="w"><label class="t" for="a1">市区町村・番地</label><input type="text" id="a1" required></div><div class="w"><label class="t" for="a2">建物名・部屋番号</label><input type="text" id="a2"></div><div><label class="t" for="at">電話番号</label><input type="tel" id="at" required></div><div style="align-self:end"><button type="submit" class="btn sm">保存する</button> <button type="button" class="btn g sm" id="acancel" hidden>やめる</button></div></form></div></section>
+      <section class="tab" id="t-wish"><h2>お気に入り</h2><div class="grid" id="wishgrid"></div><div class="empty" id="wishempty" hidden>お気に入りはまだありません。</div></section>
+      <section class="tab" id="t-profile"><h2>会員情報</h2><form id="pf" novalidate class="f" style="max-width:640px"><div><label class="t" for="pn">お名前</label><input type="text" id="pn" required></div><div><label class="t" for="pk">フリガナ</label><input type="text" id="pk"></div><div><label class="t" for="pe">メールアドレス</label><input type="email" id="pe" disabled></div><div><label class="t" for="pt">電話番号</label><input type="tel" id="pt"></div><div class="w"><label class="t" for="ppw">新しいパスワード（変えるときだけ）</label><input type="password" id="ppw" minlength="6"></div><div class="w"><button type="submit" class="btn sm">保存する</button> <span class="note" id="pmsg"></span></div></form><p class="note" style="margin-top:24px">会員登録日：<span id="since"></span>　／　再入荷の通知：登録なし</p></section>
+    </div>
+  </div>
+</main>
+<div id="ft"></div>
+<script>
+const PREFS='北海道 青森県 岩手県 宮城県 秋田県 山形県 福島県 茨城県 栃木県 群馬県 埼玉県 千葉県 東京都 神奈川県 新潟県 富山県 石川県 福井県 山梨県 長野県 岐阜県 静岡県 愛知県 三重県 滋賀県 京都府 大阪府 兵庫県 奈良県 和歌山県 鳥取県 島根県 岡山県 広島県 山口県 徳島県 香川県 愛媛県 高知県 福岡県 佐賀県 長崎県 熊本県 大分県 宮崎県 鹿児島県 沖縄県'.split(' ');
+q('#ap').innerHTML='<option value="">選んでください</option>'+PREFS.map(p=>`<option>${p}</option>`).join('');
+const next=param('next');
+function go(){const u=Auth.user();q('#authbox').hidden=!!u;q('#mybox').hidden=!u;if(!u){q('#ttl').textContent='ログイン／会員登録';q('#bc').textContent='ログイン';if(location.hash==='#register')q('#re').focus();return;}
+  q('#ttl').textContent=u.name+' さんのマイページ';q('#bc').textContent='マイページ';
+  const tab=(location.hash||'#orders').replace('#','');qa('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+tab));qa('.mn a').forEach(a=>{if(a.getAttribute('href')==='#'+tab)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  renderOrders(u);renderAddrs(u);renderWish();q('#pn').value=u.name;q('#pk').value=u.kana||'';q('#pe').value=u.email;q('#pt').value=u.tel||'';q('#since').textContent=u.since||'';}
+function valid(form){let ok=true;form.querySelectorAll('[required]').forEach(i=>{const bad=!i.checkValidity();i.classList.toggle('bad',bad);if(bad)ok=false;});return ok;}
+document.forms.login.addEventListener('submit',e=>{e.preventDefault();if(!valid(e.target))return;if(Auth.login(q('#le').value.trim(),q('#lp').value)){if(next){location.href=next;return;}location.hash='#orders';go();}else q('#lmsg').textContent='メールアドレスかパスワードが違います。';});
+document.forms.reg.addEventListener('submit',e=>{e.preventDefault();if(!valid(e.target))return;if(!Auth.register(q('#re').value.trim(),q('#rp').value,q('#rn').value.trim(),q('#rk').value.trim())){q('#rmsg').textContent='このメールアドレスはすでに登録されています。';return;}renderCounts();toast('会員登録しました。初回のご注文でクーポン WELCOME10 が使えます');if(next){location.href=next;return;}location.hash='#orders';go();});
+q('#logout').addEventListener('click',e=>{e.preventDefault();Auth.logout();location.hash='';go();});
+window.addEventListener('hashchange',go);
+function renderOrders(u){const os=Orders.mine(u.email);q('#orders').innerHTML=os.length?os.map(o=>`<div class="od" data-no="${o.no}"><div class="h"><div><b>${o.no}</b>　<span>${jdate(o.at)}</span></div><span class="pill ${o.status}">${o.status}</span></div>${o.items.map(x=>{const p=P[x.id];const v=p?(p.v.find(v=>v.c===x.c)||p.v[0]):null;return `<div class="it"><img src="${v?img(v.img[0]):''}" alt=""><div>${p?esc(p.name):x.id}<small>${esc(x.c)}／${esc(x.s)}　×${x.qty}</small></div><div>${yen(x.price*x.qty)}</div></div>`}).join('')}<div class="ft"><span>合計 <b style="font-weight:500">${yen(o.total)}</b>（送料${o.ship?' '+yen(o.ship):'無料'}）${o.tracking?'　追跡番号 <b style="font-family:Inter;font-weight:500">'+o.tracking+'</b>':''}</span><div class="btns"><button type="button" class="btn g sm" data-det="${o.no}">詳細</button>${o.status==='受付'?`<button type="button" class="btn g sm" data-cancel="${o.no}">キャンセル</button>`:o.status==='発送済'||o.status==='完了'?`<button type="button" class="btn g sm" data-ret="${o.no}">返品・交換</button>`:''}</div></div><div class="det"><b>お届け先</b><span>${esc(o.addr.name)}　〒${esc(o.addr.zip)} ${esc(o.addr.pref)}${esc(o.addr.addr1)} ${esc(o.addr.addr2||'')}</span><b>配送</b><span>${o.delivery.date==='指定なし'?'指定なし':jdate(o.delivery.date)}　${esc(o.delivery.time)}</span><b>お支払い</b><span>${{card:'クレジットカード',cvs:'コンビニ払い',cod:'代金引換'}[o.pay]||o.pay}</span><b>内訳</b><span>小計 ${yen(o.sub)}${o.discount?'　クーポン −'+yen(o.discount):''}　送料 ${yen(o.ship)}${o.cod?'　代引手数料 '+yen(o.cod):''}${o.gift?'　包装 '+yen(o.gift):''}</span></div></div>`).join(''):'<div class="empty">まだ注文はありません。</div>';
+  qa('[data-det]').forEach(b=>b.addEventListener('click',()=>b.closest('.od').classList.toggle('open')));
+  qa('[data-cancel]').forEach(b=>b.addEventListener('click',()=>{if(!confirm('この注文をキャンセルしますか？'))return;const o=Orders.all().find(x=>x.no===b.dataset.cancel);o.items.forEach(it=>setStock(it.id,it.c,it.s,stock(it.id,it.c,it.s)+it.qty));Orders.update(b.dataset.cancel,{status:'キャンセル'});toast('注文をキャンセルしました');renderOrders(u);}));
+  qa('[data-ret]').forEach(b=>b.addEventListener('click',()=>toast('返品・交換の受付を承りました。返送用の伝票をメールでお送りします')));}
+function renderAddrs(u){const ads=u.addresses||[];q('#addrs').innerHTML=ads.length?ads.map((a,i)=>`<div class="ad"><div><b style="font-weight:500">${esc(a.name)}</b>${a.main?'<span class="main">主なお届け先</span>':''}<br>〒${esc(a.zip)} ${esc(a.pref)}${esc(a.addr1)} ${esc(a.addr2||'')}<br>${esc(a.tel)}</div><div class="btns">${a.main?'':`<button type="button" data-main="${i}">主にする</button>`}<button type="button" data-edit="${i}">変更</button><button type="button" data-del="${i}">削除</button></div></div>`).join(''):'<p class="note">登録されたお届け先はありません。</p>';
+  qa('[data-main]').forEach(b=>b.addEventListener('click',()=>{ads.forEach((a,i)=>a.main=i===+b.dataset.main);Auth.save(u.email,{addresses:ads});go();}));
+  qa('[data-del]').forEach(b=>b.addEventListener('click',()=>{if(!confirm('このお届け先を削除しますか？'))return;ads.splice(+b.dataset.del,1);if(ads.length&&!ads.some(a=>a.main))ads[0].main=true;Auth.save(u.email,{addresses:ads});go();}));
+  qa('[data-edit]').forEach(b=>b.addEventListener('click',()=>{const a=ads[+b.dataset.edit];q('#aidx').value=b.dataset.edit;q('#aftitle').textContent='お届け先を変更';q('#an').value=a.name;q('#ak').value=a.kana||'';q('#az').value=a.zip;q('#ap').value=a.pref;q('#a1').value=a.addr1;q('#a2').value=a.addr2||'';q('#at').value=a.tel;q('#acancel').hidden=false;q('#an').focus();}));}
+q('#acancel').addEventListener('click',()=>{document.forms.af.reset();q('#aidx').value='';q('#aftitle').textContent='お届け先を追加';q('#acancel').hidden=true;});
+document.forms.af.addEventListener('submit',e=>{e.preventDefault();if(!valid(e.target))return;const u=Auth.user();const ads=u.addresses||[];const a={name:q('#an').value.trim(),kana:q('#ak').value.trim(),zip:q('#az').value.trim(),pref:q('#ap').value,addr1:q('#a1').value.trim(),addr2:q('#a2').value.trim(),tel:q('#at').value.trim(),main:false};const i=q('#aidx').value;if(i===''){a.main=ads.length===0;ads.push(a);}else{a.main=ads[+i].main;ads[+i]=a;}Auth.save(u.email,{addresses:ads});q('#acancel').click();toast('お届け先を保存しました');go();});
+function renderWish(){const w=Wish.get().filter(id=>P[id]);q('#wishempty').hidden=w.length>0;q('#wishgrid').innerHTML=w.map(id=>card(P[id])).join('');bindWish(q('#wishgrid'));qa('#wishgrid [data-wish]').forEach(b=>b.addEventListener('click',()=>setTimeout(renderWish,300)));}
+document.forms.pf.addEventListener('submit',e=>{e.preventDefault();const u=Auth.user();const d={name:q('#pn').value.trim(),kana:q('#pk').value.trim(),tel:q('#pt').value.trim()};if(q('#ppw').value.length>=6)d.pw=q('#ppw').value;Auth.save(u.email,d);q('#pmsg').textContent='保存しました';renderCounts();});
+go();
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>税理士法人あさひ会計｜名古屋・伏見</title>
+<meta name="description" content="名古屋・伏見の税理士法人。月次の数字を、わかる言葉で。料金は目安を公開、初回の相談は無料です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap">
+<style>
+:root{--w:#fff;--ink:#141414;--mute:#6b6f76;--blue:#1b3fd6;--gray:#f0f1f3;--line:#dcdde0;--gut:clamp(20px,5vw,80px);--f:'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--w);color:var(--ink);font-family:var(--f);font-size:13px;line-height:2;letter-spacing:.02em;-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1,"tnum" 1}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+.num{font-feature-settings:"tnum" 1;font-variant-numeric:tabular-nums}
+
+/* header：小さく */
+.hd{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:16px var(--gut);background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.hd .logo{font-weight:700;font-size:14px;letter-spacing:.04em}
+.hd nav{display:flex;gap:22px;align-items:center;font-size:12px}
+.hd nav a{position:relative;padding:2px 0}
+.hd nav a.c{color:var(--blue);font-weight:700;border-bottom:2px solid var(--blue);padding-bottom:0}
+
+/* hero：見出しが主役 */
+.hero{display:grid;grid-template-columns:1fr minmax(300px,480px);gap:clamp(32px,5vw,80px);align-items:center;padding:clamp(48px,7vw,96px) var(--gut) clamp(40px,6vw,80px);min-height:calc(100vh - 60px)}
+.hero h1{font-size:clamp(44px,7.2vw,112px);font-weight:900;line-height:1.16;letter-spacing:-.025em}
+.hero h1 span{display:block;white-space:nowrap;opacity:0;transform:translateY(.35em);animation:up .9s cubic-bezier(.2,.7,.1,1) forwards}
+.hero h1 span:nth-child(2){animation-delay:.12s}
+@keyframes up{to{opacity:1;transform:none}}
+.hero .lead{max-width:28em;font-size:14px;line-height:2.1;margin-top:clamp(28px,4vw,56px)}
+.hero .lead p+p{margin-top:1em}
+.hero .fact{margin-top:28px;font-size:12px;color:var(--mute)}
+.hero .fact b{display:block;font-size:40px;font-weight:300;line-height:1.1;color:var(--ink);letter-spacing:-.02em}
+.hero .fact b small{font-size:13px;font-weight:400;margin-left:.3em;letter-spacing:0}
+.hero .facts{display:flex;gap:40px;margin-top:8px}
+
+/* 月次レポートの紙 */
+.sheet{background:var(--w);border-top:3px solid var(--blue);box-shadow:0 1px 0 var(--line),0 24px 60px -30px rgba(20,20,20,.25);padding:28px 30px 24px;justify-self:end;width:100%;opacity:0;animation:up 1s .35s cubic-bezier(.2,.7,.1,1) forwards}
+.sheet .t{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;color:var(--mute);margin-bottom:22px}
+.sheet .t b{font-size:13px;color:var(--ink);font-weight:700}
+.sheet dl{margin:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.sheet dt{font-size:11px;color:var(--mute)}
+.sheet dd{margin:2px 0 0;font-size:clamp(20px,2.1vw,28px);font-weight:300;line-height:1.2;letter-spacing:-.02em}
+.sheet dd small{display:block;font-size:11px;color:var(--mute);margin-top:6px;letter-spacing:0}
+.sheet dd small.up{color:#1f8a4c}.sheet dd small.dn{color:#c2372c}
+.sheet .say{margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.95}
+.sheet .say::before{content:"担当から";display:block;font-size:11px;color:var(--blue);font-weight:700;margin-bottom:2px}
+.sheet .say mark{background:none;color:var(--blue);font-weight:700}
+.sheet .foot{margin-top:16px;font-size:10.5px;color:var(--mute);display:flex;justify-content:space-between}
+
+/* 共通の節 */
+.sec{padding:clamp(72px,10vw,140px) var(--gut)}
+.sec h2{font-size:clamp(26px,3.6vw,44px);font-weight:700;line-height:1.4;letter-spacing:-.01em;max-width:18em}
+.sec .lead{margin-top:16px;max-width:36em;color:var(--mute)}
+.g2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,80px);align-items:start}
+.g2>h2{position:sticky;top:90px}
+
+/* 理由：大きい文と小さい文 */
+.why ul{list-style:none;margin:0;padding:0}
+.why li{padding:30px 0;border-top:1px solid var(--line)}
+.why li:last-child{border-bottom:1px solid var(--line)}
+.why li b{display:block;font-size:clamp(18px,2vw,24px);font-weight:700;line-height:1.5;margin-bottom:8px}
+.why li p{color:var(--mute);max-width:36em}
+
+/* サービス：名前・説明・値段 */
+.svc .row{display:grid;grid-template-columns:9em 1fr auto;gap:24px;padding:24px 0;border-top:1px solid var(--line);align-items:baseline}
+.svc .row:last-child{border-bottom:1px solid var(--line)}
+.svc h3{font-size:16px;font-weight:700}
+.svc p{color:var(--mute)}
+.svc .pr{font-size:15px;white-space:nowrap;font-weight:300;letter-spacing:-.01em}
+.svc .pr small{font-size:11px;color:var(--mute);margin-left:4px}
+
+/* 料金：大きな表 */
+.price{background:var(--gray)}
+.price table{width:100%;border-collapse:collapse;background:var(--w);font-size:13px;margin-top:36px}
+.price th,.price td{text-align:left;padding:18px 20px;border-bottom:1px solid var(--line);vertical-align:top;font-weight:400}
+.price thead th{font-size:11.5px;color:var(--mute);border-bottom:2px solid var(--ink);padding-bottom:12px}
+.price tbody th{font-weight:700;white-space:nowrap}
+.price td.n{font-size:22px;font-weight:300;letter-spacing:-.02em;white-space:nowrap;line-height:1.2}
+.price td.n small{display:block;font-size:11px;color:var(--mute);margin-top:6px;letter-spacing:0}
+.price tbody tr:last-child th,.price tbody tr:last-child td{border-bottom:0}
+.price .notes{margin-top:18px;font-size:12px;color:var(--mute);max-width:52em}
+.price .notes b{color:var(--blue);font-weight:700}
+
+/* 流れ：手順なので番号 */
+.flow .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px;counter-reset:s}
+.flow .step{border-top:2px solid var(--ink);padding-top:16px;counter-increment:s}
+.flow .step::before{content:counter(s);display:block;font-size:40px;font-weight:300;line-height:1;letter-spacing:-.03em;margin-bottom:14px}
+.flow .step:first-child{border-top-color:var(--blue)}
+.flow .step:first-child::before{color:var(--blue)}
+.flow h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.flow p{color:var(--mute);font-size:12.5px}
+.flow .when{display:inline-block;margin-top:10px;font-size:11px;color:var(--ink);background:var(--gray);padding:2px 10px}
+
+/* 税理士：白黒写真と青い点 */
+.people .list{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);margin-top:40px}
+.people figure{margin:0}
+.people .im{aspect-ratio:4/5;overflow:hidden;background:var(--ink)}
+.people img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+.people figure:hover img{filter:none}
+.people h3{font-size:20px;font-weight:700;margin-top:18px;display:flex;align-items:center;gap:10px}
+.people h3::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--blue);flex:none}
+.people h3 small{font-size:11.5px;color:var(--mute);font-weight:400;margin-left:4px}
+.people blockquote{margin:10px 0 0;font-size:15px;font-weight:700;line-height:1.7}
+.people p{color:var(--mute);margin-top:6px}
+
+/* 事務所 */
+.office .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+.office .im{aspect-ratio:4/3;overflow:hidden}
+.office img{width:100%;height:100%;object-fit:cover}
+.office figcaption{font-size:11px;color:var(--mute);margin-top:8px}
+.office dl{margin:0;display:grid;grid-template-columns:6em 1fr;gap:0 16px}
+.office dt{padding:10px 0;border-bottom:1px solid var(--line);color:var(--mute);font-size:12px}
+.office dd{margin:0;padding:10px 0;border-bottom:1px solid var(--line)}
+
+/* 申し込み：青い面 */
+.cta{background:var(--blue);color:#fff;padding:clamp(72px,10vw,140px) var(--gut)}
+.cta h2{font-size:clamp(30px,5vw,64px);font-weight:900;line-height:1.3;letter-spacing:-.02em;max-width:14em}
+.cta p{margin-top:20px;max-width:34em;color:rgba(255,255,255,.8);font-size:14px}
+.cta .act{display:flex;gap:32px;align-items:center;flex-wrap:wrap;margin-top:40px}
+.cta .btn{display:inline-block;background:#fff;color:var(--blue);padding:18px 36px;font-weight:700;font-size:14px;letter-spacing:.04em}
+.cta .tel{font-size:12px;color:rgba(255,255,255,.8)}
+.cta .tel b{display:block;font-size:26px;font-weight:300;color:#fff;letter-spacing:.02em;line-height:1.2}
+
+.ft{padding:36px var(--gut) 48px;font-size:11px;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 40px}
+.ft nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+
+@media (prefers-reduced-motion:reduce){.hero h1 span,.sheet{animation:none;opacity:1;transform:none}html{scroll-behavior:auto}}
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;min-height:0}.sheet{justify-self:start}
+  .g2{grid-template-columns:1fr;gap:20px}.g2>h2{position:static}
+  .flow .steps{grid-template-columns:1fr 1fr}
+  .people .list,.office .wrap{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .hd{padding:12px 20px}.hd nav a:not(.c){display:none}
+  .hero{padding-top:40px}.hero h1{font-size:clamp(34px,11vw,56px)}.hero h1 span{white-space:normal}
+  .hero .facts{gap:24px}.hero .fact b{font-size:30px}
+  .sheet{padding:20px 18px}.sheet dl{grid-template-columns:1fr;gap:14px}
+  .svc .row{grid-template-columns:1fr;gap:4px}
+  .price th,.price td{padding:12px 10px}.price .hide{display:none}.price td.n{font-size:18px}
+  .flow .steps{grid-template-columns:1fr;gap:28px}
+  .cta .btn{display:block;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <a class="logo" href="#">税理士法人あさひ会計</a>
+  <nav aria-label="メニュー"><a href="#why">選ばれる理由</a><a href="#svc">サービス</a><a href="#price">料金</a><a href="#flow">相談の流れ</a><a href="#people">税理士</a><a class="c" href="consult.html">初回相談（無料）</a></nav>
+</header>
+
+<main>
+<section class="hero" aria-label="紹介">
+  <div>
+    <h1><span>数字の話は、</span><span>わかる言葉で。</span></h1>
+    <div class="lead">
+      <p>名古屋・伏見の税理士法人です。毎月の試算表に、担当が「今月はこういうことです」と一枚の言葉を添えます。料金は目安を公開し、初回のご相談は無料です。</p>
+      <div class="facts">
+        <div class="fact"><b class="num">420<small>社</small></b>法人の月次を担当</div>
+        <div class="fact"><b class="num">180<small>名</small></b>個人事業主の月次を担当</div>
+      </div>
+    </div>
+  </div>
+    <div class="sheet" aria-label="月次レポートの例">
+      <div class="t"><b>月次レポート　2026年10月</b><span>株式会社〇〇様　担当：高橋</span></div>
+      <dl>
+        <div><dt>売上</dt><dd class="num">4,820,000<small class="up">前月比 +6.1%</small></dd></div>
+        <div><dt>粗利</dt><dd class="num">1,930,000<small>粗利率 40.0%</small></dd></div>
+        <div><dt>現金残高</dt><dd class="num">12,400,000<small class="dn">前月比 −1,150,000</small></dd></div>
+      </dl>
+      <p class="say">売上は増えましたが、現金は減っています。<mark>仕入れの支払いが前倒しになったため</mark>で、11月には戻ります。心配いりません。年末の賞与の分は、11月中に一度お話ししましょう。</p>
+      <div class="foot"><span>試算表・資金繰り表は別紙</span><span>税理士法人あさひ会計</span></div>
+    </div>
+</section>
+
+<section class="sec why g2" id="why">
+  <h2>「で、うちは大丈夫なんですか」に、答えられる事務所でありたい。</h2>
+  <ul>
+    <li><b>返事は、翌営業日までに。</b><p>メール・チャットでのご質問には、翌営業日までに返事をします。「忙しそうで聞けない」をなくすための、事務所の決まりです。</p></li>
+    <li><b>毎月、数字を一枚のことばに。</b><p>試算表のほかに、売上・粗利・現金の動きを一枚にまとめた月次レポートをお渡しし、30分の打ち合わせで説明します。</p></li>
+    <li><b>料金は、先に全部。</b><p>月額・決算・申告・年末調整。かかる料金は契約の前に一覧でお見せします。あとから増える項目は、事前に必ずご相談します。</p></li>
+  </ul>
+</section>
+
+<section class="sec svc g2" id="svc">
+  <h2>できること</h2>
+  <div>
+    <div class="row"><h3>月次の顧問</h3><p>記帳の確認、試算表、月次レポート、月1回の打ち合わせ。税務の相談はいつでも。</p><div class="pr num">月額 33,000円<small>〜</small></div></div>
+    <div class="row"><h3>決算・申告</h3><p>法人税・消費税の申告書の作成と提出。決算の2か月前から、納税額の見込みをお伝えします。</p><div class="pr num">165,000円<small>〜</small></div></div>
+    <div class="row"><h3>会社をつくる</h3><p>設立の手続き、融資の申請書、最初の資金繰り表まで。創業2年目までは月額を抑えた料金です。</p><div class="pr num">設立 55,000円<small>＋実費</small></div></div>
+    <div class="row"><h3>相続・事業承継</h3><p>相続税の試算と申告。親から子へ会社を渡すときの株の評価と、何年かけて進めるかの計画。</p><div class="pr num">相談 無料<small>／申告は別途</small></div></div>
+  </div>
+</section>
+
+<section class="sec price" id="price">
+  <h2>月額の顧問料</h2>
+  <p class="lead">年商と訪問の回数で決まります。すべて税込。決算料は月額の4か月分が目安です。</p>
+  <table>
+    <thead><tr><th>年商</th><th>訪問なし（オンライン）</th><th>隔月訪問</th><th class="hide">毎月訪問</th></tr></thead>
+    <tbody>
+      <tr><th>〜3,000万円</th><td class="n num">33,000円<small>決算 132,000円</small></td><td class="n num">38,500円<small>決算 154,000円</small></td><td class="n num hide">49,500円<small>決算 198,000円</small></td></tr>
+      <tr><th>〜1億円</th><td class="n num">44,000円<small>決算 176,000円</small></td><td class="n num">49,500円<small>決算 198,000円</small></td><td class="n num hide">60,500円<small>決算 242,000円</small></td></tr>
+      <tr><th>〜3億円</th><td class="n num">60,500円<small>決算 242,000円</small></td><td class="n num">71,500円<small>決算 286,000円</small></td><td class="n num hide">88,000円<small>決算 352,000円</small></td></tr>
+      <tr><th>3億円〜</th><td colspan="3">個別にお見積もりします。</td></tr>
+    </tbody>
+  </table>
+  <p class="notes">記帳をお任せいただく場合は、仕訳の数に応じて月額 11,000円から加算します。年末調整は1人あたり 2,200円、給与計算は月額 11,000円から。<b>ここに書いていない料金が発生するときは、作業の前に必ずご相談します。</b></p>
+</section>
+
+<section class="sec flow" id="flow">
+  <h2>契約までに、だいたい3週間。</h2>
+  <div class="steps">
+    <div class="step"><h3>初回相談（無料）</h3><p>いまの困りごとと、会社の数字をざっくり伺います。来所でもオンラインでも。</p><span class="when">60分</span></div>
+    <div class="step"><h3>お見積もり</h3><p>年商・仕訳の数・訪問の希望から、月額と決算料を一覧でお出しします。</p><span class="when">3営業日以内</span></div>
+    <div class="step"><h3>いまの税理士からの引き継ぎ</h3><p>過去の申告書と帳簿を受け取ります。前の事務所への連絡は、こちらから行います。</p><span class="when">約2週間</span></div>
+    <div class="step"><h3>契約・はじまり</h3><p>担当とサブ担当の2人を決めて、最初の月次からスタートします。</p><span class="when">契約日から</span></div>
+  </div>
+</section>
+
+<section class="sec people" id="people">
+  <h2>担当制。代理の人は来ません。</h2>
+  <div class="list">
+    <figure><div class="im"><img src="assets/consult.jpg" alt="" width="1280" height="853"></div><figcaption><h3>高橋 さやか<small>代表社員・税理士</small></h3><blockquote>「数字が苦手」は、説明する側の問題だと思っています。</blockquote><p>2004年税理士登録。製造業・建設業の顧問を中心に22年。2015年、あさひ会計を設立。</p></figcaption></figure>
+    <figure><div class="im"><img src="assets/sign.jpg" alt="" width="1280" height="853"></div><figcaption><h3>村田 圭<small>社員・税理士</small></h3><blockquote>会社を始める人の、最初の数字を一緒につくるのが好きです。</blockquote><p>2012年税理士登録。創業支援と融資に強く、年間40社の設立を担当。</p></figcaption></figure>
+  </div>
+</section>
+
+<section class="sec office">
+  <div class="wrap">
+    <figure style="margin:0"><div class="im"><img src="assets/office.jpg" alt="事務所" width="1280" height="853"></div><figcaption>名古屋・伏見　6階の相談室</figcaption></figure>
+    <dl>
+      <dt>名称</dt><dd>税理士法人あさひ会計</dd>
+      <dt>所在地</dt><dd>名古屋市中区栄 1-9-16　伏見ビル 6階（伏見駅 徒歩3分）</dd>
+      <dt>創業</dt><dd>1996年（法人化 2015年）</dd>
+      <dt>人数</dt><dd>税理士 6名、スタッフ 14名</dd>
+      <dt>営業時間</dt><dd>平日 9:00〜18:00</dd>
+      <dt>電話</dt><dd class="num">052-123-4567</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <h2>まずは、いまの数字を見せてください。</h2>
+  <p>直近の決算書か試算表があれば、初回の60分で「いま何が起きているか」をお話しできます。なくても大丈夫です。</p>
+  <div class="act">
+    <a class="btn" href="consult.html">初回の相談を申し込む</a>
+    <div class="tel">お電話は平日 9:00〜18:00<b class="num">052-123-4567</b></div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div>© 税理士法人あさひ会計　｜　このページはポートフォリオ用の架空の事務所です。人物の写真はフリー素材（ぱくたそ・Pexels）のモデルで、本文の人物とは関係ありません。</div>
+  <nav aria-label="フッター"><a href="#why">選ばれる理由</a><a href="#svc">サービス</a><a href="#price">料金</a><a href="#flow">相談の流れ</a><a href="#people">税理士</a></nav>
+</footer>
+</body>
+</html>

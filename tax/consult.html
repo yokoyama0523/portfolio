@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>初回相談の申し込み｜税理士法人あさひ会計</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap">
+<style>
+:root{--paper:#fff;--ink:#141414;--ink-2:#6b6f76;--sun:#1b3fd6;--mist:#f0f1f3;--line:#dcdde0;--white:#fff;--err:#c2372c;
+  --min:'Noto Sans JP','Hiragino Sans',sans-serif;--got:'Noto Sans JP','Hiragino Sans',sans-serif;--gut:clamp(20px,5vw,80px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--got);font-size:14px;line-height:1.9;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--sun);outline-offset:3px}h1,h2,h3{margin:0;font-weight:700}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;letter-spacing:inherit}
+.mk{color:var(--sun);font-weight:700}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:16px var(--gut);border-bottom:1px solid var(--line);background:var(--white)}
+.hd .logo{font-family:var(--min);font-size:14px;font-weight:700;letter-spacing:.04em}.hd .tel{font-size:12px;color:var(--ink-2)}.hd .tel b{font-family:var(--min);font-weight:400;font-size:16px;color:var(--ink);margin-left:8px}
+main{max-width:760px;margin:0 auto;padding:44px var(--gut) 120px}
+h1{font-family:var(--min);font-size:clamp(28px,4vw,44px);letter-spacing:-.01em;margin-bottom:6px;font-weight:900}.lead{color:var(--ink-2);margin:0 0 30px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:36px;position:relative}.steps::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--line)}
+.steps div{position:relative;padding-top:22px;font-size:11.5px;letter-spacing:.1em;color:var(--ink-2)}.steps div::before{content:"";position:absolute;left:0;top:1px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:1px solid var(--line)}
+.steps div.on{color:var(--ink);font-weight:700}.steps div.on::before{background:var(--sun);border-color:var(--sun)}.steps div.on{color:var(--sun)}.steps div.past::before{background:var(--ink);border-color:var(--ink)}
+.pane{display:none}.pane.on{display:block}
+fieldset{border:0;padding:0;margin:0 0 30px}legend{font-family:var(--min);font-size:17px;font-weight:700;margin-bottom:10px}.hint{font-size:12.5px;color:var(--ink-2);margin:0 0 12px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.opt{display:block;border:1px solid var(--line);background:var(--white);padding:12px 14px;cursor:pointer;position:relative}.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt b{font-weight:700;font-size:14px;display:block}.opt small{color:var(--ink-2);font-size:12px}
+.opt:has(input:checked){border-color:var(--sun);box-shadow:inset 0 0 0 1px var(--sun)}.opt:has(input:focus-visible){outline:2px solid var(--sun);outline-offset:2px}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}.f .w{grid-column:1/3}.f3{grid-template-columns:repeat(3,1fr)}
+label.t{display:block;font-size:12px;letter-spacing:.08em;color:var(--ink-2)}label.t em{font-style:normal;color:var(--err);margin-left:6px;font-size:11px}
+input,select,textarea{width:100%;margin-top:6px;border:1px solid var(--line);background:var(--white);padding:11px 12px;font:inherit;color:var(--ink);border-radius:0}
+textarea{min-height:100px;resize:vertical}.bad{border-color:var(--err)!important}.errmsg{font-size:12px;color:var(--err);margin-top:4px;display:none}.bad+.errmsg{display:block}
+.cal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:520px}.cal .d{font-size:11px;text-align:center;color:var(--ink-2)}
+.cal button{border:1px solid var(--line);background:var(--white);padding:12px 0;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2}.cal button small{font-size:10px;color:var(--ink-2)}
+.cal button:disabled{color:#c9ccc6;background:transparent;cursor:not-allowed}.cal button.on{background:var(--sun);color:#fff;border-color:var(--sun)}.cal button.on small{color:rgba(255,255,255,.7)}
+.calhead{display:flex;justify-content:space-between;align-items:center;max-width:520px;margin-bottom:8px;font-family:var(--min);font-size:16px}.calhead button{font-size:12px;color:var(--ink-2)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:14px;max-width:520px}.slots button{border:1px solid var(--line);background:var(--white);padding:10px 0;font-size:13px}.slots button:disabled{color:#c9ccc6;text-decoration:line-through;background:transparent}.slots button.on{background:var(--sun);color:#fff;border-color:var(--sun)}
+.pick{margin-top:12px;font-size:13px;color:var(--ink-2)}.pick b{font-family:var(--min);font-weight:400;font-size:16px;color:var(--ink);margin-left:8px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:22px;border-top:1px solid var(--line)}
+.btn{display:inline-block;padding:13px 26px;background:var(--sun);color:#fff;font-weight:700;letter-spacing:.04em;font-size:13.5px}.btn:disabled{opacity:.35;cursor:not-allowed}.btn.g{background:transparent;color:var(--ink);border:1px solid var(--ink);font-weight:400}
+.sum{border:1px solid var(--ink);background:var(--white)}.sum dl{margin:0;display:grid;grid-template-columns:8em 1fr}.sum dt{padding:12px 16px;border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-2)}.sum dd{margin:0;padding:12px 16px;border-bottom:1px solid var(--line)}
+.sum .edit{font-size:11px;color:var(--ink-2);border-bottom:1px solid var(--line);margin-left:10px}
+.fin{text-align:center;padding:30px 0}.fin h2{font-family:var(--min);font-size:24px}.fin .no{font-family:var(--min);font-size:36px;font-weight:300;margin:16px 0 4px}.fin .no small{display:block;font-family:var(--got);font-size:11px;letter-spacing:.14em;color:var(--ink-2)}
+.fin .box{text-align:left;border:1px solid var(--line);background:var(--white);padding:18px 22px;margin:26px auto 0;max-width:520px;font-size:13px}.fin .box b{display:block;font-family:var(--min);font-size:15px;margin-bottom:6px;font-weight:400}.fin ul{margin:0;padding-left:1.2em}
+.ft{text-align:center;font-size:11px;color:var(--ink-2);padding:0 var(--gut) 48px}
+@media (max-width:640px){.f,.f3{grid-template-columns:1fr}.f .w{grid-column:1}.hd .tel{display:none}.steps div{font-size:10px}}
+</style>
+</head>
+<body>
+<header class="hd"><a class="logo" href="./">税理士法人あさひ会計</a><div class="tel">お電話は平日 9:00〜18:00<b>052-123-4567</b></div></header>
+<main>
+  <h1>初回相談の申し込み</h1>
+  <p class="lead">60分、無料です。来所でもオンラインでも。いまの税理士がいる方も、そのままご相談いただけます。</p>
+  <div class="steps" id="steps"><div class="on">1　相談内容</div><div>2　日時</div><div>3　連絡先</div><div>4　確認</div></div>
+  <form id="form" novalidate>
+  <section class="pane on" data-step="1">
+    <fieldset><legend>相談したいこと</legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="topic" value="顧問の税理士を変えたい" checked><b>顧問の税理士を変えたい</b><small>引き継ぎの連絡はこちらから行います</small></label>
+        <label class="opt"><input type="radio" name="topic" value="会社をつくりたい"><b>会社をつくりたい</b><small>設立・融資・最初の資金繰り</small></label>
+        <label class="opt"><input type="radio" name="topic" value="決算・申告だけ頼みたい"><b>決算・申告だけ頼みたい</b><small>記帳は自分でしている方</small></label>
+        <label class="opt"><input type="radio" name="topic" value="相続・事業承継"><b>相続・事業承継</b><small>試算だけでも</small></label>
+        <label class="opt"><input type="radio" name="topic" value="まだ決めていない"><b>まだ決めていない</b><small>数字を見ながら一緒に考えます</small></label>
+      </div></fieldset>
+    <fieldset><legend>会社の状況</legend><p class="hint">分かる範囲で。おおよそで大丈夫です。</p>
+      <div class="f f3">
+        <div><label class="t" for="sales">年商</label><select id="sales" name="sales"><option>これから（創業前）</option><option>〜1,000万円</option><option selected>〜3,000万円</option><option>〜1億円</option><option>〜3億円</option><option>3億円〜</option></select></div>
+        <div><label class="t" for="biz">業種</label><select id="biz" name="biz"><option>製造</option><option>建設</option><option selected>小売・飲食</option><option>サービス</option><option>IT・Web</option><option>医療・介護</option><option>不動産</option><option>その他</option></select></div>
+        <div><label class="t" for="staff">従業員</label><select id="staff" name="staff"><option>自分だけ</option><option selected>2〜5名</option><option>6〜20名</option><option>21名〜</option></select></div>
+      </div></fieldset>
+    <div class="nav"><span></span><button type="button" class="btn" data-next>日時を選ぶ</button></div>
+  </section>
+  <section class="pane" data-step="2">
+    <fieldset><legend>方法</legend><div class="opts"><label class="opt"><input type="radio" name="how" value="オンライン（Zoom）" checked><b>オンライン</b><small>Zoomの案内をメールで送ります</small></label><label class="opt"><input type="radio" name="how" value="来所（伏見）"><b>来所</b><small>名古屋市中区栄 1-9-16 伏見ビル 6階</small></label></div></fieldset>
+    <fieldset><legend>日にち</legend><p class="hint">平日のみ。空いている枠だけ表示します。</p>
+      <div class="calhead"><button type="button" id="prev">← 前の週</button><span id="calttl"></span><button type="button" id="next">次の週 →</button></div><div class="cal" id="cal"></div></fieldset>
+    <fieldset><legend>時間（60分）</legend><div class="slots" id="slots"><p class="hint">先に日を選んでください。</p></div><div class="pick">選択中<b id="pick">—</b></div></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next id="next2" disabled>連絡先を入力する</button></div>
+  </section>
+  <section class="pane" data-step="3">
+    <fieldset><legend>連絡先</legend>
+      <div class="f">
+        <div><label class="t" for="co">会社名・屋号</label><input type="text" id="co" name="co" placeholder="株式会社〇〇（創業前は空欄で）"></div>
+        <div><label class="t" for="name">お名前<em>必須</em></label><input type="text" id="name" name="name" required placeholder="田中 健"><div class="errmsg">お名前を入力してください</div></div>
+        <div><label class="t" for="tel">電話番号<em>必須</em></label><input type="tel" id="tel" name="tel" required pattern="^[0-9０-９\-－ ]{10,14}$" placeholder="052-123-4567"><div class="errmsg">電話番号を確認してください</div></div>
+        <div><label class="t" for="email">メール<em>必須</em></label><input type="email" id="email" name="email" required placeholder="tanaka@example.co.jp"><div class="errmsg">メールアドレスを確認してください</div></div>
+        <div class="w"><label class="t" for="note">相談したいことを、ひとことで</label><textarea id="note" name="note" placeholder="例：月次の数字の説明がなくて不安。決算の2か月前に納税額を知りたい。"></textarea></div>
+      </div></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next id="next3">内容を確認する</button></div>
+  </section>
+  <section class="pane" data-step="4">
+    <fieldset><legend>この内容で申し込みます</legend><div class="sum"><dl id="sum"></dl></div><p class="hint" style="margin-top:12px">担当の税理士から、翌営業日までに確認のメールをお送りします。<span class="mk">相談のあと、しつこい営業はしません。</span></p></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="submit" class="btn">申し込む</button></div>
+  </section>
+  <section class="pane fin" data-step="5">
+    <h2>申し込みを受け付けました</h2><div class="no"><small>受付番号</small><span id="rno"></span></div><p id="donewhen" style="color:var(--ink-2)"></p>
+    <div class="box"><b>当日までにご用意いただけると話が早いもの</b><ul><li>直近の決算書（なければ試算表、それもなければ通帳のコピー）</li><li>いまの税理士との契約書（いる方）</li><li>気になっていることのメモ</li></ul></div>
+    <div class="box"><b>オンラインの方へ</b>前日までに Zoom の案内をメールでお送りします。スマートフォンでも参加できます。</div>
+    <p style="margin-top:28px"><a class="btn g" href="./">事務所のページへ戻る</a></p>
+  </section>
+  </form>
+</main>
+<footer class="ft">このページはポートフォリオ用です。申し込みは実際には送信されません。</footer>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const state={date:null,time:null};let step=1;
+function show(n){step=n;$$('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n));$$('#steps div').forEach((d,i)=>{d.classList.toggle('on',i+1===n);d.classList.toggle('past',i+1<n)});window.scrollTo({top:0,behavior:'smooth'})}
+const today=new Date();today.setHours(0,0,0,0);let ws=new Date(today);ws.setDate(today.getDate()-((today.getDay()+6)%7));
+const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const jp=d=>`${d.getMonth()+1}月${d.getDate()}日（${'日月火水木金土'[d.getDay()]}）`;
+const hol=['2026-11-23','2026-12-29','2026-12-30','2026-12-31','2027-01-01','2027-01-02','2027-01-03'];
+function avail(d){if(d<=today||d.getDay()===0||d.getDay()===6||hol.includes(ymd(d)))return 0;return 1+((d.getDate()*5+d.getMonth())%4)}
+function renderCal(){const cal=$('#cal');cal.innerHTML='';'月火水木金'.split('').forEach(c=>{const e=document.createElement('div');e.className='d';e.textContent=c;cal.appendChild(e)});
+  const end=new Date(ws);end.setDate(ws.getDate()+11);$('#calttl').textContent=`${ws.getMonth()+1}月${ws.getDate()}日 〜 ${end.getMonth()+1}月${end.getDate()}日`;
+  for(let i=0;i<14;i++){const d=new Date(ws);d.setDate(ws.getDate()+i);if(d.getDay()===0||d.getDay()===6)continue;const a=avail(d);const b=document.createElement('button');b.type='button';b.innerHTML=`<span>${d.getMonth()+1}/${d.getDate()}</span><small>${a?'空き '+a+'枠':'—'}</small>`;b.disabled=!a;if(state.date&&ymd(d)===ymd(state.date))b.classList.add('on');b.addEventListener('click',()=>{state.date=d;state.time=null;renderCal();renderSlots();update()});cal.appendChild(b)}
+  const lim=new Date(today);lim.setDate(today.getDate()+42);$('#prev').disabled=ws<=today;$('#next').disabled=ws>=lim}
+function renderSlots(){const s=$('#slots');s.innerHTML='';if(!state.date){s.innerHTML='<p class="hint">先に日を選んでください。</p>';return}const seed=state.date.getDate()*7+state.date.getMonth();['9:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00'].forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.textContent=t+'〜';b.disabled=((seed+i*3)%3)===0;if(state.time===t)b.classList.add('on');b.addEventListener('click',()=>{state.time=t;renderSlots();update()});s.appendChild(b)})}
+function update(){$('#pick').textContent=state.date?(jp(state.date)+(state.time?'　'+state.time+'〜':'　時間を選んでください')):'—';$('#next2').disabled=!(state.date&&state.time)}
+$('#prev').addEventListener('click',()=>{ws.setDate(ws.getDate()-14);renderCal()});$('#next').addEventListener('click',()=>{ws.setDate(ws.getDate()+14);renderCal()});renderCal();renderSlots();update();
+$$('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(step-1)));
+$$('[data-next]').forEach(b=>b.addEventListener('click',()=>{if(step===3&&!validate())return;if(step===3)fillSum();show(step+1)}));
+function validate(){let ok=true;$$('.pane[data-step="3"] input[required]').forEach(i=>{const bad=!i.checkValidity();i.classList.toggle('bad',bad);if(bad)ok=false});if(!ok)$('.bad').focus();return ok}
+$$('.pane[data-step="3"] input').forEach(i=>i.addEventListener('input',()=>i.classList.toggle('bad',!i.checkValidity()&&i.value!=='')));
+const f=document.forms.form;const v=n=>f.elements[n].value||'—';
+function fillSum(){const rows=[['相談内容',f.topic.value,1],['会社の状況',`年商 ${v('sales')}　／　${v('biz')}　／　${v('staff')}`,1],['方法',f.how.value,2],['日時',jp(state.date)+'　'+state.time+'〜（60分）',2],['会社名',v('co'),3],['お名前',v('name'),3],['連絡先',`${v('tel')}　${v('email')}`,3],['ひとこと',v('note'),3]];
+  $('#sum').innerHTML=rows.map(([k,val,s])=>`<dt>${k}</dt><dd>${val.replace(/</g,'&lt;')}<button type="button" class="edit" data-go="${s}">変更</button></dd>`).join('');$$('#sum .edit').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.go)))}
+f.addEventListener('submit',e=>{e.preventDefault();$('#rno').textContent='A'+ymd(state.date).replace(/-/g,'').slice(2)+'-'+String(Math.floor(Math.random()*900)+100);$('#donewhen').textContent=`${jp(state.date)}　${state.time}〜　／　${f.how.value}　／　${f.topic.value}`;show(5)});
+</script>
+</body>
+</html>

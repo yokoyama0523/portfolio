@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>レジ｜KUMO ROASTERY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f6efe2;--fg:#2a1a12;--fg-2:rgba(42,26,18,.62);--line:rgba(42,26,18,.18);--acc:#c8402c;--white:#fffdf8;
+  --fr:'Fraunces',Georgia,serif;--maru:'Zen Maru Gothic',sans-serif;--gut:clamp(20px,5vw,64px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--maru);font-size:13.5px;line-height:1.9;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--acc);outline-offset:3px}h1,h2,h3{margin:0;font-weight:400}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;letter-spacing:inherit}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:20px var(--gut);border-bottom:1px solid var(--line)}
+.hd .logo{font-family:var(--fr);font-weight:600;font-size:20px}.hd .logo i{font-style:italic;font-weight:300}.hd small{font-size:11.5px;color:var(--fg-2)}
+main{max-width:1000px;margin:0 auto;padding:40px var(--gut) 120px;display:grid;grid-template-columns:1fr 360px;gap:clamp(24px,5vw,64px);align-items:start}
+h1{font-family:var(--fr);font-size:36px;font-weight:500;line-height:1.1;margin-bottom:6px}.lead{color:var(--fg-2);margin:0 0 26px}
+.steps{display:flex;gap:16px;margin-bottom:30px;font-family:var(--fr);font-size:15px;color:var(--fg-2)}.steps div.on{color:var(--fg);border-bottom:1px solid var(--fg)}.steps div.past{color:var(--fg)}
+.pane{display:none}.pane.on{display:block}
+fieldset{border:0;padding:0;margin:0 0 26px}legend{font-family:var(--fr);font-size:20px;font-weight:500;margin-bottom:10px}.hint{font-size:12px;color:var(--fg-2);margin:0 0 10px}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}.f .w{grid-column:1/3}
+label.t{display:block;font-size:11px;letter-spacing:.14em;color:var(--fg-2)}label.t em{font-style:normal;color:var(--acc);margin-left:6px;font-size:10px}
+input,select,textarea{width:100%;margin-top:6px;border:1px solid var(--line);background:var(--white);padding:10px 12px;font:inherit;color:var(--fg);border-radius:6px}
+.bad{border-color:var(--acc)!important}.errmsg{font-size:11.5px;color:var(--acc);margin-top:4px;display:none}.bad+.errmsg{display:block}
+.opts{display:grid;gap:10px}.opt{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:12px 14px;border-radius:8px;cursor:pointer}
+.opt input{margin:0;accent-color:var(--fg)}.opt b{font-weight:500;display:block}.opt small{color:var(--fg-2);font-size:11.5px}.opt .pr{font-family:var(--fr);font-size:16px}.opt:has(input:checked){border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
+.card{display:none;margin-top:12px}.card.on{display:block}
+.nav{display:flex;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid var(--line)}
+.btn{display:inline-block;padding:13px 26px;background:var(--fg);color:var(--bg);font-size:12px;letter-spacing:.18em;border-radius:999px}.btn:disabled{opacity:.3;cursor:not-allowed}.btn.g{background:transparent;color:var(--fg);border:1px solid var(--fg)}
+.side{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px 22px 18px;position:sticky;top:24px}
+.side h2{font-family:var(--fr);font-size:22px;font-weight:500;margin-bottom:10px}
+.side .it{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 0;border-top:1px solid var(--line);font-size:12.5px}.side .it b{font-family:var(--fr);font-weight:500;font-size:15px}.side .it small{color:var(--fg-2)}
+.side .q{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;margin-top:4px}.side .q button{width:26px;height:26px}.side .q span{min-width:20px;text-align:center;font-size:12px}
+.side .tt div{display:flex;justify-content:space-between;padding:4px 0;font-size:12.5px}.side .tt .g{font-family:var(--fr);font-size:20px;border-top:1px solid var(--fg);padding-top:10px;margin-top:8px}
+.side .empty{color:var(--fg-2);font-size:12.5px;padding:10px 0}
+.sum dl{margin:0;display:grid;grid-template-columns:7em 1fr;border-top:1px solid var(--line)}.sum dt{padding:10px 0;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.14em;color:var(--fg-2)}.sum dd{margin:0;padding:10px 0;border-bottom:1px solid var(--line);white-space:pre-line}.sum .edit{font-size:11px;color:var(--fg-2);border-bottom:1px solid var(--line);margin-left:10px}
+.fin{text-align:center;padding:20px 0}.fin h2{font-family:var(--fr);font-size:40px;font-weight:500;line-height:1.1}.fin .no{font-family:var(--fr);font-size:28px;margin:16px 0 4px}.fin .no small{display:block;font-family:var(--maru);font-size:11px;letter-spacing:.2em;color:var(--fg-2)}
+.fin .box{text-align:left;border:1px solid var(--line);background:var(--white);border-radius:10px;padding:18px 22px;margin:24px auto 0;max-width:520px;font-size:12.5px}.fin .box b{font-weight:500;display:block;margin-bottom:6px}
+.ft{text-align:center;font-size:11px;color:var(--fg-2);padding:0 var(--gut) 48px}
+@media (max-width:900px){main{grid-template-columns:1fr}.side{position:static;order:-1}}
+@media (max-width:600px){.f{grid-template-columns:1fr}.f .w{grid-column:1}}
+</style>
+</head>
+<body>
+<header class="hd"><a class="logo" href="./">KUMO <i>roastery</i></a><small>安全な接続です</small></header>
+<main>
+<div>
+  <h1 id="ttl">Checkout</h1><p class="lead" id="leadtxt">お届け先と支払い方法を入力してください。</p>
+  <div class="steps" id="steps"><div class="on">1. Delivery</div><div>2. Payment</div><div>3. Confirm</div></div>
+  <form id="form" novalidate>
+  <section class="pane on" data-step="1">
+    <fieldset id="subbox" style="display:none"><legend>定期便</legend><div class="opts" id="subopts">
+      <label class="opt"><input type="radio" name="plan" value="浅煎りの便" data-p="2560"><span><b>浅煎りの便</b><small>01〜03 から2種、毎月</small></span><span class="pr">¥2,560 / 月</span></label>
+      <label class="opt"><input type="radio" name="plan" value="深煎りの便" data-p="2360"><span><b>深煎りの便</b><small>04〜06 から2種、毎月</small></span><span class="pr">¥2,360 / 月</span></label>
+      <label class="opt"><input type="radio" name="plan" value="おまかせの便" data-p="2460" checked><span><b>おまかせの便</b><small>その週のおすすめ2種、毎月</small></span><span class="pr">¥2,460 / 月</span></label></div>
+      <p class="hint" style="margin-top:10px">送料込み。お休み・解約はいつでも、マイページから。</p></fieldset>
+    <fieldset><legend>お届け先</legend>
+      <div class="f">
+        <div><label class="t" for="name">お名前<em>必須</em></label><input type="text" id="name" name="name" required placeholder="中村 葵"><div class="errmsg">お名前を入力してください</div></div>
+        <div><label class="t" for="tel">電話番号<em>必須</em></label><input type="tel" id="tel" name="tel" required pattern="^[0-9０-９\-－ ]{10,14}$" placeholder="090-1234-5678"><div class="errmsg">電話番号を確認してください</div></div>
+        <div><label class="t" for="zip">郵便番号<em>必須</em></label><input type="text" id="zip" name="zip" required pattern="^[0-9０-９]{3}-?[0-9０-９]{4}$" placeholder="390-0811" inputmode="numeric"><div class="errmsg">7桁で入力してください</div></div>
+        <div><label class="t" for="pref">都道府県<em>必須</em></label><select id="pref" name="pref" required><option value="">選んでください</option><option>北海道</option><option>東京都</option><option>神奈川県</option><option>長野県</option><option>愛知県</option><option>大阪府</option><option>福岡県</option><option>その他</option></select></div>
+        <div class="w"><label class="t" for="addr">住所<em>必須</em></label><input type="text" id="addr" name="addr" required placeholder="松本市中央 3-4-12 〇〇ハイツ 201"><div class="errmsg">住所を入力してください</div></div>
+        <div class="w"><label class="t" for="email">メール<em>必須</em></label><input type="email" id="email" name="email" required placeholder="aoi@example.com"><div class="errmsg">メールアドレスを確認してください</div></div>
+        <div><label class="t" for="when">配達の時間帯</label><select id="when" name="when"><option>指定なし</option><option>午前</option><option>14〜16時</option><option>16〜18時</option><option>18〜20時</option><option>19〜21時</option></select></div>
+        <div><label class="t" for="grind">挽き方</label><select id="grind" name="grind"><option>豆のまま</option><option>中挽き（ペーパー）</option><option>中細挽き（コーヒーメーカー）</option><option>粗挽き（フレンチプレス）</option></select></div>
+      </div></fieldset>
+    <div class="nav"><a class="btn g" href="./">店に戻る</a><button type="button" class="btn" data-next id="next1">支払いへ</button></div>
+  </section>
+  <section class="pane" data-step="2">
+    <fieldset><legend>支払い方法</legend><div class="opts">
+      <label class="opt"><input type="radio" name="pay" value="クレジットカード" checked><span><b>クレジットカード</b><small>VISA / Master / JCB / AMEX</small></span><span></span></label>
+      <label class="opt"><input type="radio" name="pay" value="コンビニ払い"><span><b>コンビニ払い</b><small>手数料 220円。発送は入金確認後</small></span><span></span></label>
+      <label class="opt"><input type="radio" name="pay" value="代金引換"><span><b>代金引換</b><small>手数料 330円</small></span><span></span></label></div>
+      <div class="card on" id="card"><div class="f">
+        <div class="w"><label class="t" for="cno">カード番号<em>必須</em></label><input type="text" id="cno" name="cno" inputmode="numeric" placeholder="4242 4242 4242 4242" pattern="^[0-9 ]{13,19}$" required><div class="errmsg">カード番号を確認してください</div></div>
+        <div><label class="t" for="exp">有効期限<em>必須</em></label><input type="text" id="exp" name="exp" placeholder="12 / 28" pattern="^[0-9]{2} ?/ ?[0-9]{2}$" required><div class="errmsg">MM / YY で入力してください</div></div>
+        <div><label class="t" for="cvc">セキュリティコード<em>必須</em></label><input type="text" id="cvc" name="cvc" inputmode="numeric" placeholder="123" pattern="^[0-9]{3,4}$" required><div class="errmsg">3〜4桁の数字</div></div>
+      </div><p class="hint" style="margin-top:8px">カード情報はこのページに保存されません（見本のため、送信もされません）。</p></div></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next id="next2">注文内容を確認する</button></div>
+  </section>
+  <section class="pane" data-step="3">
+    <fieldset><legend>この内容で注文します</legend><div class="sum"><dl id="sum"></dl></div></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="submit" class="btn" id="submitbtn">注文を確定する</button></div>
+  </section>
+  <section class="pane fin" data-step="4">
+    <h2>Thank you.</h2><div class="no"><small>注文番号</small><span id="rno"></span></div><p id="donewhen" style="color:var(--fg-2)"></p>
+    <div class="box" id="finbox"></div>
+    <p style="margin-top:26px"><a class="btn g" href="./">店に戻る</a></p>
+  </section>
+  </form>
+</div>
+<aside class="side"><h2>Your order</h2><div id="side"></div></aside>
+</main>
+<footer class="ft">このページはポートフォリオ用です。注文は実際には送信されず、カード情報も保存されません。</footer>
+<script src="cart.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const f=document.forms.form;let step=1;
+const SUB=new URLSearchParams(location.search).get('sub')==='1';
+if(SUB){$('#subbox').style.display='block';$('#ttl').textContent='Subscription';$('#leadtxt').textContent='定期便の種類と、お届け先を入力してください。初回は次の火曜に焙煎して、翌日に発送します。';$('#submitbtn').textContent='定期便を始める'}
+function show(n){step=n;$$('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n));$$('#steps div').forEach((d,i)=>{d.classList.toggle('on',i+1===n);d.classList.toggle('past',i+1<n)});window.scrollTo({top:0,behavior:'smooth'})}
+function plan(){const p=$$('input[name=plan]').find(i=>i.checked);return p?{n:p.value,p:+p.dataset.p}:null}
+function payFee(){return f.pay.value==='コンビニ払い'?220:f.pay.value==='代金引換'?330:0}
+function renderSide(){const c=cartGet();const ks=Object.keys(c);const box=$('#side');let html='';
+  if(SUB){const p=plan();html+=`<div class="it"><div><b>${p.n}</b><small>毎月1回・2種（200g×2）</small></div><div>¥${p.p.toLocaleString()}</div></div>`}
+  html+=ks.map(k=>`<div class="it"><div><b>${PRODUCTS[k].n}</b><small>${PRODUCTS[k].jp}　200g</small><div class="q"><button type="button" data-d="${k}">−</button><span>${c[k]}</span><button type="button" data-a="${k}">＋</button></div></div><div>¥${(PRODUCTS[k].p*c[k]).toLocaleString()}</div></div>`).join('');
+  if(!SUB&&!ks.length)html+='<div class="empty">かごは空です。<a href="./#beans" style="text-decoration:underline">豆を選ぶ</a></div>';
+  const t=cartTotal();const sub=t.sub+(SUB?plan().p:0);const ship=SUB&&!ks.length?0:t.ship;const fee=payFee();const tot=sub+ship+fee;
+  html+=`<div class="tt"><div><span>小計</span><span>¥${sub.toLocaleString()}</span></div><div><span>送料</span><span>${ship?'¥'+ship:'無料'}</span></div>${fee?`<div><span>手数料</span><span>¥${fee}</span></div>`:''}<div class="g"><span>合計</span><span>¥${tot.toLocaleString()}</span></div></div>`;
+  box.innerHTML=html;box.querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>{cartAdd(b.dataset.a,1);renderSide()}));box.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',()=>{cartAdd(b.dataset.d,-1);renderSide()}));
+  $('#next1').disabled=!SUB&&!ks.length;return{sub,ship,fee,tot}}
+$$('input[name=plan],input[name=pay]').forEach(i=>i.addEventListener('change',()=>{renderSide();$('#card').classList.toggle('on',f.pay.value==='クレジットカード')}));renderSide();
+$$('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(step-1)));
+$$('[data-next]').forEach(b=>b.addEventListener('click',()=>{if(!validate(step))return;if(step===2)fillSum();show(step+1)}));
+function validate(n){let ok=true;$$(`.pane[data-step="${n}"] input[required],.pane[data-step="${n}"] select[required]`).forEach(i=>{if(n===2&&f.pay.value!=='クレジットカード'&&i.closest('#card'))return;const bad=!i.checkValidity();i.classList.toggle('bad',bad);if(bad)ok=false});if(!ok)$('.bad').focus();return ok}
+$$('input').forEach(i=>i.addEventListener('input',()=>i.classList.toggle('bad',!i.checkValidity()&&i.value!=='')));
+const v=n=>f.elements[n].value||'—';
+function fillSum(){const t=renderSide();const c=cartGet();const items=(SUB?[plan().n+'（毎月）']:[]).concat(Object.keys(c).map(k=>`${PRODUCTS[k].n} × ${c[k]}`)).join('\n');
+  const rows=[['商品',items,1],['お届け先',`〒${v('zip')}　${v('pref')} ${v('addr')}\n${v('name')}　${v('tel')}`,1],['配達・挽き方',`${v('when')}　／　${v('grind')}`,1],['支払い',f.pay.value+(f.pay.value==='クレジットカード'?`　（末尾 ${v('cno').replace(/\s/g,'').slice(-4)}）`:''),2],['合計',`¥${t.tot.toLocaleString()}（税込・送料込み）`,1]];
+  $('#sum').innerHTML=rows.map(([k,val,s])=>`<dt>${k}</dt><dd>${val.replace(/</g,'&lt;')}<button type="button" class="edit" data-go="${s}">変更</button></dd>`).join('');$$('#sum .edit').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.go)))}
+f.addEventListener('submit',e=>{e.preventDefault();const t=renderSide();$('#rno').textContent='K'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+String(Math.floor(Math.random()*9000)+1000);
+  $('#donewhen').textContent=`合計 ¥${t.tot.toLocaleString()}　／　${f.pay.value}`;
+  $('#finbox').innerHTML=SUB?'<b>定期便のこと</b>初回は次の火曜に焙煎し、翌日に発送します。2回目以降は毎月同じ週に。お休みと解約は、メールのリンクからいつでも。':'<b>発送のこと</b>次の火曜（焙煎日）から3日以内に発送します。発送したら、追跡番号をメールでお送りします。豆は焙煎から2週間がいちばんおいしい時期です。';
+  const keep=$('#side').innerHTML;cartSet({});$('#side').innerHTML=keep;$$('#side .q').forEach(q=>q.remove());show(4)});
+</script>
+</body>
+</html>

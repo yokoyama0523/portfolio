@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご利用ガイド｜ASAGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"><link rel="stylesheet" href="site.css"><script src="data.js"></script><script src="store.js"></script>
+<style>
+.lay{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:start;margin-top:12px}
+.toc{position:sticky;top:84px}.toc a{display:block;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.g h2{font-size:18px;font-weight:500;margin:0 0 14px;padding-top:40px;letter-spacing:.04em}.g section:first-child h2{padding-top:0}
+.g p,.g li{max-width:40em}.g ul{list-style:disc;padding-left:1.4em}.g li{margin:4px 0}
+.g table{width:100%;max-width:640px;border-collapse:collapse;font-size:12.5px;margin:10px 0}.g th,.g td{border:1px solid var(--line);padding:8px 10px;text-align:left}.g th{background:var(--bg);font-weight:500}
+.faq details{border-bottom:1px solid var(--line)}.faq summary{cursor:pointer;padding:12px 0;font-weight:500;list-style:none}.faq summary::before{content:"Q. ";color:var(--mute)}.faq .a{padding:0 0 14px;color:#333}
+@media (max-width:900px){.lay{grid-template-columns:1fr}.toc{position:static;display:flex;flex-wrap:wrap;gap:6px}.toc a{border:1px solid var(--line);padding:6px 12px}}
+</style>
+</head>
+<body>
+<div id="hd"></div>
+<main class="wrap">
+  <nav class="bc" aria-label="現在地"><a href="index.html">ホーム</a><span>／</span><span>ご利用ガイド</span></nav>
+  <h1 class="ttl">ご利用ガイド</h1>
+  <div class="lay">
+    <nav class="toc" aria-label="目次"><a href="#ship">送料・配送</a><a href="#return">返品・交換</a><a href="#pay">お支払い方法</a><a href="#size">サイズガイド</a><a href="#member">会員・クーポン</a><a href="#faq">よくある質問</a></nav>
+    <div class="g">
+      <section id="ship"><h2>送料・配送</h2><p>全国一律 660円（税込）。11,000円以上のご注文は送料無料です。</p><table><tr><th>ご注文</th><th>発送</th><th>お届け</th></tr><tr><td>15時までのご注文</td><td>当日（土日祝を除く）</td><td>翌日〜翌々日</td></tr><tr><td>15時以降・土日祝のご注文</td><td>翌営業日</td><td>2〜3日後</td></tr></table><p>北海道・沖縄・離島は、お届けに＋1〜2日かかります。配送はヤマト運輸で、発送のメールに追跡番号を記載します。お届け日と時間帯はレジで指定できます。</p></section>
+      <section id="return"><h2>返品・交換</h2><p>サイズ・イメージ違いの返品と交換は、商品到着後14日以内に承ります。往復の送料はASAGIが負担します。</p><ul><li>未使用で、タグと付属品がそろっているもの</li><li>マイページの注文履歴から「返品・交換を申し込む」を押すか、お電話ください</li><li>交換はサイズ・色の変更のみ。別の商品への交換は、返品と新しいご注文でお願いします</li><li>不良品は期間を問わず交換・返金します</li></ul><p>ソックス・インナーなど衛生商品と、セール品は返品できません。</p></section>
+      <section id="pay"><h2>お支払い方法</h2><table><tr><th>方法</th><th>手数料</th><th>備考</th></tr><tr><td>クレジットカード</td><td>無料</td><td>VISA / Master / JCB / AMEX。一括払いのみ</td></tr><tr><td>コンビニ払い</td><td>無料</td><td>ご注文後にお支払い番号をメール。3日以内にお支払い。入金確認後に発送</td></tr><tr><td>代金引換</td><td>330円</td><td>配達時に現金で</td></tr></table><p>表示価格はすべて税込です。領収書は注文履歴から発行できます。</p></section>
+      <section id="size"><h2>サイズガイド</h2><p>商品ごとのサイズ表は、各商品ページの「サイズ表」に載せています。寸法は平置きで測ったもので、1〜2cmの誤差があります。</p><table><tr><th>サイズ</th><th>身長の目安</th><th>胸囲</th><th>ウエスト</th></tr><tr><td>S</td><td>155〜165cm</td><td>80〜88</td><td>64〜72</td></tr><tr><td>M</td><td>163〜173cm</td><td>86〜94</td><td>70〜78</td></tr><tr><td>L</td><td>171〜181cm</td><td>92〜100</td><td>76〜84</td></tr><tr><td>XL</td><td>179〜189cm</td><td>98〜106</td><td>82〜90</td></tr></table><p>迷ったときは、お手持ちの服を同じように測って、サイズ表と比べてください。お電話でもご相談いただけます（平日10〜18時）。</p></section>
+      <section id="member"><h2>会員・クーポン</h2><p>会員登録は無料です。注文履歴、お届け先の保存、お気に入りが使えます。登録後の初回のご注文で、クーポンコード <b style="font-weight:500">WELCOME10</b> を入れると10%OFFになります。クーポンはレジの前、カートの画面で入力してください。</p></section>
+      <section id="faq" class="faq"><h2>よくある質問</h2>
+        <details><summary>注文のあとにサイズを変えられますか</summary><div class="a">発送前なら変更できます。注文番号を添えてお電話かメールでご連絡ください。発送後は、到着後に交換の手続きをお願いします。</div></details>
+        <details><summary>売り切れの商品は再入荷しますか</summary><div class="a">定番の商品（Tシャツ・デニム・シャツ）は再入荷します。商品ページで「再入荷の通知」を登録すると、入荷した日にメールでお知らせします。</div></details>
+        <details><summary>裾上げはできますか</summary><div class="a">デニムとトラウザーズは無料で裾上げします。レジの備考に股下の長さをご記入ください。裾上げした商品は返品できません。</div></details>
+        <details><summary>ギフト包装はできますか</summary><div class="a">レジで「ギフト包装」を選んでください（330円）。金額のわかるものは入れません。</div></details>
+        <details><summary>実店舗はありますか</summary><div class="a">東京・神宮前に1店舗あります。オンラインで注文した商品の受け取りと、返品・交換もできます。</div></details>
+      </section>
+    </div>
+  </div>
+</main>
+<div id="ft"></div>
+</body>
+</html>

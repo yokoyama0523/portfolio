@@ -1,0 +1,17 @@
+Pixabay（Pixabay Content License）
+hero.jpg	https://pixabay.com/photos/coffee-beans-caffeine-roasted-8406187/	https://cdn.pixabay.com/photo/2023/11/22/18/41/coffee-8406187_1280.jpg
+roaster.jpg	https://pixabay.com/photos/coffee-caffeine-organic-background-4512564/	https://cdn.pixabay.com/photo/2019/09/29/08/12/coffee-4512564_1280.jpg
+bag.jpg	https://pixabay.com/photos/coffee-caffeine-seeds-raw-morning-7614369/	https://cdn.pixabay.com/photo/2022/11/24/13/41/coffee-7614369_1280.jpg
+beans-light.jpg	https://pixabay.com/photos/coffee-beans-coffee-roasted-1291656/	https://cdn.pixabay.com/photo/2016/03/30/21/59/coffee-beans-1291656_1280.jpg
+beans-mid.jpg	https://pixabay.com/photos/coffee-beans-seeds-caffeine-6475928/	https://cdn.pixabay.com/photo/2021/07/18/15/41/coffee-6475928_1280.jpg
+beans-dark.jpg	https://pixabay.com/photos/coffee-beans-roasted-food-coffee-6185161/	https://cdn.pixabay.com/photo/2021/04/17/06/59/coffee-beans-6185161_1280.jpg
+beans-green.jpg	https://pixabay.com/photos/coffee-beans-coffee-beans-roasting-1341259/	https://cdn.pixabay.com/photo/2016/04/20/14/29/coffee-1341259_1280.jpg
+brew.jpg	https://pixabay.com/photos/coffee-grinds-filter-cafe-924948/	https://cdn.pixabay.com/photo/2015/09/05/20/06/coffee-924948_1280.jpg
+kettle.jpg	https://pixabay.com/photos/coffee-coffee-making-cafe-6875831/	https://cdn.pixabay.com/photo/2021/12/17/07/11/coffee-6875831_1280.jpg
+barista.jpg	https://pixabay.com/photos/speciality-coffee-coffee-4568579/	https://cdn.pixabay.com/photo/2019/10/22/12/34/speciality-coffee-4568579_1280.jpg
+shop.jpg	https://pixabay.com/photos/people-man-bartender-restaurant-2592338/	https://cdn.pixabay.com/photo/2017/08/06/13/04/people-2592338_1280.jpg
+cup.jpg	https://pixabay.com/photos/coffee-coffee-cup-cup-drink-beans-2714970/	https://cdn.pixabay.com/photo/2017/09/04/18/39/coffee-2714970_1280.jpg
+sack.jpg	https://pixabay.com/photos/coffee-beans-sack-burlap-colombia-1154353/	https://cdn.pixabay.com/photo/2016/01/21/18/10/coffee-1154353_1280.jpg
+
+# 2026-11-13 差し替え（coffee・ぱくたそ）
+shop.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/20200602170post-28022.html	木製カウンターに並ぶティードリッパーのカフェ

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カート｜ASAGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"><link rel="stylesheet" href="site.css"><script src="data.js"></script><script src="store.js"></script>
+<style>
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:clamp(24px,4vw,64px);align-items:start;margin-top:12px}
+.it{display:grid;grid-template-columns:110px 1fr auto;gap:16px;padding:18px 0;border-top:1px solid var(--line);align-items:start}
+.it:last-child{border-bottom:1px solid var(--line)}
+.it img{aspect-ratio:3/4;object-fit:cover;background:var(--bg)}
+.it .nm{font-weight:500;font-size:13.5px}.it .va{font-size:12px;color:var(--mute);margin:2px 0 10px}
+.it .q{display:inline-flex;border:1px solid var(--line);height:36px;align-items:center;vertical-align:middle}.it .q button{width:34px;height:100%;font-size:16px}.it .q span{width:36px;text-align:center;font-size:13px}
+.it .rm{font-size:11.5px;color:var(--mute);border-bottom:1px solid var(--line);margin-left:14px}
+.it .pr{text-align:right;font-weight:500;font-size:14px;white-space:nowrap}.it .pr small{display:block;font-weight:400;font-size:11px;color:var(--mute)}
+.it .warn{font-size:11.5px;color:var(--sale);margin-top:6px}
+.sum{position:sticky;top:84px;background:var(--bg);padding:22px}
+.sum h2{font-size:14px;font-weight:500;margin-bottom:12px}
+.sum .row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px}.sum .row.t{border-top:1px solid var(--ink);margin-top:8px;padding-top:12px;font-size:16px;font-weight:500}.sum .row .off{color:var(--sale)}
+.sum .cp{display:flex;gap:6px;margin:12px 0 4px}.sum .cp input{margin:0;padding:9px 10px;font-size:13px}.sum .cp button{white-space:nowrap}
+.sum .msg{font-size:11.5px;min-height:1.6em}.sum .msg.ok{color:var(--ok)}.sum .msg.ng{color:var(--sale)}
+.sum .free{font-size:11.5px;color:var(--mute);margin-top:4px}.sum .free b{color:var(--ink);font-weight:500}
+.bar{height:4px;background:#e2e2df;margin:6px 0 14px}.bar i{display:block;height:100%;background:var(--ink);transition:width .4s}
+@media (max-width:900px){.lay{grid-template-columns:1fr}.sum{position:static}.it{grid-template-columns:84px 1fr}.it .pr{grid-column:2;text-align:left}}
+</style>
+</head>
+<body>
+<div id="hd"></div>
+<main class="wrap">
+  <nav class="bc" aria-label="現在地"><a href="index.html">ホーム</a><span>／</span><span>カート</span></nav>
+  <h1 class="ttl">カート</h1>
+  <div class="lay">
+    <div>
+      <div id="items"></div>
+      <div class="empty" id="empty" hidden>カートに商品が入っていません。<br><a class="btn g sm" href="list.html?new=1" style="margin-top:16px">新着を見る</a></div>
+    </div>
+    <aside class="sum" id="sum"></aside>
+  </div>
+  <section class="sec" id="recent" hidden><div class="h"><h2 style="font-size:16px;font-weight:500">最近見た商品</h2></div><div class="grid" id="recgrid"></div></section>
+</main>
+<div id="ft"></div>
+<script>
+function render(){
+  const cart=Cart.get();q('#empty').hidden=cart.length>0;q('#sum').hidden=cart.length===0;
+  q('#items').innerHTML=cart.map((x,i)=>{const p=P[x.id],v=p.v.find(v=>v.c===x.c)||p.v[0],n=stock(x.id,x.c,x.s);return `<div class="it"><a href="item.html?id=${p.id}&c=${encodeURIComponent(x.c)}"><img src="${img(v.img[0])}" alt="" width="300" height="400"></a><div><a class="nm" href="item.html?id=${p.id}">${esc(p.name)}</a><div class="va">${esc(x.c)}　／　サイズ ${esc(x.s)}　／　${yen(price(p))}</div><span class="q"><button type="button" data-d="${i}" aria-label="減らす">−</button><span>${x.qty}</span><button type="button" data-a="${i}" aria-label="増やす">＋</button></span><button type="button" class="rm" data-r="${i}">削除</button>${n<x.qty?`<div class="warn">在庫が${n}点のため、数量を${n}点に直しました。</div>`:n<=3?`<div class="warn">残り${n}点</div>`:''}</div><div class="pr">${yen(price(p)*x.qty)}<small>税込</small></div></div>`}).join('');
+  qa('[data-a]').forEach(b=>b.addEventListener('click',()=>{Cart.update(+b.dataset.a,Cart.get()[+b.dataset.a].qty+1);render()}));qa('[data-d]').forEach(b=>b.addEventListener('click',()=>{const c=Cart.get()[+b.dataset.d];if(c.qty<=1){Cart.remove(+b.dataset.d)}else Cart.update(+b.dataset.d,c.qty-1);render()}));qa('[data-r]').forEach(b=>b.addEventListener('click',()=>{Cart.remove(+b.dataset.r);render()}));
+  const t=Cart.totals();const rest=Math.max(0,SHOP.freeShip-(t.sub-t.discount));
+  q('#sum').innerHTML=`<h2>ご注文内容</h2><div class="row"><span>小計（${Cart.count()}点）</span><span>${yen(t.sub)}</span></div>${t.discount?`<div class="row"><span>クーポン ${t.code}</span><span class="off">−${yen(t.discount)}</span></div>`:''}<div class="row"><span>送料</span><span>${t.ship?yen(t.ship):'無料'}</span></div><div class="row t"><span>合計（税込）</span><span>${yen(t.total)}</span></div>
+  ${cart.length?`<div class="free">${rest>0?`あと <b>${yen(rest)}</b> で送料無料`:'<b>送料無料</b>の対象です'}</div><div class="bar"><i style="width:${Math.min(100,Math.round((t.sub-t.discount)/SHOP.freeShip*100))}%"></i></div>`:''}
+  <div class="cp"><input type="text" id="cpin" placeholder="クーポンコード" aria-label="クーポンコード" value="${esc(Cart.coupon())}"><button type="button" class="btn w sm" id="cpbtn">適用</button></div><div class="msg" id="cpmsg">${t.code?'<span class="ok">'+SHOP.coupons[t.code].label+' を適用中</span>':''}</div>
+  <a class="btn full" href="checkout.html" ${cart.length?'':'aria-disabled="true" style="opacity:.35;pointer-events:none"'}>レジへ進む</a><p class="note" style="margin-top:10px">クレジットカード・コンビニ払い・代金引換が使えます。</p>`;
+  q('#cpbtn').addEventListener('click',()=>{const code=q('#cpin').value.trim().toUpperCase();if(!code){DB.set('coupon','');render();return;}if(SHOP.coupons[code]){DB.set('coupon',code);render();}else{q('#cpmsg').innerHTML='<span class="ng">このクーポンコードは使えません</span>';}});
+}
+render();
+const rec=viewed(null).filter(id=>P[id]);if(rec.length){q('#recent').hidden=false;q('#recgrid').innerHTML=rec.slice(0,4).map(id=>card(P[id])).join('');bindWish();}
+</script>
+</body>
+</html>

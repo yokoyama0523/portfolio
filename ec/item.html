@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品｜ASAGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"><link rel="stylesheet" href="site.css"><script src="data.js"></script><script src="store.js"></script>
+<style>
+.pd{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,64px);align-items:start;margin-top:12px}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.gal figure{aspect-ratio:3/4;background:var(--bg);overflow:hidden}.gal figure:first-child{grid-column:1/-1;aspect-ratio:4/5}
+.gal img{width:100%;height:100%;object-fit:cover}
+.buy{position:sticky;top:84px}
+.buy h1{font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.6;letter-spacing:.03em}
+.buy .cat{font-size:11.5px;color:var(--mute)}
+.buy .pr{margin:10px 0 18px;font-size:22px;font-weight:500}.buy .pr s{font-size:15px;color:var(--mute);font-weight:400;margin-right:8px}.buy .pr .sale{color:var(--sale)}.buy .pr small{font-size:11px;color:var(--mute);font-weight:400;margin-left:6px}
+.buy .lb{font-size:12px;color:var(--mute);margin:16px 0 8px}.buy .lb b{color:var(--ink);font-weight:500;margin-left:6px}
+.sw{display:flex;flex-wrap:wrap;gap:8px}
+.sw button{width:38px;height:38px;border-radius:50%;border:1px solid rgba(0,0,0,.12);position:relative;background-clip:content-box;padding:3px}
+.sw button.on{border:1.5px solid var(--ink)}
+.sz{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px}
+.sz button{height:42px;border:1px solid var(--line);font-size:13px;position:relative;background:#fff}
+.sz button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.sz button.out{color:#bbb;background:repeating-linear-gradient(135deg,#fff 0 6px,#f3f3f1 0 7px)}
+.sz button small{position:absolute;right:4px;top:2px;font-size:9px;color:var(--sale)}.sz button.on small{color:#ffd6d3}
+.guide{font-size:11.5px;border-bottom:1px solid var(--ink);margin-top:10px;display:inline-block}
+.stk{font-size:12px;margin-top:10px;min-height:1.5em}.stk.few{color:var(--sale)}.stk.ok{color:var(--ok)}
+.qty{display:inline-flex;border:1px solid var(--line);height:48px;align-items:center}.qty button{width:40px;height:100%;font-size:18px}.qty input{width:44px;text-align:center;border:0;margin:0;padding:0;font-size:14px}
+.act{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:18px}
+.wishb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;width:100%;height:44px;border:1px solid var(--line);font-size:12.5px}.wishb svg{width:18px;height:18px}.wishb.on svg{fill:var(--ink)}
+.ship{margin-top:18px;padding:12px 14px;background:var(--bg);font-size:12px;color:var(--mute);display:grid;gap:4px}
+.acc{margin-top:24px;border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}.acc summary{cursor:pointer;padding:14px 0;font-size:13px;font-weight:500;list-style:none;display:flex;justify-content:space-between}.acc summary::after{content:"+";font-weight:400;color:var(--mute)}.acc details[open] summary::after{content:"−"}
+.acc .b{padding:0 0 16px;font-size:12.5px;color:#333}
+.meas{width:100%;border-collapse:collapse;font-size:12px}.meas th,.meas td{border:1px solid var(--line);padding:6px 8px;text-align:center}.meas th{background:var(--bg);font-weight:500}
+.rv{margin-top:clamp(40px,6vw,72px);padding-top:32px;border-top:1px solid var(--line)}
+.rv .sum{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}.rv .sum b{font-size:28px;font-weight:500}
+.stars{color:#d9a21b;letter-spacing:-.02em;font-size:13px}
+.rv li{padding:14px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr;gap:4px}.rv li .who{font-size:11.5px;color:var(--mute)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:70;display:none;place-items:center;padding:20px}.modal.on{display:grid}.modal .bx{background:#fff;max-width:640px;width:100%;padding:28px;max-height:90vh;overflow:auto}.modal h2{font-size:16px;font-weight:500;margin-bottom:12px}.modal .x{float:right;font-size:12.5px}
+.mini{position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);background:#fff;z-index:60;transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.7,.2,1);padding:24px;box-shadow:-10px 0 40px rgba(0,0,0,.1)}
+.mini.on{transform:none}.mini h2{font-size:15px;font-weight:500;margin-bottom:16px}.mini .it{display:grid;grid-template-columns:80px 1fr;gap:12px;font-size:12.5px}.mini .it img{aspect-ratio:3/4;object-fit:cover;background:var(--bg)}.mini .x{position:absolute;right:20px;top:22px;font-size:12.5px}
+@media (max-width:900px){.pd{grid-template-columns:1fr}.buy{position:static}.gal{grid-template-columns:1fr 1fr}.gal figure:first-child{aspect-ratio:3/4}}
+@media (prefers-reduced-motion:reduce){.mini{transition:none}}
+</style>
+</head>
+<body>
+<div id="hd"></div>
+<main class="wrap">
+  <nav class="bc" aria-label="現在地"><a href="index.html">ホーム</a><span>／</span><a id="bccat" href="#"></a><span>／</span><span id="bcname"></span></nav>
+  <div class="pd">
+    <div class="gal" id="gal"></div>
+    <div class="buy">
+      <div class="cat" id="cat"></div>
+      <h1 id="name"></h1>
+      <div class="pr" id="pr"></div>
+      <div class="lb">カラー<b id="cname"></b></div><div class="sw" id="sw" role="radiogroup" aria-label="カラー"></div>
+      <div class="lb">サイズ<b id="sname"></b></div><div class="sz" id="sz" role="radiogroup" aria-label="サイズ"></div>
+      <button type="button" class="guide" id="gbtn">サイズガイドを見る</button>
+      <div class="stk" id="stk"></div>
+      <div class="act"><div class="qty"><button type="button" id="qm" aria-label="減らす">−</button><input id="qty" type="text" inputmode="numeric" value="1" aria-label="数量"><button type="button" id="qp" aria-label="増やす">＋</button></div><button type="button" class="btn" id="add">カートに入れる</button></div>
+      <button type="button" class="wishb" id="wish"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg><span>お気に入りに追加</span></button>
+      <div class="ship"><span>15時までのご注文は当日発送（土日祝を除く）</span><span>送料 660円　／　11,000円以上で無料</span><span>返品・交換は到着後14日以内（未使用・タグ付き）</span></div>
+      <div class="acc">
+        <details open><summary>商品説明</summary><div class="b" id="desc"></div></details>
+        <details><summary>素材・お手入れ</summary><div class="b" id="mat"></div></details>
+        <details><summary>サイズ表（cm）</summary><div class="b" id="meas"></div></details>
+        <details><summary>配送・返品</summary><div class="b">ご注文から1〜3日でお届けします（北海道・沖縄・離島は＋2日）。<br>サイズ・イメージ違いは、到着後14日以内なら返品・交換を承ります。往復の送料はこちらで負担します。<a href="guide.html#return" style="border-bottom:1px solid var(--ink)">くわしくは返品・交換のご案内へ</a></div></details>
+      </div>
+    </div>
+  </div>
+  <section class="rv" id="rv"><div class="h"><h2 style="font-size:16px;font-weight:500">レビュー</h2></div><div class="sum" id="rvsum"></div><ul id="rvlist"></ul></section>
+  <section class="sec"><div class="h"><h2 style="font-size:16px;font-weight:500">同じカテゴリーの商品</h2></div><div class="grid" id="rel"></div></section>
+  <section class="sec" id="recent" style="padding-top:0" hidden><div class="h"><h2 style="font-size:16px;font-weight:500">最近見た商品</h2></div><div class="grid" id="recgrid"></div></section>
+</main>
+<div id="ft"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="サイズガイド"><div class="bx"><button type="button" class="x" id="mx">閉じる</button><h2>サイズガイド</h2><div id="mbody"></div><p class="note" style="margin-top:12px">平置きで測った寸法です。製品によって1〜2cmの誤差があります。迷ったときは、お手持ちの服を同じように測って比べてください。</p></div></div>
+<aside class="mini" id="mini" aria-label="カートに追加しました"><button type="button" class="x" id="minix">閉じる</button><h2>カートに追加しました</h2><div class="it" id="miniit"></div><div style="margin-top:20px;display:grid;gap:8px"><a class="btn" href="cart.html">カートを見る</a><button type="button" class="btn w" id="minic">買い物を続ける</button></div></aside>
+<script>
+const p=P[param('id')]||PRODUCTS[0];document.title=p.name+'｜ASAGI';
+let ci=0,sz=null;const sp=new URLSearchParams(location.search);if(sp.get('c')){const i=p.v.findIndex(v=>v.c===sp.get('c'));if(i>=0)ci=i;}
+q('#bccat').textContent=catName(p.cat);q('#bccat').href='list.html?cat='+p.cat;q('#bcname').textContent=p.name;q('#cat').textContent=catName(p.cat)+'　／　'+p.made;q('#name').textContent=p.name;
+q('#pr').innerHTML=p.sale?`<s>${yen(p.price)}</s><span class="sale">${yen(p.sale)}</span><small>税込</small>`:`${yen(p.price)}<small>税込</small>`;
+q('#desc').textContent=p.desc;q('#mat').innerHTML=`素材：${esc(p.mat)}<br>${esc(p.made)}<br>お手入れ：${esc(p.care)}`;
+const lab=MEAS_LABEL[p.cat]||[];const measHtml=Object.keys(p.meas).length?`<table class="meas"><tr><th>サイズ</th>${lab.filter(l=>l!=='-').map(l=>`<th>${l}</th>`).join('')}</tr>${Object.entries(p.meas).map(([s,m])=>`<tr><th>${s}</th>${m.filter((_,i)=>lab[i]!=='-').map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table>`:'<p class="note">靴は日本サイズ（cm）です。幅が広めの方はワンサイズ上をおすすめします。</p>';
+q('#meas').innerHTML=measHtml;q('#mbody').innerHTML=measHtml;
+function gal(){const v=p.v[ci];q('#gal').innerHTML=v.img.map((n,i)=>`<figure><img src="${img(n)}" alt="${esc(p.name)} ${esc(v.c)} ${i+1}" width="900" height="1200"${i?' loading="lazy"':''}></figure>`).join('');}
+function sw(){q('#sw').innerHTML=p.v.map((v,i)=>`<button type="button" role="radio" aria-checked="${i===ci}" class="${i===ci?'on':''}" style="background:${COLOR_HEX[v.c]||'#ccc'};background-clip:content-box" title="${v.c}" data-i="${i}"></button>`).join('');q('#cname').textContent=p.v[ci].c;qa('#sw button').forEach(b=>b.addEventListener('click',()=>{ci=+b.dataset.i;sz=null;gal();sw();sizes();history.replaceState(null,'',`item.html?id=${p.id}&c=${encodeURIComponent(p.v[ci].c)}`)}));}
+function sizes(){const c=p.v[ci].c;q('#sz').innerHTML=p.sizes.map(s=>{const n=stock(p.id,c,s);return `<button type="button" role="radio" aria-checked="${sz===s}" class="${sz===s?'on':''}${n===0?' out':''}" data-s="${s}"${n===0?' aria-disabled="true"':''}>${s}${n>0&&n<=3?'<small>残'+n+'</small>':''}</button>`}).join('');qa('#sz button').forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('out')){q('#stk').className='stk few';q('#stk').textContent='このサイズは売り切れです。再入荷の通知はマイページから登録できます。';return;}sz=b.dataset.s;sizes();}));
+  q('#sname').textContent=sz||'';const n=sz?stock(p.id,c,sz):null;const st=q('#stk');if(n==null){st.className='stk';st.textContent='サイズを選んでください';}else if(n<=3){st.className='stk few';st.textContent=`残り${n}点`;}else{st.className='stk ok';st.textContent='在庫あり';}q('#add').disabled=!(sz&&n>0);q('#add').textContent=sz&&n===0?'売り切れ':'カートに入れる';}
+gal();sw();if(p.sizes.length===1){sz=p.sizes[0];}sizes();
+q('#qm').addEventListener('click',()=>q('#qty').value=Math.max(1,(+q('#qty').value||1)-1));q('#qp').addEventListener('click',()=>q('#qty').value=Math.min(9,(+q('#qty').value||1)+1));
+q('#add').addEventListener('click',()=>{const c=p.v[ci].c,n=Math.max(1,+q('#qty').value||1);Cart.add(p.id,c,sz,n);sizes();q('#miniit').innerHTML=`<img src="${img(p.v[ci].img[0])}" alt=""><div><b style="font-weight:500">${esc(p.name)}</b><br>${esc(c)}　${esc(sz)}　×${n}<br>${yen(price(p)*n)}</div>`;q('#mini').classList.add('on');});
+q('#minix').addEventListener('click',()=>q('#mini').classList.remove('on'));q('#minic').addEventListener('click',()=>q('#mini').classList.remove('on'));
+const wb=q('#wish');const setW=()=>{const on=Wish.has(p.id);wb.classList.toggle('on',on);wb.querySelector('span').textContent=on?'お気に入りに追加済み':'お気に入りに追加';};setW();wb.addEventListener('click',()=>{Wish.toggle(p.id);setW();});
+q('#gbtn').addEventListener('click',()=>q('#modal').classList.add('on'));q('#mx').addEventListener('click',()=>q('#modal').classList.remove('on'));q('#modal').addEventListener('click',e=>{if(e.target.id==='modal')q('#modal').classList.remove('on')});document.addEventListener('keydown',e=>{if(e.key==='Escape'){q('#modal').classList.remove('on');q('#mini').classList.remove('on');}});
+const rv=p.reviews;if(rv.length){const avg=rv.reduce((a,r)=>a+r[0],0)/rv.length;q('#rvsum').innerHTML=`<b>${avg.toFixed(1)}</b><span class="stars">${'★'.repeat(Math.round(avg))}${'☆'.repeat(5-Math.round(avg))}</span><span class="note">${rv.length}件のレビュー</span>`;q('#rvlist').innerHTML=rv.map(r=>`<li><span class="stars">${'★'.repeat(r[0])}${'☆'.repeat(5-r[0])}</span><span>${esc(r[1])}</span><span class="who">${esc(r[2])}さん　購入サイズ ${esc(r[3])}</span></li>`).join('');}else{q('#rvsum').innerHTML='<span class="note">まだレビューはありません。</span>';}
+q('#rel').innerHTML=PRODUCTS.filter(x=>x.cat===p.cat&&x.id!==p.id).slice(0,4).map(x=>card(x)).join('');
+const rec=viewed(p.id).filter(id=>id!==p.id&&P[id]);if(rec.length){q('#recent').hidden=false;q('#recgrid').innerHTML=rec.slice(0,4).map(id=>card(P[id])).join('');}
+bindWish();
+</script>
+</body>
+</html>

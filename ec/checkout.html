@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご注文手続き｜ASAGI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"><link rel="stylesheet" href="site.css"><script src="data.js"></script><script src="store.js"></script>
+<style>
+.hd .gnav,.hd .search,.hd .tools a:not([href="cart.html"]){display:none}
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(24px,4vw,64px);align-items:start;margin-top:12px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin:8px 0 28px;font-size:11.5px;color:var(--mute);counter-reset:s}
+.steps div{padding:10px 0 0;border-top:2px solid var(--line);counter-increment:s}.steps div::before{content:counter(s) ". "}.steps div.on{border-color:var(--ink);color:var(--ink);font-weight:500}.steps div.past{border-color:var(--ink)}
+.pane{display:none}.pane.on{display:block}
+fieldset{border:0;padding:0;margin:0 0 28px}legend{font-size:15px;font-weight:500;margin-bottom:12px}
+.nav{display:flex;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid var(--line)}
+.sum{background:var(--bg);padding:22px;position:sticky;top:84px}.sum h2{font-size:14px;font-weight:500;margin-bottom:10px}
+.sum .it{display:grid;grid-template-columns:48px 1fr auto;gap:10px;font-size:12px;padding:8px 0;border-bottom:1px solid #e3e3e0}.sum .it img{aspect-ratio:3/4;object-fit:cover}.sum .it small{color:var(--mute);display:block}
+.sum .row{display:flex;justify-content:space-between;padding:5px 0;font-size:12.5px}.sum .row.t{border-top:1px solid var(--ink);margin-top:8px;padding-top:10px;font-size:16px;font-weight:500}
+.card-f{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.card-f .w{grid-column:1/-1}
+.cf{border:1px solid var(--line);padding:14px 16px;font-size:12.5px;margin-bottom:12px;display:grid;grid-template-columns:7em 1fr auto;gap:6px 12px;align-items:start}.cf b{font-weight:500}.cf .ed{font-size:11.5px;color:var(--mute);border-bottom:1px solid var(--line)}
+.fin{text-align:center;padding:30px 0}.fin h1{font-size:22px;font-weight:500}.fin .no{font-family:'Inter',var(--f);font-size:28px;font-weight:700;margin:14px 0 2px;letter-spacing:.04em}.fin .no small{display:block;font-family:var(--f);font-size:11px;color:var(--mute);font-weight:400;letter-spacing:.1em}
+.fin .box{text-align:left;border:1px solid var(--line);padding:16px 20px;max-width:520px;margin:24px auto 0;font-size:12.5px}
+.agree{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;margin:14px 0}.agree input{margin-top:4px;accent-color:var(--ink)}
+@media (max-width:900px){.lay{grid-template-columns:1fr}.sum{position:static;order:-1}.card-f{grid-template-columns:1fr 1fr}.steps{font-size:10.5px}}
+</style>
+</head>
+<body>
+<div id="hd"></div>
+<main class="wrap">
+  <h1 class="ttl" id="ttl">ご注文手続き</h1>
+  <div class="lay">
+    <div>
+      <div class="steps" id="steps"><div class="on">お届け先</div><div>配送</div><div>お支払い</div><div>確認</div></div>
+      <form id="form" novalidate>
+      <section class="pane on" data-step="1">
+        <div id="loginhint" class="note" style="margin-bottom:16px"></div>
+        <fieldset id="saved" hidden><legend>登録済みのお届け先</legend><div class="opts" id="addrs"></div></fieldset>
+        <fieldset id="newaddr"><legend id="newlegend">お届け先</legend>
+          <div class="f">
+            <div><label class="t" for="name">お名前<em>必須</em></label><input type="text" id="name" required placeholder="佐藤 あおい"><div class="errmsg">お名前を入力してください</div></div>
+            <div><label class="t" for="kana">フリガナ<em>必須</em></label><input type="text" id="kana" required placeholder="サトウ アオイ"><div class="errmsg">フリガナを入力してください</div></div>
+            <div><label class="t" for="zip">郵便番号<em>必須</em></label><input type="text" id="zip" required inputmode="numeric" pattern="^\d{3}-?\d{4}$" placeholder="150-0001"><div class="errmsg">7桁の郵便番号を入力してください</div></div>
+            <div><label class="t" for="pref">都道府県<em>必須</em></label><select id="pref" required></select><div class="errmsg">都道府県を選んでください</div></div>
+            <div class="w"><label class="t" for="addr1">市区町村・番地<em>必須</em></label><input type="text" id="addr1" required placeholder="渋谷区神宮前 3-12-8"><div class="errmsg">住所を入力してください</div></div>
+            <div class="w"><label class="t" for="addr2">建物名・部屋番号</label><input type="text" id="addr2" placeholder="レジデンス神宮前 402"></div>
+            <div><label class="t" for="tel">電話番号<em>必須</em></label><input type="tel" id="tel" required pattern="^[0-9０-９\-－ ]{10,14}$" placeholder="090-1234-5678"><div class="errmsg">電話番号を確認してください</div></div>
+            <div><label class="t" for="email">メールアドレス<em>必須</em></label><input type="email" id="email" required placeholder="aoi@example.com"><div class="errmsg">メールアドレスを確認してください</div></div>
+          </div>
+          <label class="agree" id="savechk"><input type="checkbox" id="saveaddr" checked>このお届け先を登録する</label>
+        </fieldset>
+        <div class="nav"><a class="btn g" href="cart.html">カートに戻る</a><button type="button" class="btn" data-next>配送方法へ</button></div>
+      </section>
+      <section class="pane" data-step="2">
+        <fieldset><legend>お届け日</legend><div class="opts"><label class="opt"><input type="radio" name="ddate" value="指定なし" checked><b>指定なし（最短）</b><small id="fastest"></small></label><label class="opt"><input type="radio" name="ddate" value="pick"><b>日にちを指定</b><small><select id="dsel" aria-label="お届け日" style="margin-top:6px"></select></small></label></div></fieldset>
+        <fieldset><legend>お届け時間帯</legend><div class="opts" id="times"></div></fieldset>
+        <fieldset><legend>ギフト包装</legend><label class="opt"><input type="checkbox" id="gift"><b>ギフト包装する（＋330円）</b><small>ASAGIの包装紙とリボンで包みます。金額のわかるものは入れません。</small></label></fieldset>
+        <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next>お支払いへ</button></div>
+      </section>
+      <section class="pane" data-step="3">
+        <fieldset><legend>お支払い方法</legend><div class="opts">
+          <label class="opt"><input type="radio" name="pay" value="card" checked><b>クレジットカード</b><small>VISA / Master / JCB / AMEX　一括払い</small></label>
+          <label class="opt"><input type="radio" name="pay" value="cvs"><b>コンビニ払い</b><small>注文後にお支払い番号をメールします。3日以内にお支払いください</small></label>
+          <label class="opt"><input type="radio" name="pay" value="cod"><b>代金引換</b><small>手数料 330円。配達時に現金でお支払い</small></label>
+        </div></fieldset>
+        <fieldset id="cardf"><legend>カード情報</legend><div class="card-f">
+          <div class="w"><label class="t" for="cno">カード番号<em>必須</em></label><input type="text" id="cno" inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242"><div class="errmsg">カード番号を確認してください（14〜16桁）</div></div>
+          <div><label class="t" for="cname">名義<em>必須</em></label><input type="text" id="cname" autocomplete="cc-name" placeholder="AOI SATO"><div class="errmsg">名義を入力してください</div></div>
+          <div><label class="t" for="cexp">有効期限<em>必須</em></label><input type="text" id="cexp" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY"><div class="errmsg">MM/YY の形で</div></div>
+          <div><label class="t" for="ccvc">セキュリティコード<em>必須</em></label><input type="text" id="ccvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123"><div class="errmsg">3〜4桁</div></div>
+        </div><p class="note" style="margin-top:8px">デモのため、カード情報はどこにも送られず保存もされません。</p></fieldset>
+        <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next>注文内容の確認へ</button></div>
+      </section>
+      <section class="pane" data-step="4">
+        <fieldset><legend>ご注文内容の確認</legend><div id="confirm"></div></fieldset>
+        <label class="agree"><input type="checkbox" id="agree"><span><a href="guide.html#return" style="border-bottom:1px solid var(--ink)">返品・交換の条件</a>と利用規約に同意します</span></label>
+        <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="submit" class="btn" id="place" disabled>注文を確定する</button></div>
+      </section>
+      </form>
+      <section class="pane fin" data-step="5">
+        <h1>ご注文ありがとうございます</h1>
+        <div class="no"><small>注文番号</small><span id="ono"></span></div>
+        <p class="note" id="omail"></p>
+        <div class="box" id="obox"></div>
+        <div id="guestreg" class="box" hidden><b style="font-weight:500">会員登録すると、注文履歴とお届け先が保存されます。</b><div class="f" style="margin-top:10px"><div class="w"><label class="t" for="rpw">パスワード（6文字以上）</label><input type="password" id="rpw"></div></div><button type="button" class="btn sm" id="regbtn" style="margin-top:10px">この注文の情報で会員登録する</button><div class="note" id="regmsg" style="margin-top:6px"></div></div>
+        <p style="margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn g" href="account.html#orders">注文履歴を見る</a><a class="btn" href="index.html">トップへ戻る</a></p>
+      </section>
+    </div>
+    <aside class="sum" id="sum"></aside>
+  </div>
+</main>
+<div id="ft"></div>
+<script>
+const PREFS='北海道 青森県 岩手県 宮城県 秋田県 山形県 福島県 茨城県 栃木県 群馬県 埼玉県 千葉県 東京都 神奈川県 新潟県 富山県 石川県 福井県 山梨県 長野県 岐阜県 静岡県 愛知県 三重県 滋賀県 京都府 大阪府 兵庫県 奈良県 和歌山県 鳥取県 島根県 岡山県 広島県 山口県 徳島県 香川県 愛媛県 高知県 福岡県 佐賀県 長崎県 熊本県 大分県 宮崎県 鹿児島県 沖縄県'.split(' ');
+q('#pref').innerHTML='<option value="">選んでください</option>'+PREFS.map(p=>`<option>${p}</option>`).join('');
+if(!Cart.get().length){location.replace('cart.html');}
+const user=Auth.user();let step=1;let addrSel=null;
+const f=document.forms.form;const v=id=>q('#'+id).value.trim();
+if(user){q('#loginhint').innerHTML=`<b style="font-weight:500">${esc(user.name)}</b> さんとしてログイン中（${esc(user.email)}）`;q('#email').value=user.email;q('#name').value=user.name;q('#kana').value=user.kana||'';q('#tel').value=user.tel||'';
+  if(user.addresses&&user.addresses.length){q('#saved').hidden=false;q('#addrs').innerHTML=user.addresses.map((a,i)=>`<label class="opt"><input type="radio" name="addr" value="${i}"${a.main||i===0?' checked':''}><b>${esc(a.name)}${a.main?'（主なお届け先）':''}</b><small>〒${esc(a.zip)} ${esc(a.pref)}${esc(a.addr1)} ${esc(a.addr2)}<br>${esc(a.tel)}</small></label>`).join('')+'<label class="opt"><input type="radio" name="addr" value="new"><b>新しいお届け先を入力</b></label>';
+    const sync=()=>{const val=q('input[name=addr]:checked').value;addrSel=val==='new'?null:user.addresses[+val];q('#newaddr').hidden=!!addrSel;};qa('input[name=addr]').forEach(r=>r.addEventListener('change',sync));sync();}
+}else{q('#loginhint').innerHTML='会員の方は <a href="account.html?next=checkout.html" style="border-bottom:1px solid var(--ink)">ログイン</a> すると、お届け先が自動で入ります。ゲストのままでもご注文いただけます。';q('#savechk').hidden=true;}
+/* 配送日 */
+const d0=new Date();const fastest=new Date(d0);fastest.setDate(d0.getDate()+(d0.getHours()<15?1:2));q('#fastest').textContent=`${fastest.getMonth()+1}月${fastest.getDate()}日ごろお届け`;
+q('#dsel').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(fastest);d.setDate(fastest.getDate()+i+1);return `<option value="${ymd(d)}">${d.getMonth()+1}月${d.getDate()}日（${'日月火水木金土'[d.getDay()]}）</option>`}).join('');
+q('#dsel').addEventListener('focus',()=>{q('input[name=ddate][value=pick]').checked=true;});
+q('#times').innerHTML=['指定なし','午前中','14〜16時','16〜18時','18〜20時','19〜21時'].map((t,i)=>`<label class="opt"><input type="radio" name="dtime" value="${t}"${i===0?' checked':''}><b>${t}</b></label>`).join('');
+const payOpt=()=>({pay:q('input[name=pay]:checked').value,gift:q('#gift').checked});
+q('#gift').addEventListener('change',sum);qa('input[name=pay]').forEach(r=>r.addEventListener('change',()=>{q('#cardf').hidden=r.value!=='card'||!r.checked;sum();}));
+function sum(){const cart=Cart.get();const t=Cart.totals(payOpt());q('#sum').innerHTML=`<h2>ご注文内容（${Cart.count()}点）</h2>${cart.map(x=>{const p=P[x.id],vv=p.v.find(v=>v.c===x.c)||p.v[0];return `<div class="it"><img src="${img(vv.img[0])}" alt=""><div>${esc(p.name)}<small>${esc(x.c)}／${esc(x.s)}　×${x.qty}</small></div><div>${yen(price(p)*x.qty)}</div></div>`}).join('')}<div class="row" style="margin-top:8px"><span>小計</span><span>${yen(t.sub)}</span></div>${t.discount?`<div class="row"><span>クーポン ${t.code}</span><span>−${yen(t.discount)}</span></div>`:''}<div class="row"><span>送料</span><span>${t.ship?yen(t.ship):'無料'}</span></div>${t.cod?`<div class="row"><span>代引手数料</span><span>${yen(t.cod)}</span></div>`:''}${t.gift?`<div class="row"><span>ギフト包装</span><span>${yen(t.gift)}</span></div>`:''}<div class="row t"><span>合計（税込）</span><span>${yen(t.total)}</span></div>`;}
+sum();
+function show(n){step=n;qa('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n));qa('#steps div').forEach((d,i)=>{d.classList.toggle('on',i+1===n);d.classList.toggle('past',i+1<n)});window.scrollTo({top:0,behavior:'smooth'});if(n===5){q('#steps').hidden=true;q('#ttl').hidden=true;q('#sum').hidden=true;}}
+function valid(ids){let ok=true;ids.forEach(id=>{const i=q('#'+id);const bad=!i.checkValidity()||(i.required&&!i.value.trim());i.classList.toggle('bad',bad);if(bad)ok=false;});if(!ok){const b=q('.bad');if(b)b.focus();}return ok;}
+qa('input,select').forEach(i=>i.addEventListener('input',()=>i.classList.remove('bad')));
+function address(){return addrSel?{...addrSel}:{name:v('name'),kana:v('kana'),zip:v('zip'),pref:v('pref'),addr1:v('addr1'),addr2:v('addr2'),tel:v('tel')};}
+function cardOk(){const no=v('cno').replace(/[\s-]/g,'');const ok1=/^\d{14,16}$/.test(no);q('#cno').classList.toggle('bad',!ok1);const ok2=v('cname').length>1;q('#cname').classList.toggle('bad',!ok2);const ok3=/^(0[1-9]|1[0-2])\/\d{2}$/.test(v('cexp'));q('#cexp').classList.toggle('bad',!ok3);const ok4=/^\d{3,4}$/.test(v('ccvc'));q('#ccvc').classList.toggle('bad',!ok4);return ok1&&ok2&&ok3&&ok4;}
+qa('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(step-1)));
+qa('[data-next]').forEach(b=>b.addEventListener('click',()=>{
+  if(step===1){if(!addrSel&&!valid(['name','kana','zip','pref','addr1','tel','email']))return;}
+  if(step===3){const pay=q('input[name=pay]:checked').value;if(pay==='card'&&!cardOk())return;fill();}
+  show(step+1);}));
+function fill(){const a=address();const opt=payOpt();const t=Cart.totals(opt);const dd=q('input[name=ddate]:checked').value==='pick'?jdate(q('#dsel').value):'指定なし（最短）';const dt=q('input[name=dtime]:checked').value;const payName={card:'クレジットカード（下4桁 '+v('cno').replace(/\D/g,'').slice(-4)+'）',cvs:'コンビニ払い',cod:'代金引換'}[opt.pay];
+  q('#confirm').innerHTML=`<div class="cf"><b>お届け先</b><span>${esc(a.name)}<br>〒${esc(a.zip)} ${esc(a.pref)}${esc(a.addr1)} ${esc(a.addr2)}<br>${esc(a.tel)}　${esc(user?user.email:v('email'))}</span><button type="button" class="ed" data-go="1">変更</button></div><div class="cf"><b>配送</b><span>${dd}　${dt}${opt.gift?'<br>ギフト包装あり':''}</span><button type="button" class="ed" data-go="2">変更</button></div><div class="cf"><b>お支払い</b><span>${payName}</span><button type="button" class="ed" data-go="3">変更</button></div><div class="cf"><b>合計</b><span style="font-size:16px;font-weight:500">${yen(t.total)}<span class="note" style="margin-left:8px">税込・送料${t.ship?'込み':'無料'}</span></span><span></span></div>`;
+  qa('#confirm .ed').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.go)));}
+q('#agree').addEventListener('change',e=>q('#place').disabled=!e.target.checked);
+f.addEventListener('submit',e=>{e.preventDefault();const a=address();const opt=payOpt();const t=Cart.totals(opt);const email=user?user.email:v('email');
+  const o={email,name:a.name,items:Cart.get().map(x=>({...x,price:price(P[x.id])})),sub:t.sub,discount:t.discount,coupon:t.code,ship:t.ship,cod:t.cod,gift:t.gift,total:t.total,pay:opt.pay,addr:a,delivery:{date:q('input[name=ddate]:checked').value==='pick'?q('#dsel').value:'指定なし',time:q('input[name=dtime]:checked').value},tracking:''};
+  Orders.place(o);
+  if(user&&!addrSel&&q('#saveaddr').checked){const ads=user.addresses||[];ads.push({...a,main:ads.length===0});Auth.save(user.email,{addresses:ads,kana:a.kana,tel:a.tel});}
+  Cart.clear();DB.set('coupon','');
+  q('#ono').textContent=o.no;q('#omail').textContent=`確認のメールを ${email} にお送りしました。`;
+  q('#obox').innerHTML=`<b style="font-weight:500">お届けの目安</b><br>${o.delivery.date==='指定なし'?q('#fastest').textContent:jdate(o.delivery.date)}　${o.delivery.time}<br><b style="font-weight:500;display:block;margin-top:8px">お支払い</b>${{card:'クレジットカード（決済済み）',cvs:'コンビニ払い：お支払い番号をメールしました。3日以内にお支払いください。',cod:'代金引換：配達時に '+yen(o.total)+' を現金でお支払いください。'}[o.pay]}<br><b style="font-weight:500;display:block;margin-top:8px">発送のお知らせ</b>発送が済みましたら、追跡番号をメールでお知らせします。`;
+  if(!user){q('#guestreg').hidden=false;q('#regbtn').addEventListener('click',()=>{const pw=v('rpw');if(pw.length<6){q('#regmsg').textContent='パスワードは6文字以上にしてください';return;}if(!Auth.register(email,pw,a.name,a.kana)){q('#regmsg').textContent='このメールアドレスはすでに登録されています。ログインしてください。';return;}Auth.save(email,{tel:a.tel,addresses:[{...a,main:true}]});q('#regmsg').textContent='会員登録しました。注文履歴から今回の注文が見られます。';q('#regbtn').disabled=true;renderCounts();});}
+  sum();show(5);});
+</script>
+</body>
+</html>

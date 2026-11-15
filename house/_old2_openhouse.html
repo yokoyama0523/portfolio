@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>見学会の申し込み｜杉浦工務店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap">
+<style>
+:root{--kinari:#f3efe6;--sumi:#2a2622;--sumi-2:#6b645b;--forest:#1d3a2a;--oak:#b8894f;--line:rgba(42,38,34,.18);--white:#fbf9f4;--err:#a8402f;
+  --brush:'Shippori Mincho',serif;--got:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;--gut:clamp(20px,5vw,80px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--kinari);color:var(--sumi);font-family:var(--got);font-weight:300;font-size:13.5px;line-height:2;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--oak);outline-offset:3px}h1,h2,h3{margin:0;font-weight:400}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;letter-spacing:inherit}img{max-width:100%;display:block}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:18px var(--gut);border-bottom:1px solid var(--line)}
+.hd .logo{font-family:var(--brush);font-size:22px;letter-spacing:.14em}.hd .tel{font-size:11px;letter-spacing:.14em;color:var(--sumi-2)}.hd .tel b{font-weight:400;font-size:15px;color:var(--sumi);margin-left:8px}
+main{max-width:780px;margin:0 auto;padding:44px var(--gut) 120px}
+h1{font-family:var(--brush);font-size:clamp(28px,3.6vw,40px);letter-spacing:.08em;margin-bottom:6px}.lead{color:var(--sumi-2);margin:0 0 30px}
+.ev{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;border:1px solid var(--line);background:var(--white);padding:16px;margin-bottom:34px}
+.ev .im{aspect-ratio:4/3;overflow:hidden}.ev img{width:100%;height:100%;object-fit:cover}.ev h2{font-family:var(--brush);font-size:22px;letter-spacing:.06em}.ev p{margin:6px 0 0;font-size:12.5px;color:var(--sumi-2)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:36px;position:relative}.steps::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--line)}
+.steps div{position:relative;padding-top:22px;font-size:11px;letter-spacing:.16em;color:var(--sumi-2)}.steps div::before{content:"";position:absolute;left:0;top:1px;width:13px;height:13px;border-radius:50%;background:var(--kinari);border:1px solid var(--line)}
+.steps div.on{color:var(--sumi)}.steps div.on::before{background:var(--oak);border-color:var(--oak)}.steps div.past::before{background:var(--forest);border-color:var(--forest)}
+.pane{display:none}.pane.on{display:block}
+fieldset{border:0;padding:0;margin:0 0 30px}legend{font-family:var(--brush);font-size:20px;letter-spacing:.08em;margin-bottom:10px}.hint{font-size:12px;color:var(--sumi-2);margin:0 0 12px}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.day h3{font-size:14px;letter-spacing:.12em;margin-bottom:8px;font-weight:400}.day h3 small{color:var(--sumi-2);font-size:11px;margin-left:8px}
+.slot{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:var(--white);padding:12px 14px;margin-bottom:8px;cursor:pointer;position:relative}
+.slot input{position:absolute;opacity:0;width:0;height:0}.slot b{font-weight:400;font-size:15px}.slot small{font-size:11px;color:var(--sumi-2)}.slot small.few{color:var(--oak)}.slot small.full{color:var(--err)}
+.slot:has(input:checked){outline:2px solid var(--sumi);outline-offset:-1px}.slot:has(input:disabled){opacity:.5;cursor:not-allowed}.slot:has(input:focus-visible){outline:2px solid var(--oak)}
+.opts{display:flex;flex-wrap:wrap;gap:10px}.opt{border:1px solid var(--line);background:var(--white);padding:9px 16px;cursor:pointer;font-size:13px;position:relative}.opt input{position:absolute;opacity:0;width:0;height:0}.opt:has(input:checked){background:var(--sumi);color:var(--kinari);border-color:var(--sumi)}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}.f .w{grid-column:1/3}
+label.t{display:block;font-size:11px;letter-spacing:.16em;color:var(--sumi-2)}label.t em{font-style:normal;color:var(--err);margin-left:6px;font-size:10px}
+input,select,textarea{width:100%;margin-top:6px;border:0;border-bottom:1px solid var(--sumi);background:transparent;padding:10px 0;font:inherit;color:var(--sumi);border-radius:0}
+textarea{min-height:90px;resize:vertical}.bad{border-color:var(--err)!important}.errmsg{font-size:11px;color:var(--err);margin-top:4px;display:none}.bad+.errmsg{display:block}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:22px;border-top:1px solid var(--line)}
+.btn{display:inline-block;padding:13px 26px;background:var(--sumi);color:var(--kinari);font-size:12px;letter-spacing:.2em}.btn:disabled{opacity:.3;cursor:not-allowed}.btn.g{background:transparent;color:var(--sumi);border:1px solid var(--sumi)}
+.sum dl{margin:0;display:grid;grid-template-columns:8em 1fr;border-top:1px solid var(--line)}.sum dt{padding:12px 0;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.16em;color:var(--sumi-2)}.sum dd{margin:0;padding:12px 0;border-bottom:1px solid var(--line)}
+.sum .edit{font-size:10.5px;letter-spacing:.14em;color:var(--sumi-2);border-bottom:1px solid var(--line);margin-left:10px}
+.fin{text-align:center;padding:30px 0}.fin h2{font-family:var(--brush);font-size:30px;letter-spacing:.08em}.fin .no{font-family:var(--brush);font-size:30px;margin:16px 0 4px}.fin .no small{display:block;font-family:var(--got);font-size:10.5px;letter-spacing:.24em;color:var(--sumi-2)}
+.fin .box{text-align:left;border:1px solid var(--line);background:var(--white);padding:18px 22px;margin:26px auto 0;max-width:520px;font-size:12.5px}.fin .box b{font-weight:400;display:block;letter-spacing:.12em;margin-bottom:6px;font-size:14px}
+.ft{text-align:center;font-size:11px;color:var(--sumi-2);padding:0 var(--gut) 48px}
+@media (max-width:640px){.f{grid-template-columns:1fr}.f .w{grid-column:1}.days{grid-template-columns:1fr}.ev{grid-template-columns:1fr}.hd .tel{display:none}.steps div{font-size:10px}}
+</style>
+</head>
+<body>
+<header class="hd"><a class="logo" href="./">杉浦工務店</a><div class="tel">お電話は<b>053-123-4567</b></div></header>
+<main>
+  <h1>見学会の申し込み</h1>
+  <p class="lead">1組ずつ、1時間。設計した本人と、刻んだ大工がご案内します。</p>
+  <div class="ev"><div class="im"><img src="assets/int-1.jpg" alt=""></div><div><h2>完成見学会「庭に開いた、平屋の家」</h2><p>11月22日（土）・23日（日）　浜松市浜名区（場所は申し込み後にご案内）</p><p>延床 98㎡の平屋。杉の登り梁と、南の庭に向いた居間。お施主さまのご厚意で、引き渡し前の2日間だけ。</p></div></div>
+  <div class="steps" id="steps"><div class="on">1　日時</div><div>2　ご家族のこと</div><div>3　連絡先</div><div>4　確認</div></div>
+  <form id="form" novalidate>
+  <section class="pane on" data-step="1">
+    <fieldset><legend>日時</legend><p class="hint">各回1組。残り枠が少ないところは、お早めに。</p>
+      <div class="days">
+        <div class="day"><h3>11月22日<small>土曜</small></h3>
+          <label class="slot"><input type="radio" name="slot" value="11月22日（土）10:00" checked><b>10:00</b><small class="few">残り1組</small></label>
+          <label class="slot"><input type="radio" name="slot" value="11月22日（土）11:30" disabled><b>11:30</b><small class="full">満席</small></label>
+          <label class="slot"><input type="radio" name="slot" value="11月22日（土）13:30"><b>13:30</b><small>空きあり</small></label>
+          <label class="slot"><input type="radio" name="slot" value="11月22日（土）15:00"><b>15:00</b><small>空きあり</small></label></div>
+        <div class="day"><h3>11月23日<small>日曜・祝日</small></h3>
+          <label class="slot"><input type="radio" name="slot" value="11月23日（日）10:00" disabled><b>10:00</b><small class="full">満席</small></label>
+          <label class="slot"><input type="radio" name="slot" value="11月23日（日）11:30"><b>11:30</b><small class="few">残り1組</small></label>
+          <label class="slot"><input type="radio" name="slot" value="11月23日（日）13:30" disabled><b>13:30</b><small class="full">満席</small></label>
+          <label class="slot"><input type="radio" name="slot" value="11月23日（日）15:00"><b>15:00</b><small>空きあり</small></label></div>
+      </div></fieldset>
+    <div class="nav"><span></span><button type="button" class="btn" data-next>次へ</button></div>
+  </section>
+  <section class="pane" data-step="2">
+    <fieldset><legend>ご家族のこと</legend><p class="hint">案内の内容を合わせるために伺います。</p>
+      <div class="f">
+        <div><label class="t" for="adults">大人</label><select id="adults" name="adults"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option></select></div>
+        <div><label class="t" for="kids">お子さま</label><select id="kids" name="kids"><option>なし</option><option>1名</option><option>2名</option><option>3名</option></select></div>
+      </div></fieldset>
+    <fieldset><legend>家づくりの段階</legend><div class="opts"><label class="opt"><input type="radio" name="stage" value="土地がある" checked>土地がある</label><label class="opt"><input type="radio" name="stage" value="土地を探している">土地を探している</label><label class="opt"><input type="radio" name="stage" value="建て替え・リフォーム">建て替え・リフォーム</label><label class="opt"><input type="radio" name="stage" value="まだ考え始めたところ">まだ考え始めたところ</label></div></fieldset>
+    <fieldset><legend>興味のあること（いくつでも）</legend><div class="opts"><label class="opt"><input type="checkbox" name="int" value="平屋" checked>平屋</label><label class="opt"><input type="checkbox" name="int" value="二世帯">二世帯</label><label class="opt"><input type="checkbox" name="int" value="薪ストーブ">薪ストーブ</label><label class="opt"><input type="checkbox" name="int" value="断熱・気密">断熱・気密</label><label class="opt"><input type="checkbox" name="int" value="費用の目安">費用の目安</label><label class="opt"><input type="checkbox" name="int" value="土地探し">土地探し</label></div></fieldset>
+    <fieldset><legend>来場</legend><div class="opts"><label class="opt"><input type="radio" name="car" value="車（駐車場を使う）" checked>車で</label><label class="opt"><input type="radio" name="car" value="電車・バス（最寄り駅まで送迎）">電車・バスで</label></div></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next>連絡先を入力する</button></div>
+  </section>
+  <section class="pane" data-step="3">
+    <fieldset><legend>連絡先</legend>
+      <div class="f">
+        <div><label class="t" for="name">お名前<em>必須</em></label><input type="text" id="name" name="name" required placeholder="高橋 翔太"><div class="errmsg">お名前を入力してください</div></div>
+        <div><label class="t" for="kana">ふりがな<em>必須</em></label><input type="text" id="kana" name="kana" required pattern="^[ぁ-んー　 ]+$" placeholder="たかはし しょうた"><div class="errmsg">ひらがなで入力してください</div></div>
+        <div><label class="t" for="tel">電話番号<em>必須</em></label><input type="tel" id="tel" name="tel" required pattern="^[0-9０-９\-－ ]{10,14}$" placeholder="090-1234-5678"><div class="errmsg">電話番号を確認してください</div></div>
+        <div><label class="t" for="email">メール<em>必須</em></label><input type="email" id="email" name="email" required placeholder="shota@example.com"><div class="errmsg">メールアドレスを確認してください</div></div>
+        <div><label class="t" for="area">お住まいの市区町村</label><input type="text" id="area" name="area" placeholder="浜松市中央区"></div>
+        <div><label class="t" for="how">知ったきっかけ</label><select id="how" name="how"><option>検索</option><option>Instagram</option><option>知人の紹介</option><option>現場の看板</option><option>その他</option></select></div>
+        <div class="w"><label class="t" for="note">聞いてみたいこと</label><textarea id="note" name="note" placeholder="例：平屋で30坪だと総額はどのくらいか。古い家を残して直せるか。"></textarea></div>
+      </div></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next id="next3">内容を確認する</button></div>
+  </section>
+  <section class="pane" data-step="4">
+    <fieldset><legend>この内容で申し込みます</legend><div class="sum"><dl id="sum"></dl></div><p class="hint" style="margin-top:12px">場所の地図と駐車場の案内を、確認のメールでお送りします。当日の連絡先は 053-123-4567（担当：杉浦）。</p></fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="submit" class="btn">申し込む</button></div>
+  </section>
+  <section class="pane fin" data-step="5">
+    <h2>お待ちしています</h2><div class="no"><small>受付番号</small><span id="rno"></span></div><p id="donewhen" style="color:var(--sumi-2)"></p>
+    <div class="box"><b>当日のこと</b>お施主さまの家なので、靴下でご覧いただきます。スリッパはこちらで用意します。写真は、外観と、お施主さまが許可した部屋だけお願いします。</div>
+    <div class="box"><b>お子さま連れの方へ</b>庭で遊べます。大工がひとり、庭にいます。</div>
+    <p style="margin-top:28px"><a class="btn g" href="./">工務店のページへ戻る</a></p>
+  </section>
+  </form>
+</main>
+<footer class="ft">このページはポートフォリオ用です。申し込みは実際には送信されません。</footer>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];let step=1;const f=document.forms.form;
+function show(n){step=n;$$('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n));$$('#steps div').forEach((d,i)=>{d.classList.toggle('on',i+1===n);d.classList.toggle('past',i+1<n)});window.scrollTo({top:0,behavior:'smooth'})}
+$$('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(step-1)));
+$$('[data-next]').forEach(b=>b.addEventListener('click',()=>{if(step===3&&!validate())return;if(step===3)fillSum();show(step+1)}));
+function validate(){let ok=true;$$('.pane[data-step="3"] input[required]').forEach(i=>{const bad=!i.checkValidity();i.classList.toggle('bad',bad);if(bad)ok=false});if(!ok)$('.bad').focus();return ok}
+$$('.pane[data-step="3"] input').forEach(i=>i.addEventListener('input',()=>i.classList.toggle('bad',!i.checkValidity()&&i.value!=='')));
+const v=n=>f.elements[n].value||'—';const ints=()=>$$('input[name=int]:checked').map(i=>i.value).join('、')||'—';
+function fillSum(){const rows=[['日時',f.slot.value,1],['人数',`大人 ${v('adults')}　お子さま ${v('kids')}`,2],['段階',f.stage.value,2],['興味',ints(),2],['来場',f.car.value,2],['お名前',`${v('name')}（${v('kana')}）`,3],['連絡先',`${v('tel')}　${v('email')}`,3],['お住まい',v('area'),3],['聞いてみたいこと',v('note'),3]];
+  $('#sum').innerHTML=rows.map(([k,val,s])=>`<dt>${k}</dt><dd>${val.replace(/</g,'&lt;')}<button type="button" class="edit" data-go="${s}">変更</button></dd>`).join('');$$('#sum .edit').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.go)))}
+f.addEventListener('submit',e=>{e.preventDefault();$('#rno').textContent='K2611-'+String(Math.floor(Math.random()*900)+100);$('#donewhen').textContent=`${f.slot.value}　／　大人 ${v('adults')}　お子さま ${v('kids')}`;show(5)});
+</script>
+</body>
+</html>

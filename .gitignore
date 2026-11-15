@@ -1,0 +1,28 @@
+# 公開用に deploy.sh が毎回作り直すもの
+dist/
+
+# 参考に撮った他社サイトのスクショ（他社の著作物なので上げない）
+_ref/
+
+# 作業中のスクショ（公開に使う1枚目だけ残す）
+_shots_*/
+*/_shots/
+*/_shots_*/
+*/_shots2/*
+!*/_shots2/desktop_01.png
+!*/_shots2/mobile_01.png
+*/_assets_sheet.png
+
+# 写真選びの作業ファイル・ログ・バックアップ
+_src/sheet_*/
+_src/*.png
+_src/*.html
+_src/*.log
+_src/*.txt
+!_src/ga_id.txt
+_src/*.json
+!_src/sites.json
+_src/*.bak-*
+_src/hub_ctx_*.txt
+__pycache__/
+.DS_Store

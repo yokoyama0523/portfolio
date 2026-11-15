@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEB予約｜ひだまり歯科クリニック</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+:root{--paper:#fff;--ink:#333;--ink-2:#7d7873;--sun:#f2b33d;--sky:#e9f0ea;--line:#e9e4da;--white:#fff;--err:#c45a3c;
+  --min:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;--got:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;--gut:clamp(20px,5vw,72px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--got);font-weight:400;font-size:14px;line-height:1.9;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--sun);outline-offset:3px}
+h1,h2,h3{margin:0;font-weight:400}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;letter-spacing:inherit}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:22px var(--gut);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:12px;line-height:1.2}
+.logo .mark{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f5d98a,#d9a53c)}
+.logo b{font-family:var(--min);font-weight:700;font-size:16px;letter-spacing:.04em}
+.hd .tel{font-size:12px;letter-spacing:.1em;color:var(--ink-2)}
+.hd .tel b{font-weight:400;font-size:15px;color:var(--ink);margin-left:8px}
+main{max-width:760px;margin:0 auto;padding:48px var(--gut) 120px}
+h1{font-family:var(--min);font-weight:700;font-size:clamp(24px,3vw,32px);letter-spacing:.04em;margin-bottom:8px}
+.lead{color:var(--ink-2);margin:0 0 32px}
+/* 手順 */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:40px;position:relative}
+.steps::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--line)}
+.steps div{position:relative;padding-top:22px;font-size:11px;letter-spacing:.14em;color:var(--ink-2)}
+.steps div::before{content:"";position:absolute;left:0;top:1px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:1px solid var(--line)}
+.steps div.on{color:var(--ink)}.steps div.on::before{background:var(--sun);border-color:var(--sun)}
+.steps div.done::before{background:var(--ink);border-color:var(--ink)}
+.pane{display:none}.pane.on{display:block}
+fieldset{border:0;padding:0;margin:0 0 32px}
+legend{font-family:var(--min);font-weight:700;font-size:18px;letter-spacing:.04em;margin-bottom:12px}
+.hint{font-size:12px;color:var(--ink-2);margin:0 0 12px}
+/* 選択肢 */
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.opt{display:block;border:1.5px solid var(--line);background:var(--white);padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s;border-radius:14px}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt b{font-weight:400;font-size:15px;display:block}
+.opt small{color:var(--ink-2);font-size:12px}
+.opt:has(input:checked){border-color:var(--sun);background:#fbf6ec;box-shadow:inset 0 0 0 1px var(--sun)}
+.opt:has(input:focus-visible){outline:2px solid var(--sun);outline-offset:2px}
+/* カレンダー */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:520px}
+.cal .d{font-size:11px;text-align:center;color:var(--ink-2);padding:4px 0}
+.cal .d.sat{color:#2d6b9e}.cal .d.sun{color:var(--err)}
+.cal button{border:1px solid var(--line);background:var(--white);aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:14px;line-height:1}
+.cal button small{font-size:10px;color:var(--ink-2)}
+.cal button:disabled{color:#c8c2b6;background:transparent;cursor:not-allowed}
+.cal button.on{background:var(--sun);color:#fff;border-color:var(--sun)}
+.cal button.on small{color:rgba(247,244,238,.7)}
+.cal .blank{aspect-ratio:1}
+.cal .ok::after{content:"○";font-size:10px;color:var(--sun)}.cal .few::after{content:"△";font-size:10px;color:var(--ink-2)}
+.calhead{display:flex;justify-content:space-between;align-items:center;max-width:520px;margin:0 0 10px;font-family:var(--min);font-size:16px;letter-spacing:.1em}
+.calhead button{font-size:12px;letter-spacing:.14em;color:var(--ink-2);padding:4px 8px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:18px;max-width:520px}
+.slots button{border:1px solid var(--line);background:var(--white);padding:10px 0;font-size:13px;border-radius:10px}
+.slots button:disabled{color:#c8c2b6;text-decoration:line-through;background:transparent}
+.slots button.on{background:var(--sun);color:#fff;border-color:var(--sun)}
+.pick{margin-top:16px;font-size:13px;color:var(--ink-2)}.pick b{font-family:var(--min);font-weight:400;font-size:17px;color:var(--ink);margin-left:8px;letter-spacing:.06em}
+/* 入力 */
+.f{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.f .w{grid-column:1/3}
+label.t{display:block;font-size:12px;letter-spacing:.12em;color:var(--ink-2)}
+label.t em{font-style:normal;color:var(--err);margin-left:6px;font-size:11px}
+input[type=text],input[type=tel],input[type=email],textarea,select{width:100%;margin-top:6px;border:1.5px solid var(--line);background:var(--white);padding:12px 14px;font:inherit;color:var(--ink);letter-spacing:.03em;border-radius:10px}
+textarea{min-height:110px;resize:vertical}
+input:invalid.touched,.bad{border-color:var(--err)}
+.errmsg{font-size:12px;color:var(--err);margin-top:4px;display:none}.bad+.errmsg{display:block}
+/* ボタン列 */
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px;padding-top:24px;border-top:1px solid var(--line)}
+.btn{display:inline-block;padding:14px 28px;background:var(--sun);color:#fff;font-family:var(--min);font-weight:700;font-size:14px;letter-spacing:.06em;border-radius:999px;transition:transform .2s,opacity .2s}
+.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.35;transform:none;cursor:not-allowed}
+.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line)}
+/* 確認 */
+.sum{border:1px solid var(--line);background:var(--white);border-radius:14px;overflow:hidden}
+.sum dl{margin:0;display:grid;grid-template-columns:8em 1fr}
+.sum dt{padding:14px 18px;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:12px;letter-spacing:.12em}
+.sum dd{margin:0;padding:14px 18px;border-bottom:1px solid var(--line)}
+.sum dt:nth-last-of-type(1),.sum dd:last-child{border-bottom:0}
+.sum .edit{font-size:11px;letter-spacing:.14em;color:var(--ink-2);border-bottom:1px solid var(--line);margin-left:10px}
+/* 完了 */
+.fin{text-align:center;padding:40px 0}
+.fin .no{font-family:var(--min);font-weight:700;font-size:34px;letter-spacing:.04em;margin:14px 0 6px}
+.fin .no small{display:block;font-family:var(--got);font-size:11px;letter-spacing:.2em;color:var(--ink-2)}
+.fin .box{text-align:left;border:1px solid var(--line);background:var(--white);padding:22px 24px;margin:32px auto 0;max-width:520px;font-size:13px;border-radius:14px}
+.fin .box b{font-weight:400;display:block;font-family:var(--min);font-size:16px;margin-bottom:8px}
+.fin ul{margin:0;padding-left:1.2em}
+.ft{text-align:center;font-size:11px;color:var(--ink-2);padding:0 var(--gut) 48px}
+@media (max-width:640px){.f{grid-template-columns:1fr}.f .w{grid-column:1}.steps div{font-size:10px}.hd .tel{display:none}}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<header class="hd">
+  <a class="logo" href="./"><span class="mark" aria-hidden="true"></span><b>ひだまり歯科クリニック</b></a>
+  <div class="tel">お電話でも<b>03-1234-5678</b></div>
+</header>
+<main>
+  <h1>WEB予約</h1>
+  <p class="lead">初めての方も、通院中の方も、こちらから。入力は3分ほどで終わります。</p>
+  <div class="steps" id="steps"><div class="on">1　診療内容</div><div>2　日時</div><div>3　連絡先</div><div>4　確認</div></div>
+
+  <form id="form" novalidate>
+  <!-- 1 -->
+  <section class="pane on" data-step="1">
+    <fieldset>
+      <legend>来院は初めてですか</legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="kind" value="初診" checked><b>初めて</b><small>問診と写真の撮影があります（60分）</small></label>
+        <label class="opt"><input type="radio" name="kind" value="再診"><b>通院中・以前に来たことがある</b><small>診察券の番号があれば備考に（30〜45分）</small></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>ご希望の診療</legend>
+      <p class="hint">決まっていなければ「相談したい」で大丈夫です。</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="menu" value="痛み・むし歯の治療" checked><b>痛み・むし歯の治療</b><small>急な痛みは当日枠をご案内します</small></label>
+        <label class="opt"><input type="radio" name="menu" value="定期検診・クリーニング"><b>定期検診・クリーニング</b><small>3か月ごとの検診</small></label>
+        <label class="opt"><input type="radio" name="menu" value="こどもの歯"><b>こどもの歯</b><small>フッ素・シーラント・歯みがきの練習</small></label>
+        <label class="opt"><input type="radio" name="menu" value="歯ならびの相談"><b>歯ならびの相談</b><small>矯正の専門医が診ます（無料）</small></label>
+        <label class="opt"><input type="radio" name="menu" value="ホワイトニング"><b>ホワイトニング</b><small>自費 22,000円〜</small></label>
+        <label class="opt"><input type="radio" name="menu" value="相談したい"><b>相談したい</b><small>入れ歯・インプラント・その他</small></label>
+      </div>
+    </fieldset>
+    <div class="nav"><span></span><button type="button" class="btn" data-next>日時を選ぶ</button></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="pane" data-step="2">
+    <fieldset>
+      <legend>ご希望の日</legend>
+      <p class="hint">○は空きあり、△は残りわずか。木曜・祝日は休診です。</p>
+      <div class="calhead"><button type="button" id="prev">← 前の週</button><span id="calttl"></span><button type="button" id="next">次の週 →</button></div>
+      <div class="cal" id="cal"></div>
+    </fieldset>
+    <fieldset>
+      <legend>ご希望の時間</legend>
+      <div class="slots" id="slots"><p class="hint">先に日を選んでください。</p></div>
+      <div class="pick">選んだ日時<b id="pick">—</b></div>
+    </fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next id="next2" disabled>連絡先を入力する</button></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="pane" data-step="3">
+    <fieldset>
+      <legend>連絡先</legend>
+      <div class="f">
+        <div><label class="t" for="name">お名前<em>必須</em></label><input type="text" id="name" name="name" required autocomplete="name" placeholder="山田 花子"><div class="errmsg">お名前を入力してください</div></div>
+        <div><label class="t" for="kana">ふりがな<em>必須</em></label><input type="text" id="kana" name="kana" required pattern="^[ぁ-んー　 ]+$" placeholder="やまだ はなこ"><div class="errmsg">ひらがなで入力してください</div></div>
+        <div><label class="t" for="tel">電話番号<em>必須</em></label><input type="tel" id="tel" name="tel" required pattern="^[0-9０-９\-－ ]{10,14}$" autocomplete="tel" placeholder="090-1234-5678"><div class="errmsg">電話番号を確認してください</div></div>
+        <div><label class="t" for="email">メール</label><input type="email" id="email" name="email" autocomplete="email" placeholder="hanako@example.com"><div class="errmsg">メールアドレスの形式を確認してください</div></div>
+        <div><label class="t" for="birth">生年月日<em>必須</em></label><input type="text" id="birth" name="birth" required pattern="^[0-9]{4}[/／\-年][0-9]{1,2}[/／\-月][0-9]{1,2}日?$" placeholder="1990/05/23"><div class="errmsg">1990/05/23 のように入力してください</div></div>
+        <div><label class="t" for="who">どなたの予約ですか</label><select id="who" name="who"><option>本人</option><option>子ども</option><option>家族（本人以外）</option></select></div>
+        <div class="w"><label class="t" for="note">備考</label><textarea id="note" name="note" placeholder="痛い場所、苦手なこと、診察券の番号、保育の希望など"></textarea></div>
+      </div>
+    </fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="button" class="btn" data-next id="next3">内容を確認する</button></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="pane" data-step="4">
+    <fieldset>
+      <legend>この内容で予約します</legend>
+      <div class="sum"><dl id="sum"></dl></div>
+      <p class="hint" style="margin-top:14px">予約の確定後、確認のショートメールを送ります。変更・取り消しはメール内のリンク、またはお電話で。</p>
+    </fieldset>
+    <div class="nav"><button type="button" class="btn g" data-prev>戻る</button><button type="submit" class="btn">予約を確定する</button></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="pane fin" data-step="5">
+    <h2 style="font-family:var(--min);font-weight:700;font-size:22px;letter-spacing:.04em">ご予約を受け付けました</h2>
+    <div class="no"><small>予約番号</small><span id="rno"></span></div>
+    <p id="donewhen" style="color:var(--ink-2)"></p>
+    <div class="box"><b>当日お持ちいただくもの</b><ul><li>保険証（またはマイナンバーカード）</li><li>お薬手帳（お持ちの方）</li><li>診察券（再診の方）</li></ul></div>
+    <div class="box"><b>場所</b>世田谷区桜丘 2-13-7　桜丘駅 北口から徒歩3分。駐車場は建物の裏に2台あります。</div>
+    <p style="margin-top:32px"><a class="btn g" href="./">医院のページへ戻る</a></p>
+  </section>
+  </form>
+</main>
+<footer class="ft">このページはポートフォリオ用です。予約は実際には送信されません。</footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const state={date:null,time:null};
+let step=1;
+function show(n){step=n;$$('.pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n));
+  $$('#steps div').forEach((d,i)=>{d.classList.toggle('on',i+1===n);d.classList.toggle('done',i+1<n)});
+  window.scrollTo({top:0,behavior:'smooth'})}
+/* カレンダー：今日から4週、木・祝休み。空きはその日ごとに決めた並びで固定（擬似） */
+const today=new Date();today.setHours(0,0,0,0);
+let weekStart=new Date(today);weekStart.setDate(today.getDate()-today.getDay());
+const holidays=['2026-11-23','2026-12-29','2026-12-30','2026-12-31','2027-01-01','2027-01-02','2027-01-03'];
+const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const jp=d=>`${d.getMonth()+1}月${d.getDate()}日（${'日月火水木金土'[d.getDay()]}）`;
+function avail(d){const k=ymd(d);if(d<today||d.getDay()===4||holidays.includes(k))return 'x';const n=(d.getDate()*7+d.getMonth()*3)%5;return n===0?'x':n<2?'few':'ok'}
+function slotsFor(d){const base=['9:30','10:00','10:30','11:00','11:30','12:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];const wk=d.getDay()===0||d.getDay()===6;const list=wk?base.filter(t=>t<'17:00'):base;const seed=d.getDate()*13+d.getMonth();return list.map((t,i)=>({t,ok:((seed+i*7)%4)!==0}))}
+function renderCal(){const cal=$('#cal');cal.innerHTML='';'日月火水木金土'.split('').forEach((c,i)=>{const e=document.createElement('div');e.className='d'+(i===0?' sun':i===6?' sat':'');e.textContent=c;cal.appendChild(e)});
+  const end=new Date(weekStart);end.setDate(weekStart.getDate()+13);$('#calttl').textContent=`${weekStart.getMonth()+1}月${weekStart.getDate()}日 〜 ${end.getMonth()+1}月${end.getDate()}日`;
+  for(let i=0;i<14;i++){const d=new Date(weekStart);d.setDate(weekStart.getDate()+i);const a=avail(d);const b=document.createElement('button');b.type='button';b.innerHTML=`<span>${d.getDate()}</span>`;b.className=a==='x'?'':a;b.disabled=a==='x';if(state.date&&ymd(d)===ymd(state.date))b.classList.add('on');
+    b.addEventListener('click',()=>{state.date=d;state.time=null;renderCal();renderSlots();update()});cal.appendChild(b)}
+  const limit=new Date(today);limit.setDate(today.getDate()+28);$('#prev').disabled=weekStart<=today;$('#next').disabled=weekStart>=limit}
+function renderSlots(){const s=$('#slots');s.innerHTML='';if(!state.date){s.innerHTML='<p class="hint">先に日を選んでください。</p>';return}
+  slotsFor(state.date).forEach(o=>{const b=document.createElement('button');b.type='button';b.textContent=o.t;b.disabled=!o.ok;if(state.time===o.t)b.classList.add('on');b.addEventListener('click',()=>{state.time=o.t;renderSlots();update()});s.appendChild(b)})}
+function update(){$('#pick').textContent=state.date?(jp(state.date)+(state.time?'　'+state.time:'　時間を選んでください')):'—';$('#next2').disabled=!(state.date&&state.time)}
+$('#prev').addEventListener('click',()=>{weekStart.setDate(weekStart.getDate()-14);renderCal()});
+$('#next').addEventListener('click',()=>{weekStart.setDate(weekStart.getDate()+14);renderCal()});
+renderCal();renderSlots();update();
+/* 進む・戻る */
+$$('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(step-1)));
+$$('[data-next]').forEach(b=>b.addEventListener('click',()=>{if(step===3&&!validate())return;if(step===3)fillSum();show(step+1)}));
+function validate(){let ok=true;$$('.pane[data-step="3"] input').forEach(i=>{const bad=!i.checkValidity();i.classList.toggle('bad',bad);if(bad)ok=false});if(!ok){$('.bad').focus()}return ok}
+$$('.pane[data-step="3"] input').forEach(i=>i.addEventListener('input',()=>i.classList.toggle('bad',!i.checkValidity()&&i.value!=='')));
+function v(n){const f=document.forms.form;const e=f.elements[n];return e.value||'—'}
+function fillSum(){const f=document.forms.form;const rows=[['内容',`${f.kind.value}　／　${f.menu.value}`,1],['日時',jp(state.date)+'　'+state.time,2],['お名前',`${v('name')}（${v('kana')}）`,3],['電話',v('tel'),3],['メール',v('email'),3],['生年月日',v('birth'),3],['予約する人',v('who'),3],['備考',v('note'),3]];
+  $('#sum').innerHTML=rows.map(([k,val,s])=>`<dt>${k}</dt><dd>${val.replace(/</g,'&lt;')}<button type="button" class="edit" data-go="${s}">変更</button></dd>`).join('');
+  $$('#sum .edit').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.go)))}
+document.forms.form.addEventListener('submit',e=>{e.preventDefault();const no='H'+ymd(state.date).replace(/-/g,'').slice(2)+'-'+String(Math.floor(Math.random()*900)+100);$('#rno').textContent=no;$('#donewhen').textContent=`${jp(state.date)}　${state.time}　／　${document.forms.form.menu.value}`;show(5)});
+</script>
+</body>
+</html>
