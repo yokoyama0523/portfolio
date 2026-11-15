@@ -1,0 +1,35 @@
+{
+  "id": "tax",
+  "order": 6,
+  "name": "税理士法人あさひ会計",
+  "industry": "税理士事務所",
+  "industry_short": "税理士",
+  "category": "医療・士業",
+  "summary": "税理士事務所。巨大な見出しと、月次レポートの紙1枚。",
+  "features": [
+    "料金表",
+    "初回相談の申し込み（内容→日時→連絡先→確認）"
+  ],
+  "tech": [
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "design": {
+    "fonts": "Noto Sans JP",
+    "palette": [
+      "#fbfbf8",
+      "#10233f",
+      "#f5c531",
+      "#eef0ea"
+    ],
+    "memo": "巨大な見出し「数字の話は、わかる言葉で。」と月次レポートの紙1枚。白・黒・青1色、ゴシックだけ"
+  },
+  "media": {
+    "thumb": "case/thumb.jpg",
+    "desktop": "_shots2/desktop_01.png",
+    "mobile": "_shots2/mobile_01.png"
+  },
+  "entry": "index.html",
+  "has_flow": true
+}

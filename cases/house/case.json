@@ -1,0 +1,36 @@
+{
+  "id": "house",
+  "order": 7,
+  "name": "杉浦工務店",
+  "industry": "工務店",
+  "industry_short": "工務店",
+  "category": "店舗・暮らし",
+  "summary": "工務店。巨大な縦書きと、線が描かれていく家の断面図。",
+  "features": [
+    "施工事例",
+    "工程表",
+    "見学会の申し込み（日時の枠→家族→連絡先）"
+  ],
+  "tech": [
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "design": {
+    "fonts": "Shippori Mincho ＋ Noto Sans JP",
+    "palette": [
+      "#f3efe6",
+      "#2a2622",
+      "#1d3a2a",
+      "#b8894f"
+    ],
+    "memo": "白地に巨大な縦書き「木と、暮らす。」。家の断面図（SVG）の線が描かれ、居間に写真がはまる。性能だけ深緑"
+  },
+  "media": {
+    "thumb": "case/thumb.jpg",
+    "desktop": "_shots2/desktop_01.png",
+    "mobile": "_shots2/mobile_01.png"
+  },
+  "entry": "index.html",
+  "has_flow": true
+}

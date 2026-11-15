@@ -1,0 +1,40 @@
+{
+  "id": "ec",
+  "order": 1,
+  "name": "ASAGI",
+  "industry": "アパレル通販",
+  "industry_short": "アパレル",
+  "category": "EC",
+  "summary": "アパレルの通販サイト。本物のECと同じ画面構成で、管理画面まで。",
+  "features": [
+    "一覧（絞り込み・並べ替え）",
+    "商品詳細（色・サイズ・在庫）",
+    "カート",
+    "レジ4段階",
+    "マイページ",
+    "管理画面（売上・注文・在庫・顧客）"
+  ],
+  "tech": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "localStorage（カート・注文）"
+  ],
+  "design": {
+    "fonts": "Noto Sans JP ＋ Inter",
+    "palette": [
+      "#ffffff",
+      "#f3f3f1",
+      "#141414",
+      "#c8322b"
+    ],
+    "memo": "本物のアパレルECと同じ画面構成。トップ／一覧（絞り込み・並べ替え・ページ送り）／商品詳細（色・サイズごとの在庫、サイズ表、レビュー）／カート（クーポン・送料無料ライン）／4段階のレジ／マイページ（注文履歴・お届け先・お気に入り）／ガイド／管理画面（売上・注文・在庫・顧客・設定）。データはブラウザに保存"
+  },
+  "media": {
+    "thumb": "case/thumb.jpg",
+    "desktop": "_shots2/desktop_01.png",
+    "mobile": "_shots2/mobile_01.png"
+  },
+  "entry": "index.html",
+  "has_flow": true
+}

@@ -1,0 +1,37 @@
+{
+  "id": "coffee",
+  "order": 4,
+  "name": "KUMO ROASTERY",
+  "industry": "コーヒー豆の通販",
+  "industry_short": "焙煎所",
+  "category": "EC",
+  "summary": "コーヒー豆の通販。左に固定の写真、右は白。下へ行くほど深煎り。",
+  "features": [
+    "かご（数量と合計）",
+    "レジ（配送先・支払い・確認）",
+    "定期便"
+  ],
+  "tech": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "localStorage（カート・注文）"
+  ],
+  "design": {
+    "fonts": "Space Grotesk ＋ Noto Sans JP",
+    "palette": [
+      "#f6efe2",
+      "#d3b58d",
+      "#5e3b25",
+      "#2a1a12"
+    ],
+    "memo": "左に固定の写真、右は白。焙煎の色は左端のゲージと点だけ。豆の名前は大きな欧文"
+  },
+  "media": {
+    "thumb": "case/thumb.jpg",
+    "desktop": "_shots2/desktop_01.png",
+    "mobile": "_shots2/mobile_01.png"
+  },
+  "entry": "index.html",
+  "has_flow": true
+}

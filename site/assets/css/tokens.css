@@ -1,0 +1,31 @@
+/* デザインの値（色・書体・間隔・動き）。ここだけを直せば全体に効く */
+:root{
+  --paper:#ffffff;
+  --ink:#000000;
+  --text:#2b2b2b;
+  --mute:#6f6f74;
+  --line:#e5e5e2;
+  --mist:#f1f2f5;
+  --accent:#2f43ff;
+  --accent-ink:#ffffff;
+
+  --f-latin:"Bricolage Grotesque",system-ui,sans-serif;
+  --f-jp:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+
+  --fs-xs:12px;
+  --fs-s:14px;
+  --fs-m:16px;
+  --fs-l:clamp(18px,1.4vw,21px);
+  --fs-xl:clamp(24px,2.4vw,34px);
+  --fs-2xl:clamp(34px,4.4vw,64px);
+  --fs-hero:clamp(36px,5.4vw,80px);
+  --fs-mega:clamp(64px,15vw,260px);
+
+  --gut:clamp(20px,4.2vw,64px);
+  --max:1480px;
+  --sec:clamp(96px,14vw,200px);
+  --hd-h:72px;
+
+  --ease:cubic-bezier(.2,.75,.1,1);
+  --ease-io:cubic-bezier(.7,0,.2,1);
+}
