@@ -22,7 +22,7 @@ const keep = (root) => (src) => {
   const name = basename(src);
   if (name === "case.json" || name === ".DS_Store") return false;
   if (rel.startsWith("_shots2")) return false;
-  if (name.startsWith("_")) return name.startsWith("_old") && name.endsWith(".html");
+  if (name.startsWith("_")) return false;
   return true;
 };
 
