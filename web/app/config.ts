@@ -2,6 +2,8 @@ export const site = {
   name: "Yuki Yokoyama",
   brand: "Saku²",
   url: "https://yokoyama-dev.com",
+  ogImage: "/og/top.jpg",
+  worksPath: "/portfolio/",
   crowdworks: "https://crowdworks.jp/public/employees/5842694",
   profiles: [
     "https://crowdworks.jp/public/employees/5842694",
