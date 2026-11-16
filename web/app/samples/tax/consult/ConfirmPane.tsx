@@ -1,6 +1,6 @@
 import { Fragment } from "react";
+import { jpDate } from "~/samples/shared/dates";
 import { consult } from "../content/consult";
-import { jpDate } from "./booking";
 import { type ConsultForm, STEP } from "./useConsultForm";
 
 const text = consult.confirm;

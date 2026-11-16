@@ -1,7 +1,7 @@
 import { Link } from "react-router";
+import { jpDate } from "~/samples/shared/dates";
 import { consult } from "../content/consult";
 import { office } from "../content/office";
-import { jpDate } from "./booking";
 import type { ConsultForm } from "./useConsultForm";
 
 const text = consult.done;

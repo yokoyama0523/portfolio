@@ -1,15 +1,6 @@
+import { addDays, jpDate, monthDay, shortDate, ymd } from "~/samples/shared/dates";
 import { consult } from "../content/consult";
-import {
-  addDays,
-  calendar,
-  jpDate,
-  monthDay,
-  openSlots,
-  shortDate,
-  vacancy,
-  weekdaysFrom,
-  ymd,
-} from "./booking";
+import { calendar, openSlots, vacancy, weekdaysFrom } from "./booking";
 import { Option } from "./Option";
 import { type ConsultForm, STEP } from "./useConsultForm";
 
