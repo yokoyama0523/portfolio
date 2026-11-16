@@ -10,7 +10,7 @@
     "build": "react-router build && node scripts/finish-build.ts",
     "deploy": "wrangler pages deploy build/client --project-name=yokoyama-dev-portfolio",
     "typecheck": "react-router typegen && tsc",
-    "check": "biome check .",
+    "check": "biome check . && node scripts/check-private.ts",
     "format": "biome check --write ."
   },
   "dependencies": {
