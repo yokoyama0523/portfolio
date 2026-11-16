@@ -19,7 +19,14 @@ export const meta = () =>
     description: about.join(""),
     path: "/",
     graph: [
-      { "@type": "WebSite", "@id": ids.website, url: `${site.url}/`, name: site.brand, inLanguage: "ja", publisher: { "@id": ids.person } },
+      {
+        "@type": "WebSite",
+        "@id": ids.website,
+        url: `${site.url}/`,
+        name: site.brand,
+        inLanguage: "ja",
+        publisher: { "@id": ids.person },
+      },
       {
         "@type": "Person",
         "@id": ids.person,

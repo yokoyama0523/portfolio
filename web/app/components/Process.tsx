@@ -15,15 +15,33 @@ export function Process() {
         <SectionTitle en="Process" jp="制作の流れ" />
         <ol className="border-t border-[#d9d9d9]">
           {steps.map(([title, text], i) => (
-            <li key={title} data-reveal className="group grid grid-cols-[56px_1fr] gap-x-6 border-b border-[#d9d9d9] py-8 md:grid-cols-[72px_1fr_48px]">
-              <span className="font-latin text-[15px] tracking-[0.06em] text-accent">{String(i + 1).padStart(2, "0")}</span>
-              <span>
-                <span className="block text-[17px] font-bold tracking-[0.06em] text-ink">{title}</span>
-                <span className="mt-2 block text-[13px] leading-[2] tracking-[0.06em] text-text">{text}</span>
+            <li
+              key={title}
+              data-reveal
+              className="group grid grid-cols-[56px_1fr] gap-x-6 border-b border-[#d9d9d9] py-8 md:grid-cols-[72px_1fr_48px]"
+            >
+              <span className="font-latin text-[15px] tracking-[0.06em] text-accent">
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="hidden size-12 place-items-center self-center rounded-full border border-[#cfcfcf] text-ink transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white md:grid" aria-hidden>
-                <svg viewBox="0 0 24 24" className="size-4">
-                  <path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <span>
+                <span className="block text-[17px] font-bold tracking-[0.06em] text-ink">
+                  {title}
+                </span>
+                <span className="mt-2 block text-[13px] leading-[2] tracking-[0.06em] text-text">
+                  {text}
+                </span>
+              </span>
+              <span
+                className="hidden size-12 place-items-center self-center rounded-full border border-[#cfcfcf] text-ink transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white md:grid"
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
+                  <path
+                    d="M4 12h15m-6-6 6 6-6 6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                  />
                 </svg>
               </span>
             </li>

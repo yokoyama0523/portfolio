@@ -11,9 +11,7 @@ export function PageTitle({ en, jp, crumbs, children }: Props) {
         <span className="block font-latin text-[clamp(56px,9vw,140px)] font-light leading-[0.92] tracking-[-0.03em] text-ink">
           {en}
         </span>{" "}
-        <span className="mt-6 block text-[14px] font-medium tracking-[0.12em] text-mute">
-          {jp}
-        </span>
+        <span className="mt-6 block text-[14px] font-medium tracking-[0.12em] text-mute">{jp}</span>
       </h1>
       {children}
     </div>

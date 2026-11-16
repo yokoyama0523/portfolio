@@ -21,7 +21,15 @@ export function MotionRoot() {
     gsap.set(items, { opacity: 0, y: 40 });
     ScrollTrigger.batch(items, {
       start: "top 90%",
-      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", stagger: 0.1, overwrite: true }),
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          stagger: 0.1,
+          overwrite: true,
+        }),
     });
     gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
       const to = Number(el.dataset.count);

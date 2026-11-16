@@ -14,13 +14,24 @@ export function Works({ pages }: { pages: number }) {
     ScrollTrigger.matchMedia({
       "(min-width: 768px)": () => {
         gsap.utils.toArray<HTMLElement>("[data-col]").forEach((col, i) => {
-          gsap.fromTo(col, { y: i ? 120 : 0 }, { y: i ? -60 : 0, ease: "none", scrollTrigger: { trigger: col, start: "top bottom", end: "bottom top", scrub: true } });
+          gsap.fromTo(
+            col,
+            { y: i ? 120 : 0 },
+            {
+              y: i ? -60 : 0,
+              ease: "none",
+              scrollTrigger: { trigger: col, start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
         });
       },
     });
   }, root);
 
-  const cols = [cases.filter((_, i) => i % 2 === 0), cases.filter((_, i) => i % 2 === 1)];
+  const cols = [
+    { id: "even", items: cases.filter((_, i) => i % 2 === 0) },
+    { id: "odd", items: cases.filter((_, i) => i % 2 === 1) },
+  ];
 
   return (
     <section ref={root} id="works" className="px-5 py-32 md:px-12 md:py-48">
@@ -41,7 +52,10 @@ export function Works({ pages }: { pages: number }) {
                   <span className="font-latin text-[13px] tracking-[0.06em] text-accent">{en}</span>
                   <span className="mt-1 text-[11px] tracking-[0.08em] text-mute">{jp}</span>
                 </dt>
-                <dd className="font-latin text-[56px] font-light leading-none tracking-[-0.03em] text-ink" data-count={n}>
+                <dd
+                  className="font-latin text-[56px] font-light leading-none tracking-[-0.03em] text-ink"
+                  data-count={n}
+                >
                   {n}
                 </dd>
               </div>
@@ -52,21 +66,30 @@ export function Works({ pages }: { pages: number }) {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-12">
-          {cols.map((col, ci) => (
-            <div key={ci} data-col className="flex flex-col gap-14">
-              {col.map((c) => (
+          {cols.map((col) => (
+            <div key={col.id} data-col className="flex flex-col gap-14">
+              {col.items.map((c) => (
                 <a key={c.id} href={caseUrl(c)} className="group block" data-reveal>
                   <span className="relative flex aspect-[4/5] items-end justify-center overflow-hidden bg-mist px-[9%] pb-[14%] transition-colors duration-500 group-hover:bg-[#e9ebf2]">
                     <span className="w-full transition-transform duration-700 ease-out-soft group-hover:-translate-y-2">
-                      <LaptopMock src={caseAsset(c, "desktop")} alt={`${c.name}（${c.industry}）`} />
+                      <LaptopMock
+                        src={caseAsset(c, "desktop")}
+                        alt={`${c.name}（${c.industry}）`}
+                      />
                     </span>
                     <span className="absolute bottom-[10%] right-[8%] w-[24%] transition-transform duration-700 ease-out-soft group-hover:-translate-y-4">
                       <PhoneMock src={caseAsset(c, "mobile")} />
                     </span>
                   </span>
-                  <span className="mt-5 block font-latin text-[12px] tracking-[0.08em] text-accent">{c.industry_en}</span>
-                  <span className="mt-1 block text-[16px] font-bold tracking-[0.04em] text-ink">{c.name}</span>
-                  <span className="mt-1 block text-[12px] tracking-[0.06em] text-mute">{c.industry}</span>
+                  <span className="mt-5 block font-latin text-[12px] tracking-[0.08em] text-accent">
+                    {c.industry_en}
+                  </span>
+                  <span className="mt-1 block text-[16px] font-bold tracking-[0.04em] text-ink">
+                    {c.name}
+                  </span>
+                  <span className="mt-1 block text-[12px] tracking-[0.06em] text-mute">
+                    {c.industry}
+                  </span>
                 </a>
               ))}
             </div>

@@ -14,13 +14,18 @@ export type Case = {
   media: { thumb: string; desktop: string; mobile: string };
 };
 
-const modules = import.meta.glob<Case>("../../../cases/*/case.json", { eager: true, import: "default" });
+const modules = import.meta.glob<Case>("../../../cases/*/case.json", {
+  eager: true,
+  import: "default",
+});
 
 export const cases: Case[] = Object.values(modules).sort((a, b) => a.order - b.order);
 
 export const caseUrl = (c: Case) => `/portfolio/${c.id}/`;
-export const caseAsset = (c: Case, key: keyof Case["media"]) => `${caseUrl(c)}${c.media[key].replace(/\.png$/, ".jpg")}`;
-export const caseSmall = (c: Case, key: "desktop" | "thumb") => caseAsset(c, key).replace(/\.jpg$/, key === "desktop" ? "-720.jpg" : "-480.jpg");
+export const caseAsset = (c: Case, key: keyof Case["media"]) =>
+  `${caseUrl(c)}${c.media[key].replace(/\.png$/, ".jpg")}`;
+export const caseSmall = (c: Case, key: "desktop" | "thumb") =>
+  caseAsset(c, key).replace(/\.jpg$/, key === "desktop" ? "-720.jpg" : "-480.jpg");
 
 export const stats = {
   industries: cases.length,

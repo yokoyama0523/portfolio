@@ -28,5 +28,10 @@ export const pageMeta = ({ title, description, path, graph }: Page): MetaDescrip
 
 export const breadcrumb = (items: [string, string][]) => ({
   "@type": "BreadcrumbList",
-  itemListElement: items.map(([name, path], i) => ({ "@type": "ListItem", position: i + 1, name, item: `${site.url}${path}` })),
+  itemListElement: items.map(([name, path], i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name,
+    item: `${site.url}${path}`,
+  })),
 });

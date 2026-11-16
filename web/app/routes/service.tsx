@@ -45,10 +45,12 @@ export default function Service() {
           <div className="mx-auto max-w-[1280px]">
             <PageTitle en="Service" jp="サービス" crumbs={crumbs}>
               <p className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 font-latin text-[clamp(18px,1.6vw,22px)] tracking-[0.02em] text-ink">
-                <span className="h-px w-8 bg-[#333]" aria-hidden />
+                <span className="h-px w-8 bg-[#333]" aria-hidden="true" />
                 {services.map((s, i) => (
                   <span key={s.id} className="flex items-center gap-4">
-                    {i > 0 && <span className="size-1.5 rounded-full bg-[#333]" aria-hidden />}
+                    {i > 0 && (
+                      <span className="size-1.5 rounded-full bg-[#333]" aria-hidden="true" />
+                    )}
                     {s.en}
                   </span>
                 ))}
@@ -67,8 +69,12 @@ export default function Service() {
                     className="group block border border-[#333] p-6 transition-colors duration-300 hover:bg-[#333] hover:text-white md:p-8"
                   >
                     <span className="flex items-baseline justify-between gap-4">
-                      <span className="font-latin text-[22px] font-light tracking-[-0.01em]">{s.en}</span>
-                      <span className="text-[12px] font-medium tracking-[0.1em] opacity-70">{s.jp}</span>
+                      <span className="font-latin text-[22px] font-light tracking-[-0.01em]">
+                        {s.en}
+                      </span>
+                      <span className="text-[12px] font-medium tracking-[0.1em] opacity-70">
+                        {s.jp}
+                      </span>
                     </span>
                     <span className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
                       {s.items.map((item) => (
@@ -85,8 +91,13 @@ export default function Service() {
               </div>
               <ol className="mt-4 grid grid-cols-2 gap-2 bg-[#333] p-4 text-white sm:grid-cols-5 md:p-5">
                 {steps.map(([title], i) => (
-                  <li key={title} className="flex items-center justify-center gap-2 text-[12px] tracking-[0.08em]">
-                    <span className="font-latin text-white/60">{String(i + 1).padStart(2, "0")}</span>
+                  <li
+                    key={title}
+                    className="flex items-center justify-center gap-2 text-[12px] tracking-[0.08em]"
+                  >
+                    <span className="font-latin text-white/60">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     {title}
                   </li>
                 ))}
@@ -96,11 +107,20 @@ export default function Service() {
         </section>
 
         {services.map((s) => (
-          <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="scroll-mt-24 border-t border-line px-5 py-24 md:px-12 md:py-36">
+          <section
+            key={s.id}
+            id={s.id}
+            aria-labelledby={`${s.id}-title`}
+            className="scroll-mt-24 border-t border-line px-5 py-24 md:px-12 md:py-36"
+          >
             <div className="mx-auto max-w-[1280px]">
               <h2 id={`${s.id}-title`} data-reveal>
-                <span className="block font-latin text-[clamp(44px,6vw,96px)] font-light leading-none tracking-[-0.02em] text-ink">{s.en}</span>
-                <span className="mt-5 block text-[14px] font-medium tracking-[0.12em] text-mute">{s.jp}</span>
+                <span className="block font-latin text-[clamp(44px,6vw,96px)] font-light leading-none tracking-[-0.02em] text-ink">
+                  {s.en}
+                </span>
+                <span className="mt-5 block text-[14px] font-medium tracking-[0.12em] text-mute">
+                  {s.jp}
+                </span>
               </h2>
               <div className="mt-14 grid gap-14 md:mt-20 md:grid-cols-[6fr_5fr] md:gap-20">
                 <div data-reveal>
@@ -121,13 +141,19 @@ export default function Service() {
                     <Lines lines={s.text} />
                   </p>
                 </div>
-                <dl className="self-start border-t border-[#333] text-[13px] tracking-[0.06em]" data-reveal>
+                <dl
+                  className="self-start border-t border-[#333] text-[13px] tracking-[0.06em]"
+                  data-reveal
+                >
                   <div className="grid grid-cols-[96px_1fr] gap-4 border-b border-line py-6">
                     <dt className="font-bold text-ink">対応内容</dt>
                     <dd>
                       <ul className="flex flex-wrap gap-2">
                         {s.items.map((item) => (
-                          <li key={item} className="rounded-full border border-line px-3 py-1 text-[12px]">
+                          <li
+                            key={item}
+                            className="rounded-full border border-line px-3 py-1 text-[12px]"
+                          >
                             {item}
                           </li>
                         ))}
@@ -151,7 +177,9 @@ export default function Service() {
                                 className="aspect-[16/10] w-16 shrink-0 object-cover"
                               />
                               <span className="flex flex-col">
-                                <span className="font-medium text-ink decoration-1 underline-offset-4 group-hover:underline">{c.name}</span>
+                                <span className="font-medium text-ink decoration-1 underline-offset-4 group-hover:underline">
+                                  {c.name}
+                                </span>
                                 <span className="text-[11px] text-mute">{c.industry}</span>
                               </span>
                             </a>

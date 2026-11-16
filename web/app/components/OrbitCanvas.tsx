@@ -21,16 +21,28 @@ const PAPER = "255,255,255";
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
 const mix = (a: number, b: number, k: number) => a + (b - a) * k;
-const mix3 = (a: V3, b: V3, k: number): V3 => [mix(a[0], b[0], k), mix(a[1], b[1], k), mix(a[2], b[2], k)];
+const mix3 = (a: V3, b: V3, k: number): V3 => [
+  mix(a[0], b[0], k),
+  mix(a[1], b[1], k),
+  mix(a[2], b[2], k),
+];
 const scale3 = (a: V3, k: number): V3 => [a[0] * k, a[1] * k, a[2] * k];
-const expoIn = (x: number) => (x <= 0 ? 0 : Math.pow(2, 10 * x - 10));
-const expoOut = (x: number) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const expoIn = (x: number) => (x <= 0 ? 0 : 2 ** (10 * x - 10));
+const expoOut = (x: number) => (x >= 1 ? 1 : 1 - 2 ** (-10 * x));
 const expoInOut = (x: number) =>
-  x <= 0 ? 0 : x >= 1 ? 1 : x < 0.5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2;
-const cubicOut = (x: number) => 1 - Math.pow(1 - clamp(x), 3);
+  x <= 0 ? 0 : x >= 1 ? 1 : x < 0.5 ? 2 ** (20 * x - 10) / 2 : (2 - 2 ** (-20 * x + 10)) / 2;
+const cubicOut = (x: number) => 1 - (1 - clamp(x)) ** 3;
 const sineInOut = (x: number) => -(Math.cos(Math.PI * x) - 1) / 2;
-const rotX = (p: V3, a: number): V3 => [p[0], p[1] * Math.cos(a) - p[2] * Math.sin(a), p[1] * Math.sin(a) + p[2] * Math.cos(a)];
-const rotZ = (p: V3, a: number): V3 => [p[0] * Math.cos(a) - p[1] * Math.sin(a), p[0] * Math.sin(a) + p[1] * Math.cos(a), p[2]];
+const rotX = (p: V3, a: number): V3 => [
+  p[0],
+  p[1] * Math.cos(a) - p[2] * Math.sin(a),
+  p[1] * Math.sin(a) + p[2] * Math.cos(a),
+];
+const rotZ = (p: V3, a: number): V3 => [
+  p[0] * Math.cos(a) - p[1] * Math.sin(a),
+  p[0] * Math.sin(a) + p[1] * Math.cos(a),
+  p[2],
+];
 const wrap = (z: number) => ZMIN + ((((z - ZMIN) % ZLEN) + ZLEN) % ZLEN);
 
 const rand = (seed: number) => {
@@ -50,7 +62,10 @@ const BLOOMS = [
   { n: 54, s: 0.24, r: 1.9, z: 0.6, w: 0.09, nx: 0.9, ny: 0.66 },
   { n: 36, s: 0.12, r: 0.9, z: 1.1, w: -0.15, nx: -0.15, ny: 0.94 },
 ];
-const NA = Math.max(N, BLOOMS.reduce((a, b) => a + b.n, 0));
+const NA = Math.max(
+  N,
+  BLOOMS.reduce((a, b) => a + b.n, 0),
+);
 
 const ORBITS = [
   { tx: 0.22, rz: -0.28, r: 1.36, w: 0.8 },
@@ -59,12 +74,13 @@ const ORBITS = [
 
 const DOTS = (() => {
   const base = Array.from({ length: NA }, (_, i) => {
-    const z0 = -1.1 + Math.pow(rand(i * 7 + 3), 0.65) * 7.5;
+    const z0 = -1.1 + rand(i * 7 + 3) ** 0.65 * 7.5;
     const depth = (F + z0) / F;
     const show = i < N && rand(i * 7 + 5) < 0.24;
-    const m = 0.7 + 2.6 * Math.pow(rand(i * 7 + 9), 4);
+    const m = 0.7 + 2.6 * rand(i * 7 + 9) ** 4;
     const kr = rand(i * 7 + 10);
-    const kind = i < ORBITS.length || i >= NS ? 0 : kr < 0.09 ? 2 : kr < 0.2 ? 1 : kr < 0.25 ? 3 : 0;
+    const kind =
+      i < ORBITS.length || i >= NS ? 0 : kr < 0.09 ? 2 : kr < 0.2 ? 1 : kr < 0.25 ? 3 : 0;
     const mul = kind === 2 ? Math.max(m, 2.2) + 0.8 : kind === 0 ? m : Math.max(m, 1.5) + 0.3;
     const qx = (rand(i * 7 + 1) * 2 - 1) * 2.5;
     const qy = (rand(i * 7 + 2) * 2 - 1) * 1.55;
@@ -73,7 +89,7 @@ const DOTS = (() => {
       fx: qx * depth,
       fy: (qx > 1.4 && qy < -0.6 ? -qy : qy) * depth,
       fz: z0,
-      fsz: show ? 0.0075 * Math.pow(mul, 1.8) : 0,
+      fsz: show ? 0.0075 * mul ** 1.8 : 0,
       mul,
       kind,
       ph: rand(i * 7 + 6) * Math.PI * 2,
@@ -135,7 +151,8 @@ const SAKURA_PATH = (() => {
     return [Math.cos(th) * r, Math.sin(th) * r];
   });
   const len = [0];
-  for (let j = 1; j < B; j++) len.push(len[j - 1] + Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]));
+  for (let j = 1; j < B; j++)
+    len.push(len[j - 1] + Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]));
   const total = len[B - 1] + Math.hypot(pts[0][0] - pts[B - 1][0], pts[0][1] - pts[B - 1][1]);
   return { pts, len, total };
 })();
@@ -173,7 +190,11 @@ const layoutBlooms = (top: number) => {
         const sx = (bl.nx + (rand(b * 131 + a * 7 + 1) * 2 - 1) * spread) * viewX * 0.92;
         const sy = (bl.ny + (rand(b * 131 + a * 7 + 2) * 2 - 1) * spread) * viewY * 0.86;
         const edge = r * (bl.s > 0.8 ? 0.3 : -0.25);
-        if (b && (Math.abs(sx) > viewX + edge || Math.abs(sy) > viewY + edge || sy - r < -viewY + top)) continue;
+        if (
+          b &&
+          (Math.abs(sx) > viewX + edge || Math.abs(sy) > viewY + edge || sy - r < -viewY + top)
+        )
+          continue;
         if (taken.some((o) => Math.hypot(o.x - sx, o.y - sy) < o.r + r)) continue;
         taken.push({ x: sx, y: sy, r });
         Object.assign(slot, { x: sx / proj, y: sy / proj, k, on: true });
@@ -185,8 +206,10 @@ const layoutBlooms = (top: number) => {
 };
 const sakuraTilt = (t: number) => -0.22 + 0.1 * Math.sin(0.6 * t);
 
-
-const hide = (f: (i: number, t: number) => Dot) => (i: number, t: number): Dot => (i < N ? f(i, t) : { ...f(i % N, t), sz: 0 });
+const hide =
+  (f: (i: number, t: number) => Dot) =>
+  (i: number, t: number): Dot =>
+    i < N ? f(i, t) : { ...f(i % N, t), sz: 0 };
 
 const dotSakura = (i: number, t: number): Dot => {
   const bd = BLOOM_DOTS[i];
@@ -199,7 +222,7 @@ const dotSakura = (i: number, t: number): Dot => {
   const f = rotX(rotZ([q[0] * k, q[1] * k, 0], bl.r + bl.w * t), sakuraTilt(t));
   const p: V3 = [f[0] + slot.x + drift * 0.8, f[1] + slot.y - drift * 0.6, f[2] + bl.z];
   if (!slot.on) return { p, sz: 0, dc: 1 };
-  const wave = 0.82 + 0.36 * Math.pow(Math.sin(Math.PI * (u * 5 - 0.35 * t)), 2);
+  const wave = 0.82 + 0.36 * Math.sin(Math.PI * (u * 5 - 0.35 * t)) ** 2;
   return { p, sz: 0.0056 * Math.sqrt(DOTS[i].mul) * wave * (0.55 + 0.45 * bl.s), dc: 1 };
 };
 
@@ -207,7 +230,11 @@ const dotFieldBase = (i: number, t: number): Dot => {
   const d = DOTS[i];
   const tau = fieldTime(t);
   return {
-    p: [d.fx + 0.05 * Math.sin(0.55 * tau + d.ph), d.fy + 0.04 * Math.cos(0.45 * tau + d.ph), d.fz - 0.17 * tau],
+    p: [
+      d.fx + 0.05 * Math.sin(0.55 * tau + d.ph),
+      d.fy + 0.04 * Math.cos(0.45 * tau + d.ph),
+      d.fz - 0.17 * tau,
+    ],
     sz: d.fsz,
     dc: 0,
   };
@@ -223,22 +250,34 @@ const dotCircleBase = (i: number, t: number): Dot => {
     return { p: rotX([Math.cos(a) * r, 0, Math.sin(a) * r], ringPitch(t)), sz: 0.0036, dc: 1 };
   }
   const a = d.ring + spin(t);
-  return { p: rotX([Math.cos(a) * RC, 0, Math.sin(a) * RC], ringPitch(t)), sz: 0.0058 * d.mul * (0.85 + 0.3 * Math.sin(3 * a + t)), dc: 1 };
+  return {
+    p: rotX([Math.cos(a) * RC, 0, Math.sin(a) * RC], ringPitch(t)),
+    sz: 0.0058 * d.mul * (0.85 + 0.3 * Math.sin(3 * a + t)),
+    dc: 1,
+  };
 };
 
 const dotCircle = hide(dotCircleBase);
 
-
 const dotSphereBase = (i: number, t: number): Dot => {
-  if (i < ORBITS.length) return { p: orbitPoint(i, ORBITS[i].w * t + i * 2.1, t), sz: 0.015, dc: 1 };
+  if (i < ORBITS.length)
+    return { p: orbitPoint(i, ORBITS[i].w * t + i * 2.1, t), sz: 0.015, dc: 1 };
   if (i >= NS) {
     const k = (i - NS) % 2;
     const j = Math.floor((i - NS) / 2);
-    return { p: orbitPoint(k, (j / NO) * Math.PI * 2 + ORBITS[k].w * 0.35 * t, t), sz: 0.0036, dc: 1 };
+    return {
+      p: orbitPoint(k, (j / NO) * Math.PI * 2 + ORBITS[k].w * 0.35 * t, t),
+      sz: 0.0036,
+      dc: 1,
+    };
   }
   const d = DOTS[i];
   const a = d.phi + spin(t);
-  return { p: rotX([Math.cos(a) * d.sr * RC, d.sy * RC, Math.sin(a) * d.sr * RC], spherePitch(t)), sz: 0.0058 * d.mul, dc: 1 };
+  return {
+    p: rotX([Math.cos(a) * d.sr * RC, d.sy * RC, Math.sin(a) * d.sr * RC], spherePitch(t)),
+    sz: 0.0058 * d.mul,
+    dc: 1,
+  };
 };
 
 const dotSphere = hide(dotSphereBase);
@@ -251,27 +290,84 @@ const dotBurst = (i: number, t: number): Dot => {
 const dotTunnelBase = (i: number, t: number): Dot => {
   const a = i * GOLDEN + 0.45 * t;
   const zb = ZMIN + ZLEN * (1 - (i + 0.5) / N);
-  return { p: [Math.cos(a) * RT, Math.sin(a) * RT, wrap(zb - travel(t))], sz: 0.009 * DOTS[i].mul, dc: 0 };
+  return {
+    p: [Math.cos(a) * RT, Math.sin(a) * RT, wrap(zb - travel(t))],
+    sz: 0.009 * DOTS[i].mul,
+    dc: 0,
+  };
 };
 
 const dotTunnel = hide(dotTunnelBase);
 
 type Form = (i: number, t: number) => Dot;
 type Stage = { from: number; to: number; form: Form };
-type Move = Stage & { next: Form; spread: number; ease: (x: number) => number; order: (i: number) => number };
+type Move = Stage & {
+  next: Form;
+  spread: number;
+  ease: (x: number) => number;
+  order: (i: number) => number;
+};
 
 const STAGES: (Stage | Move)[] = [
   { from: 0, to: 3.6, form: dotField },
-  { from: 3.6, to: 5.2, form: dotField, next: dotCircle, spread: 0.55, ease: expoInOut, order: (i) => DOTS[i].order },
+  {
+    from: 3.6,
+    to: 5.2,
+    form: dotField,
+    next: dotCircle,
+    spread: 0.55,
+    ease: expoInOut,
+    order: (i) => DOTS[i].order,
+  },
   { from: 5.2, to: 7.2, form: dotCircle },
-  { from: 7.2, to: 8.4, form: dotCircle, next: dotSphere, spread: 0.32, ease: expoInOut, order: (i) => (i < NS ? Math.abs(DOTS[i].sy) : 0.5) },
+  {
+    from: 7.2,
+    to: 8.4,
+    form: dotCircle,
+    next: dotSphere,
+    spread: 0.32,
+    ease: expoInOut,
+    order: (i) => (i < NS ? Math.abs(DOTS[i].sy) : 0.5),
+  },
   { from: 8.4, to: 11.3, form: dotSphere },
-  { from: 11.3, to: 12.1, form: dotSphere, next: dotBurst, spread: 0.14, ease: expoIn, order: (i) => DOTS[i].order },
-  { from: 12.1, to: 13.5, form: dotBurst, next: dotSakura, spread: 0.5, ease: expoOut, order: (i) => DOTS[i].order },
+  {
+    from: 11.3,
+    to: 12.1,
+    form: dotSphere,
+    next: dotBurst,
+    spread: 0.14,
+    ease: expoIn,
+    order: (i) => DOTS[i].order,
+  },
+  {
+    from: 12.1,
+    to: 13.5,
+    form: dotBurst,
+    next: dotSakura,
+    spread: 0.5,
+    ease: expoOut,
+    order: (i) => DOTS[i].order,
+  },
   { from: 13.5, to: 18.5, form: dotSakura },
-  { from: 18.5, to: 19.7, form: dotSakura, next: dotTunnel, spread: 0.3, ease: expoInOut, order: (i) => 1 - (i % N) / N },
+  {
+    from: 18.5,
+    to: 19.7,
+    form: dotSakura,
+    next: dotTunnel,
+    spread: 0.3,
+    ease: expoInOut,
+    order: (i) => 1 - (i % N) / N,
+  },
   { from: 19.7, to: 22.1, form: dotTunnel },
-  { from: 22.1, to: LOOP, form: dotTunnel, next: dotField, spread: 0.7, ease: expoInOut, order: (i) => DOTS[i].order },
+  {
+    from: 22.1,
+    to: LOOP,
+    form: dotTunnel,
+    next: dotField,
+    spread: 0.7,
+    ease: expoInOut,
+    order: (i) => DOTS[i].order,
+  },
 ];
 
 const isMove = (s: Stage | Move): s is Move => "next" in s;
@@ -288,7 +384,7 @@ const dotAt = (st: Stage | Move, i: number, t: number): Dot => {
   return { p: mix3(a.p, b.p, w), sz: mix(a.sz, b.sz, w), dc: mix(a.dc, b.dc, w) };
 };
 
-const depthAlpha = (s: number, dc: number) => clamp(Math.pow(s, 1.5 + 4 * dc)) * clamp((5 - s) / 2.5);
+const depthAlpha = (s: number, dc: number) => clamp(s ** (1.5 + 4 * dc)) * clamp((5 - s) / 2.5);
 
 export function OrbitCanvas({ message, tagline }: { message: string; tagline: readonly string[] }) {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -340,7 +436,7 @@ export function OrbitCanvas({ message, tagline }: { message: string; tagline: re
         const pt = project(d.p);
         if (!pt) continue;
         const kind = DOTS[i].kind;
-        const r = Math.min(d.sz * Math.pow(pt.s, 1 + 1.2 * d.dc) * unit * KIND_SCALE[kind], 90);
+        const r = Math.min(d.sz * pt.s ** (1 + 1.2 * d.dc) * unit * KIND_SCALE[kind], 90);
         const a = depthAlpha(pt.s, d.dc);
         if (r < 0.35 || a < 0.01) continue;
         if (pt.x < -r || pt.x > W + r || pt.y < -r || pt.y > H + r) continue;
@@ -491,7 +587,7 @@ export function OrbitCanvas({ message, tagline }: { message: string; tagline: re
 
   return (
     <>
-      <canvas ref={canvas} className="block size-full" aria-hidden />
+      <canvas ref={canvas} className="block size-full" />
       <h1 className="pointer-events-none absolute inset-0 grid place-items-center px-5 font-latin text-[22px] font-medium leading-none tracking-[0.01em] text-[#333] md:text-[34px]">
         <span className="flex flex-wrap justify-center gap-x-[0.3em]">
           {list.map((w, i) => (

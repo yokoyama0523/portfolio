@@ -1,5 +1,14 @@
 import { execFileSync } from "node:child_process";
-import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
+import {
+  copyFileSync,
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { basename, join, relative, resolve } from "node:path";
 
 const casesDir = resolve(import.meta.dirname, "../../cases");
@@ -19,7 +28,23 @@ const keep = (root) => (src) => {
 
 const shot = (src, out, width) => {
   if (existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs) return;
-  execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "72", "--resampleWidth", String(width), src, "--out", out], { stdio: "ignore" });
+  execFileSync(
+    "sips",
+    [
+      "-s",
+      "format",
+      "jpeg",
+      "-s",
+      "formatOptions",
+      "72",
+      "--resampleWidth",
+      String(width),
+      src,
+      "--out",
+      out,
+    ],
+    { stdio: "ignore" },
+  );
 };
 
 rmSync(outDir, { recursive: true, force: true });
@@ -46,4 +71,8 @@ for (const id of readdirSync(casesDir)) {
   }
 }
 
-execFileSync("/usr/bin/python3", [resolve(import.meta.dirname, "../../tools/squeeze.py"), casesDir, assetCache, outDir], { stdio: "inherit" });
+execFileSync(
+  "/usr/bin/python3",
+  [resolve(import.meta.dirname, "../../tools/squeeze.py"), casesDir, assetCache, outDir],
+  { stdio: "inherit" },
+);
