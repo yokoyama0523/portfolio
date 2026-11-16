@@ -1,5 +1,3 @@
-import "@fontsource-variable/noto-sans-jp";
-import "@fontsource-variable/outfit";
 import {
   isRouteErrorResponse,
   Links,
@@ -9,8 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { Analytics } from "./components/Analytics";
-import "./app.css";
+import { Analytics } from "./shared/Analytics";
 
 export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
@@ -27,7 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white font-jp text-[14px] leading-[1.9] tracking-[0.03em] text-text antialiased [word-break:auto-phrase] [text-wrap:pretty]">
+      <body>
         {children}
         <Analytics />
         <ScrollRestoration />
@@ -42,22 +39,14 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  const notFound = isRouteErrorResponse(error) && error.status === 404;
+  const status = isRouteErrorResponse(error) ? error.status : 500;
   return (
-    <main className="grid min-h-svh place-items-center px-5 text-center">
-      <title>{notFound ? "ページが見つかりません" : "エラー"}</title>
+    <main>
+      <title>エラー</title>
       <meta name="robots" content="noindex" />
-      <div>
-        <p className="font-latin text-[64px] font-light leading-none text-[#333]">
-          {notFound ? "404" : "Error"}
-        </p>
-        <p className="mt-6">
-          {notFound ? "ページが見つかりません。" : "ページを表示できませんでした。"}
-        </p>
-        <a href="/" className="mt-10 inline-block underline underline-offset-4">
-          トップへ戻る
-        </a>
-      </div>
+      <h1>{status}</h1>
+      <p>ページを表示できませんでした。</p>
+      <a href="/">トップへ戻る</a>
     </main>
   );
 }

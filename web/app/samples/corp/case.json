@@ -1,0 +1,19 @@
+{
+  "id": "corp",
+  "order": 3,
+  "name": "株式会社ミナト精機",
+  "industry": "部品メーカー",
+  "industry_short": "部品メーカー",
+  "industry_en": "Precision parts",
+  "category": "企業",
+  "summary": "精密部品メーカー。全幅の工場写真と、写真に引いた寸法線。",
+  "features": ["図面を送って見積もり（ファイル・部品表→会社→確認）", "工場見学"],
+  "tech": ["HTML", "CSS", "JavaScript"],
+  "design": {
+    "fonts": "Noto Serif JP ＋ Zen Kaku Gothic New",
+    "palette": ["#eef0ee", "#171a1d", "#1646c7", "#262c33"],
+    "memo": "内田鐵工所の型。全幅の工場写真に明朝の一文、写真に青い寸法線。白地、設備は鋼色の帯の表"
+  },
+  "entry": "index.html",
+  "has_flow": true
+}
