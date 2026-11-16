@@ -30,13 +30,17 @@ export function PillButton({ href, en, jp, tone = "dark", external }: Props) {
     >
       <span
         className={`absolute inset-0 -z-10 origin-left scale-x-0 rounded-full transition-transform duration-500 ease-out-soft group-hover:scale-x-100 ${t.fill}`}
-        aria-hidden
+        aria-hidden="true"
       />
       <span className="flex flex-col leading-[1.35]">
         <span className="font-latin text-[14px] tracking-[0.08em]">{en}</span>
         <span className={`mt-0.5 text-[11px] tracking-[0.1em] ${t.sub}`}>{jp}</span>
       </span>
-      <svg viewBox="0 0 24 24" className="size-4 shrink-0 transition-transform duration-500 ease-out-soft group-hover:translate-x-1" aria-hidden>
+      <svg
+        viewBox="0 0 24 24"
+        className="size-4 shrink-0 transition-transform duration-500 ease-out-soft group-hover:translate-x-1"
+        aria-hidden="true"
+      >
         <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="1.8" />
       </svg>
     </a>

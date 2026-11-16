@@ -14,7 +14,10 @@ export const site = {
   ],
   message: "Creative Business Technology",
   tagline: ["さくさく、つくる", "さくさく、うごく", "さくさく、さくら"],
-  ga: "G-CSN3EMWVDW",
+  analytics: {
+    id: "G-CSN3EMWVDW",
+    delayMs: 1200,
+  },
   nav: [
     { label: "Works", href: "/portfolio/" },
     { label: "Service", href: "/service/" },

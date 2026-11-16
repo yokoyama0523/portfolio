@@ -20,14 +20,29 @@ export function WhatIDo() {
         color: "#000000",
         stagger: 0.25,
         ease: "none",
-        scrollTrigger: { trigger: "[data-statement]", start: "top 80%", end: "bottom 35%", scrub: true },
+        scrollTrigger: {
+          trigger: "[data-statement]",
+          start: "top 80%",
+          end: "bottom 35%",
+          scrub: true,
+        },
       },
     );
     gsap.utils.toArray<HTMLElement>("[data-layer]").forEach((el, i) => {
       gsap.fromTo(
         el,
         { y: 0, opacity: i === 0 ? 1 : 0.6 },
-        { y: -i * 70, opacity: 1, ease: "power2.out", scrollTrigger: { trigger: "[data-stack]", start: "top 85%", end: "center 45%", scrub: true } },
+        {
+          y: -i * 70,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "[data-stack]",
+            start: "top 85%",
+            end: "center 45%",
+            scrub: true,
+          },
+        },
       );
     });
   }, root);
@@ -36,9 +51,12 @@ export function WhatIDo() {
     <section ref={root} id="about" className="bg-white px-5 py-32 text-text md:px-12 md:py-48">
       <div className="mx-auto max-w-[1280px]">
         <SectionTitle en="What I do" jp="仕事内容" size="sm" />
-        <p data-statement className="mt-10 font-latin text-[clamp(48px,9vw,148px)] font-light leading-[0.98] tracking-[-0.03em] text-accent">
-          {statement.map((w, i) => (
-            <span key={i} data-word className="mr-[0.22em] inline-block">
+        <p
+          data-statement
+          className="mt-10 font-latin text-[clamp(48px,9vw,148px)] font-light leading-[0.98] tracking-[-0.03em] text-accent"
+        >
+          {statement.map((w) => (
+            <span key={w} data-word className="mr-[0.22em] inline-block">
               {w}
             </span>
           ))}
@@ -52,7 +70,11 @@ export function WhatIDo() {
               <PillButton href="/service/" en="View Service" jp="サービス内容を見る" tone="dark" />
             </div>
           </div>
-          <div data-stack className="relative h-[360px] [perspective:1800px] md:h-[460px]" aria-hidden>
+          <div
+            data-stack
+            className="relative h-[360px] [perspective:1800px] md:h-[460px]"
+            aria-hidden="true"
+          >
             {stack.map((c, i) => (
               <img
                 key={c.id}

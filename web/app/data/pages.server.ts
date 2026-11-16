@@ -12,6 +12,7 @@ export const countPages = () => {
       else if (name.endsWith(".html")) pages += 1;
     }
   };
-  for (const id of readdirSync(root)) if (statSync(join(root, id)).isDirectory()) walk(join(root, id));
+  for (const id of readdirSync(root))
+    if (statSync(join(root, id)).isDirectory()) walk(join(root, id));
   return pages;
 };

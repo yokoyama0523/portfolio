@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { flushSync } from "react-dom";
 import { ContactBand } from "~/components/ContactBand";
 import { Footer } from "~/components/Footer";
 import { Header } from "~/components/Header";
@@ -30,7 +31,12 @@ export const meta = () =>
         isPartOf: { "@id": ids.website },
         mainEntity: {
           "@type": "ItemList",
-          itemListElement: cases.map((c, i) => ({ "@type": "ListItem", position: i + 1, url: `${site.url}${caseUrl(c)}`, name: `${c.name}（${c.industry}）` })),
+          itemListElement: cases.map((c, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            url: `${site.url}${caseUrl(c)}`,
+            name: `${c.name}（${c.industry}）`,
+          })),
         },
       },
       breadcrumb(crumbs),
@@ -55,14 +61,13 @@ export default function Portfolio() {
   const [category, setCategory] = useState<string | null>(null);
   const [filtered, setFiltered] = useState(false);
   const choose = (k: string | null) => {
-    setFiltered(true);
-    setCategory(k);
+    flushSync(() => {
+      setFiltered(true);
+      setCategory(k);
+    });
+    ScrollTrigger.refresh();
   };
   const shown = category ? cases.filter((c) => c.category === category) : cases;
-
-  useEffect(() => {
-    ScrollTrigger.refresh();
-  }, [category]);
 
   return (
     <>
@@ -77,8 +82,13 @@ export default function Portfolio() {
           </PageTitle>
 
           <div className="mt-20 grid gap-12 md:mt-28 lg:grid-cols-[1fr_240px] lg:gap-16">
-            <aside aria-label="カテゴリで絞り込む" className="lg:sticky lg:top-32 lg:col-start-2 lg:row-start-1 lg:self-start">
-              <p className="border-b border-[#333] pb-3 text-[13px] font-bold tracking-[0.08em] text-ink">カテゴリ</p>
+            <aside
+              aria-label="カテゴリで絞り込む"
+              className="lg:sticky lg:top-32 lg:col-start-2 lg:row-start-1 lg:self-start"
+            >
+              <p className="border-b border-[#333] pb-3 text-[13px] font-bold tracking-[0.08em] text-ink">
+                カテゴリ
+              </p>
               <ul className="flex flex-wrap gap-2 pt-4 lg:block lg:pt-0">
                 {[null, ...categories].map((k) => {
                   const n = k ? cases.filter((c) => c.category === k).length : cases.length;
@@ -90,14 +100,29 @@ export default function Portfolio() {
                         aria-pressed={on}
                         onClick={() => choose(k)}
                         className={`group flex items-center gap-3 rounded-full border px-4 py-2 text-[13px] tracking-[0.06em] transition-colors lg:w-full lg:justify-between lg:rounded-none lg:border-x-0 lg:border-t-0 lg:border-b-line lg:px-0 lg:py-4 ${
-                          on ? "border-[#333] bg-[#333] text-white lg:bg-transparent lg:font-bold lg:text-ink" : "border-line text-text hover:text-ink"
+                          on
+                            ? "border-[#333] bg-[#333] text-white lg:bg-transparent lg:font-bold lg:text-ink"
+                            : "border-line text-text hover:text-ink"
                         }`}
                       >
                         <span>{k ?? "すべて"}</span>
                         <span className="flex items-center gap-3">
-                          <span className={`font-latin text-[12px] ${on ? "text-white/70 lg:text-mute" : "text-mute"}`}>{n}</span>
-                          <svg viewBox="0 0 24 24" className="hidden size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 lg:block" aria-hidden>
-                            <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                          <span
+                            className={`font-latin text-[12px] ${on ? "text-white/70 lg:text-mute" : "text-mute"}`}
+                          >
+                            {n}
+                          </span>
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="hidden size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 lg:block"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="m9 5 7 7-7 7"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                            />
                           </svg>
                         </span>
                       </button>
@@ -136,11 +161,19 @@ export default function Portfolio() {
                     <span className="mt-2 block text-[17px] font-bold leading-[1.6] tracking-[0.04em] text-ink decoration-1 underline-offset-4 group-hover:underline">
                       {c.name}
                     </span>
-                    <span className="mt-3 block text-[13px] leading-[1.9] tracking-[0.04em]">{c.summary}</span>
+                    <span className="mt-3 block text-[13px] leading-[1.9] tracking-[0.04em]">
+                      {c.summary}
+                    </span>
                   </a>
-                  <p className="mt-4 text-[12px] font-medium tracking-[0.06em] text-ink">{c.industry}</p>
+                  <p className="mt-4 text-[12px] font-medium tracking-[0.06em] text-ink">
+                    {c.industry}
+                  </p>
                   <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] leading-[1.8] tracking-[0.04em] text-mute">
-                    <button type="button" onClick={() => choose(c.category)} className="underline underline-offset-2 transition-colors hover:text-ink">
+                    <button
+                      type="button"
+                      onClick={() => choose(c.category)}
+                      className="underline underline-offset-2 transition-colors hover:text-ink"
+                    >
                       {c.category}
                     </button>
                     {c.tech.map((t) => (

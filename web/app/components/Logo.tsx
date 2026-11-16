@@ -1,11 +1,17 @@
 const petals = [0, 72, 144, 216, 288];
 
-export function Logo({ className = "", adaptive = false }: { className?: string; adaptive?: boolean }) {
+export function Logo({
+  className = "",
+  adaptive = false,
+}: {
+  className?: string;
+  adaptive?: boolean;
+}) {
   return (
     <span
       className={`inline-flex items-center gap-2 text-[#333] transition-colors duration-500 ${adaptive ? "[[data-mv=dark]_&]:text-white" : ""} ${className}`}
     >
-      <svg viewBox="-12 -12 24 24" className="size-[22px]" aria-hidden>
+      <svg viewBox="-12 -12 24 24" className="size-[22px]" aria-hidden="true">
         {petals.map((deg) => (
           <path
             key={deg}
@@ -14,7 +20,10 @@ export function Logo({ className = "", adaptive = false }: { className?: string;
             fill="currentColor"
           />
         ))}
-        <circle r="1.3" className={`fill-white transition-colors duration-500 ${adaptive ? "[[data-mv=dark]_&]:fill-[#333]" : ""}`} />
+        <circle
+          r="1.3"
+          className={`fill-white transition-colors duration-500 ${adaptive ? "[[data-mv=dark]_&]:fill-[#333]" : ""}`}
+        />
       </svg>
       <span className="font-latin text-[22px] font-medium leading-none tracking-[0.01em]">
         Saku<sup className="ml-px align-super text-[0.55em]">2</sup>
