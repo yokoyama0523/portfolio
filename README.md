@@ -7,7 +7,7 @@ Saku² の Web サイト。React Router（フレームワークモード・プ�
 |---|---|
 | `web/` | サイト本体（React Router・Tailwind CSS・Vite） |
 | `web/app/samples/<id>/` | 制作サンプルのサイト（React Router のルート） |
-| `tools/` | 公開用の後処理（`og.py`・`seo.py`）と公開（`deploy.sh`） |
+| `web/scripts/` | ビルドの後処理（サイトマップ・`_headers`・`_redirects`。TypeScript） |
 
 ## 開発
 ```sh
