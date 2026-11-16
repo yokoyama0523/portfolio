@@ -15,5 +15,6 @@
     "memo": "左に固定の写真、右は白。焙煎の色は左端のゲージと点だけ。豆の名前は大きな欧文"
   },
   "entry": "index.html",
-  "has_flow": true
+  "has_flow": true,
+  "kind": "コーヒー豆の通販"
 }

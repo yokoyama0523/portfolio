@@ -1,4 +1,5 @@
 import { index, layout, type RouteConfig, route } from "@react-router/dev/routes";
+import tax from "./samples/tax/routes";
 
 export default [
   layout("site/layout.tsx", [
@@ -8,4 +9,5 @@ export default [
     route("about", "site/routes/about.tsx"),
     route("*", "site/routes/not-found.tsx"),
   ]),
+  ...tax,
 ] satisfies RouteConfig;
