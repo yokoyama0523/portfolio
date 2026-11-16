@@ -1,0 +1,31 @@
+:root {
+  --w: #fff;
+  --ink: #141414;
+  --mute: #6b6f76;
+  --blue: #1b3fd6;
+  --gray: #f0f1f3;
+  --line: #dcdde0;
+  --err: #c2372c;
+  --up: #1f8a4c;
+  --off: #c9ccc6;
+  --veil: rgb(255 255 255 / 0.9);
+  --on-blue-mute: rgb(255 255 255 / 0.8);
+  --on-blue-faint: rgb(255 255 255 / 0.7);
+  --shadow: rgb(20 20 20 / 0.25);
+  --gut: clamp(20px, 5vw, 80px);
+  --f: "Noto Sans JP Variable", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}

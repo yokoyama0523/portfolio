@@ -1,0 +1,4 @@
+# 2026-11-16 /about/ の写真
+web-*-1600.jpg / web-*-800.jpg（白黒にした）	Unsplash（Unsplash License）	https://images.unsplash.com/photo-1710020368733-0cfbc533e07e	2024年	コンピューターモニター、キーボード、スピーカーを備えたデスク
+ec-*-1600.jpg / ec-*-800.jpg（白黒にした）	Unsplash（Unsplash License）	https://images.unsplash.com/photo-1760565030243-c92ed557e8da	2025年	白い背景にカラフルなショッピングバッグを手に持つ
+office-*-1600.jpg / office-*-800.jpg（白黒にした）	Unsplash（Unsplash License）	https://images.unsplash.com/photo-1784012980517-005c26585344	2026年	木製の机、植物、窓を備えたミニマリストな内装

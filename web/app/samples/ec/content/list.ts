@@ -1,0 +1,50 @@
+import { shop } from "./catalog";
+
+export const listPage = {
+  meta: { title: `商品一覧｜${shop.name}`, slug: "list/" },
+  titles: {
+    search: (q: string) => `「${q}」の検索結果`,
+    isNew: "新着",
+    sale: "セール",
+    all: "すべての商品",
+  },
+  leads: { sale: "表示の価格はセール価格（税込）です。", isNew: "この2か月に入荷した商品です。" },
+  filterLabel: "絞り込み",
+  close: "閉じる",
+  headings: {
+    category: "カテゴリー",
+    color: "カラー",
+    size: "サイズ",
+    price: "価格",
+    stock: "在庫",
+  },
+  allCategories: "すべて",
+  inStock: "在庫ありのみ",
+  clear: "絞り込みをすべて外す",
+  apply: "この条件で見る",
+  count: "件",
+  open: "絞り込み",
+  sortLabel: "並べ替え",
+  sorts: [
+    { value: "rec", label: "おすすめ順" },
+    { value: "new", label: "新着順" },
+    { value: "rank", label: "人気順" },
+    { value: "asc", label: "価格が安い順" },
+    { value: "desc", label: "価格が高い順" },
+  ],
+  prices: [
+    { value: "", label: "すべて" },
+    { value: "0-5000", label: "〜5,000円" },
+    { value: "5000-10000", label: "5,000〜10,000円" },
+    { value: "10000-20000", label: "10,000〜20,000円" },
+    { value: "20000-", label: "20,000円〜" },
+  ],
+  chips: {
+    size: (s: string) => `サイズ ${s}`,
+    inStock: "在庫あり",
+    search: (q: string) => `検索: ${q}`,
+  },
+  empty: ["条件に合う商品がありません。", "絞り込みを減らしてみてください。"],
+  pagesLabel: "ページ",
+  desktopQuery: "(min-width: 901px)",
+};

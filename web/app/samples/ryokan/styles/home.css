@@ -1,0 +1,507 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--got);
+  font-weight: 300;
+  font-size: 13.5px;
+  line-height: 2.2;
+  letter-spacing: 0.06em;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  background: var(--bg);
+  color: var(--fg);
+  transition:
+    background-color 1.4s ease,
+    color 1.4s ease;
+}
+.page.dark {
+  --fg: var(--light);
+  --fg-2: var(--light-2);
+  --line: var(--light-line);
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+}
+p {
+  margin: 0 0 1.2em;
+}
+.v {
+  writing-mode: vertical-rl;
+  font-feature-settings: "vpal" 1;
+}
+.hd {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px var(--gut);
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  mix-blend-mode: difference;
+  color: var(--w);
+}
+.hd .logo {
+  font-family: var(--min);
+  font-size: 20px;
+  letter-spacing: 0.3em;
+}
+.hd .logo .latin {
+  font-family: var(--got);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  margin-left: 14px;
+  opacity: 0.75;
+}
+.hd nav {
+  display: flex;
+  gap: 26px;
+}
+.hd .bk {
+  border: 1px solid currentColor;
+  padding: 8px 18px;
+}
+.clock {
+  position: fixed;
+  left: var(--gut);
+  bottom: 44px;
+  z-index: 20;
+  font-family: var(--min);
+  line-height: 1;
+  mix-blend-mode: difference;
+  color: var(--w);
+  transition: opacity 0.6s;
+}
+.clock.off {
+  opacity: 0;
+}
+.clock b {
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 54px);
+  letter-spacing: 0.02em;
+  display: block;
+}
+.clock small {
+  display: block;
+  font-family: var(--got);
+  font-size: 10.5px;
+  letter-spacing: 0.3em;
+  margin-top: 10px;
+  opacity: 0.7;
+}
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  animation: zoom 14s ease-out forwards;
+}
+@keyframes zoom {
+  to {
+    transform: none;
+  }
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-veil);
+}
+.hero .ttl {
+  position: absolute;
+  right: var(--gut);
+  top: 110px;
+  z-index: 2;
+  color: var(--light);
+  font-family: var(--min);
+  font-size: clamp(30px, 4.2vw, 56px);
+  letter-spacing: 0.22em;
+  line-height: 1.6;
+  height: auto;
+  text-shadow: 0 2px 20px var(--shadow);
+  opacity: 0;
+  animation: up 1.6s ease 0.4s forwards;
+}
+.hero .sub {
+  position: absolute;
+  left: var(--gut);
+  bottom: 200px;
+  z-index: 2;
+  color: var(--light);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  opacity: 0;
+  animation: up 1.4s ease 1.2s forwards;
+}
+.hero .sub b {
+  font-family: var(--min);
+  font-weight: 400;
+  font-size: 18px;
+  display: block;
+  letter-spacing: 0.3em;
+  margin-bottom: 6px;
+}
+@keyframes up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.t {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+  padding: clamp(80px, 10vw, 140px) var(--gut) clamp(80px, 10vw, 140px) calc(var(--gut) + 120px);
+}
+.t .pic {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  max-height: 78vh;
+}
+.t:nth-child(even) .pic {
+  order: 2;
+}
+.t .pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.t .tx {
+  max-width: 30em;
+}
+.t .when {
+  font-family: var(--min);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--fg-2);
+  margin-bottom: 16px;
+}
+.t h2 {
+  font-family: var(--min);
+  font-size: clamp(28px, 3.4vw, 44px);
+  letter-spacing: 0.14em;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.t p {
+  color: var(--fg);
+}
+.t .menu {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  font-size: 12.5px;
+  border-top: 1px solid var(--line);
+}
+.t .menu li {
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.t .menu li span:first-child {
+  color: var(--fg-2);
+  letter-spacing: 0.14em;
+}
+.t .pics2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 22px;
+}
+.t .pics2 div {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.t .pics2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.t .note {
+  font-size: 11.5px;
+  color: var(--fg-2);
+  margin-top: 14px;
+}
+.rooms {
+  padding: clamp(80px, 10vw, 140px) var(--gut) clamp(80px, 10vw, 140px) calc(var(--gut) + 120px);
+}
+.rooms .head {
+  display: flex;
+  gap: 40px;
+  align-items: flex-end;
+  margin-bottom: 48px;
+}
+.rooms h2 {
+  font-family: var(--min);
+  font-size: clamp(26px, 3vw, 38px);
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+}
+.rooms .head p {
+  color: var(--fg-2);
+  margin: 0;
+  max-width: 30em;
+}
+.rooms .list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+}
+.rooms article .pic {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.rooms article img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.rooms h3 {
+  font-family: var(--min);
+  font-size: 20px;
+  letter-spacing: 0.16em;
+  margin: 18px 0 6px;
+}
+.rooms h3 small {
+  font-family: var(--got);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--fg-2);
+  margin-left: 10px;
+}
+.rooms p {
+  font-size: 12.5px;
+  margin: 0 0 8px;
+}
+.rooms .pr {
+  font-family: var(--min);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+}
+.rooms .pr small {
+  font-family: var(--got);
+  font-size: 10.5px;
+  color: var(--fg-2);
+  margin-left: 6px;
+}
+.book {
+  padding: clamp(80px, 10vw, 140px) var(--gut) clamp(80px, 10vw, 140px) calc(var(--gut) + 120px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+}
+.book h2 {
+  font-family: var(--min);
+  font-size: clamp(26px, 3vw, 38px);
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.book form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+  max-width: 520px;
+}
+.book label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--fg-2);
+  display: block;
+}
+.book input,
+.book select {
+  width: 100%;
+  margin-top: 6px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--fg);
+  padding: 8px 0;
+  font: inherit;
+  color: var(--fg);
+  letter-spacing: 0.06em;
+}
+.book .full {
+  grid-column: 1 / 3;
+}
+.book button {
+  grid-column: 1 / 3;
+  margin-top: 12px;
+  background: var(--fg);
+  color: var(--bg);
+  border: 0;
+  padding: 16px;
+  font: inherit;
+  letter-spacing: 0.3em;
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background 1.4s,
+    color 1.4s;
+}
+.book .tel {
+  font-size: 12px;
+  color: var(--fg-2);
+  margin-top: 14px;
+}
+.book .tel .number {
+  font-family: var(--min);
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--fg);
+  letter-spacing: 0.06em;
+  display: block;
+}
+.book dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 6em 1fr;
+  gap: 0 14px;
+  font-size: 12.5px;
+}
+.book dt {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg-2);
+  letter-spacing: 0.14em;
+}
+.book dd {
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ft {
+  padding: 48px var(--gut) 64px calc(var(--gut) + 120px);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--fg-2);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+  border-top: 1px solid var(--line);
+}
+.r {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.r.in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .r {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .page {
+    transition: none;
+  }
+  .hero img {
+    animation: none;
+    transform: none;
+  }
+  .hero .ttl,
+  .hero .sub {
+    animation: none;
+    opacity: 1;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+@media (max-width: 980px) {
+  .t,
+  .rooms,
+  .book,
+  .ft {
+    padding-left: var(--gut);
+  }
+  .t {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 28px;
+  }
+  .t:nth-child(even) .pic {
+    order: 0;
+  }
+  .t .pic {
+    aspect-ratio: 4 / 3;
+    max-height: none;
+  }
+  .rooms .list {
+    grid-template-columns: 1fr;
+  }
+  .book {
+    grid-template-columns: 1fr;
+  }
+  .clock {
+    left: auto;
+    right: 20px;
+    bottom: 20px;
+  }
+  .clock b {
+    font-size: 30px;
+  }
+  .clock small {
+    display: none;
+  }
+  .hd nav a:not(.bk) {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .hd {
+    padding: 18px 20px;
+  }
+  .hd .logo .latin {
+    display: none;
+  }
+  .hero .ttl {
+    top: 90px;
+    right: 20px;
+    font-size: 30px;
+  }
+  .hero .sub {
+    left: 20px;
+    bottom: 100px;
+  }
+  .book form {
+    grid-template-columns: 1fr;
+  }
+  .book .full,
+  .book button {
+    grid-column: 1;
+  }
+}

@@ -1,0 +1,6 @@
+roaster.jpg	Pixabay	https://pixabay.com/photos/coffee-caffeine-organic-background-4512564/
+beans-light.jpg	Pixabay	https://pixabay.com/photos/coffee-beans-coffee-roasted-1291656/
+beans-mid.jpg	Pixabay	https://pixabay.com/photos/coffee-beans-seeds-caffeine-6475928/
+beans-dark.jpg	Pixabay	https://pixabay.com/photos/coffee-beans-roasted-food-coffee-6185161/
+brew.jpg	Pixabay	https://pixabay.com/photos/coffee-grinds-filter-cafe-924948/
+shop.jpg	ぱくたそ	https://www.pakutaso.com/20200602170post-28022.html

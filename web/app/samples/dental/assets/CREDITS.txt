@@ -1,0 +1,15 @@
+hero-dr.jpg	Pexels	https://www.pexels.com/photo/4687404/
+director-dr.jpg	Pexels	https://www.pexels.com/photo/19332236/
+staff-hyg.jpg	Pexels	https://www.pexels.com/photo/4269699/
+staff-desk.jpg	Pexels	https://www.pexels.com/photo/4270077/
+staff-2.jpg	ぱくたそ	https://www.pakutaso.com/20160732188post-8325.html
+tx-general.jpg	ぱくたそ	https://www.pakutaso.com/20170817234post-12931.html
+tx-preventive.jpg	ぱくたそ	https://www.pakutaso.com/20180900246post-17278.html
+tx-pediatric.jpg	ぱくたそ	https://www.pakutaso.com/20160603161post-8102.html
+tx-ortho2.jpg	Pexels	https://www.pexels.com/photo/9951394/
+tx-whitening.jpg	ぱくたそ	https://www.pakutaso.com/20241221338post-52961.html
+tx-prosth2.jpg	Pexels	https://www.pexels.com/photo/6502305/
+reception.jpg	Pexels	https://images.pexels.com/photos/8459996/pexels-photo-8459996.jpeg
+clinic-room.jpg	Pexels	https://images.pexels.com/photos/6812463/pexels-photo-6812463.jpeg
+clinic-chair.jpg	Pexels	https://images.pexels.com/photos/305568/pexels-photo-305568.jpeg
+clinic-kids.jpg	Pexels	https://images.pexels.com/photos/11295737/pexels-photo-11295737.jpeg
