@@ -1,6 +1,7 @@
 import { index, layout, type RouteConfig, route } from "@react-router/dev/routes";
 import corp from "./samples/corp/routes";
 import house from "./samples/house/routes";
+import salon from "./samples/salon/routes";
 import tax from "./samples/tax/routes";
 
 export default [
@@ -13,5 +14,6 @@ export default [
   ]),
   ...corp,
   ...house,
+  ...salon,
   ...tax,
 ] satisfies RouteConfig;
