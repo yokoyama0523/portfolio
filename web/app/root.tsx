@@ -7,17 +7,17 @@ import {
   ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
+import { site } from "./config";
 import { Analytics } from "./shared/Analytics";
+import { layoutCopy } from "./site/data/layout";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-  { rel: "icon", href: "/favicon-48.png", sizes: "48x48", type: "image/png" },
-  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-];
+const SERVER_ERROR = 500;
+
+export const links: Route.LinksFunction = () => [...site.icons];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang={site.lang}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,14 +39,14 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  const status = isRouteErrorResponse(error) ? error.status : 500;
+  const status = isRouteErrorResponse(error) ? error.status : SERVER_ERROR;
   return (
     <main>
-      <title>エラー</title>
+      <title>{layoutCopy.error.title}</title>
       <meta name="robots" content="noindex" />
       <h1>{status}</h1>
-      <p>ページを表示できませんでした。</p>
-      <a href="/">トップへ戻る</a>
+      <p>{layoutCopy.error.text}</p>
+      <a href={site.paths.home}>{layoutCopy.error.back}</a>
     </main>
   );
 }

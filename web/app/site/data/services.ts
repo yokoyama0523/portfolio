@@ -1,7 +1,9 @@
+import { site } from "~/config";
 import { type Case, cases } from "./cases";
 
 export type Service = {
   id: string;
+  href: string;
   en: string;
   jp: string;
   text: string[];
@@ -12,9 +14,11 @@ export type Service = {
 
 const pick = (id: string) => cases.find((c) => c.id === id) ?? cases[0];
 
+const anchor = (id: string) => ({ id, href: `${site.paths.service}#${id}` });
+
 export const services: Service[] = [
   {
-    id: "corporate",
+    ...anchor("corporate"),
     en: "Website",
     jp: "コーポレートサイト制作",
     text: [
@@ -27,7 +31,7 @@ export const services: Service[] = [
     works: cases.filter((c) => c.category !== "EC"),
   },
   {
-    id: "ec",
+    ...anchor("ec"),
     en: "E-commerce",
     jp: "ECサイト構築・予約フォーム",
     text: [

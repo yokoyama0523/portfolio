@@ -1,21 +1,20 @@
 import { Link } from "react-router";
 import { site } from "~/config";
 import { cases } from "~/site/data/cases";
+import { layoutCopy } from "~/site/data/layout";
 import { Logo } from "./Logo";
 
-const linkClass =
-  "w-fit bg-[linear-gradient(currentColor,currentColor)] bg-[length:0_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 ease-out-soft hover:bg-[length:100%_1px]";
+const text = layoutCopy.footer;
+const linkClass = "w-fit underline-grow";
+const titleClass = `font-latin text-md tracking-6 text-ink ${linkClass}`;
 
 export function Footer() {
   return (
     <footer className="px-5 pt-24 md:px-12 md:pt-32">
-      <div className="mx-auto grid max-w-[1280px] gap-12 text-[13px] tracking-[0.06em] md:grid-cols-[2fr_1fr_1fr_1fr_2fr]">
+      <div className="mx-auto grid max-w-content gap-12 text-sm tracking-6 md:grid-cols-footer">
         <div>
-          <Link
-            to="/portfolio/"
-            className={`font-latin text-[14px] tracking-[0.06em] text-ink ${linkClass}`}
-          >
-            Works
+          <Link to={text.works.href} className={titleClass}>
+            {text.works.title}
           </Link>
           <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2">
             {cases.map((c) => (
@@ -27,65 +26,47 @@ export function Footer() {
             ))}
           </ul>
         </div>
+        {text.groups.map((group) => (
+          <div key={group.title}>
+            <Link to={group.href} className={titleClass}>
+              {group.title}
+            </Link>
+            <ul className="mt-5 grid gap-2">
+              {group.links.map((link) => (
+                <li key={link.href}>
+                  <Link to={link.href} className={linkClass}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
         <div>
-          <Link
-            to="/service/"
-            className={`font-latin text-[14px] tracking-[0.06em] text-ink ${linkClass}`}
-          >
-            Service
-          </Link>
+          <p className="font-latin text-md tracking-6 text-ink">{text.contact.title}</p>
           <ul className="mt-5 grid gap-2">
-            <li>
-              <Link to="/service/" className={linkClass}>
-                サービス
-              </Link>
-            </li>
-            <li>
-              <Link to="/service/#process" className={linkClass}>
-                制作の流れ
-              </Link>
-            </li>
+            {text.contact.links.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} target="_blank" rel="noopener" className={linkClass}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
-        <div>
-          <Link
-            to="/about/"
-            className={`font-latin text-[14px] tracking-[0.06em] text-ink ${linkClass}`}
-          >
-            About
-          </Link>
-          <ul className="mt-5 grid gap-2">
-            <li>
-              <Link to="/about/" className={linkClass}>
-                運営者情報
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-latin text-[14px] tracking-[0.06em] text-ink">Contact</p>
-          <ul className="mt-5 grid gap-2">
-            <li>
-              <a href={site.crowdworks} target="_blank" rel="noopener" className={linkClass}>
-                クラウドワークス
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="text-[12px] leading-[2] text-mute">
-          <p>
-            掲載事例の企業・店舗・人物はすべて架空のものです。写真はフリー素材（ぱくたそ・Unsplash・Pexels・Pixabay）を使用しており、人物はモデルです。
-          </p>
-          <p className="mt-2">
-            当サイトでは、アクセス解析のために Google アナリティクスを使用しています。
-          </p>
+        <div className="text-xs leading-relaxed text-mute">
+          {text.notes.map((note, i) => (
+            <p key={note} className={i > 0 ? "mt-2" : undefined}>
+              {note}
+            </p>
+          ))}
         </div>
       </div>
-      <div className="mx-auto mt-20 flex max-w-[1280px] items-center justify-between border-t border-line py-8">
-        <Link to="/" aria-label="Saku² トップ">
+      <div className="mx-auto mt-20 flex max-w-content items-center justify-between border-t border-line py-8">
+        <Link to={site.paths.home} aria-label={layoutCopy.homeLabel}>
           <Logo />
         </Link>
-        <p className="font-latin text-[12px] tracking-[0.06em] text-mute">© 2026 {site.name}</p>
+        <p className="font-latin text-xs tracking-6 text-mute">{text.copyright}</p>
       </div>
     </footer>
   );

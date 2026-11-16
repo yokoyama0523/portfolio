@@ -28,7 +28,7 @@ export const buildMeta = ({ title, description, path, image, noindex, graph }: P
     { property: "og:image", content: absoluteUrl(image) },
     { property: "og:image:width", content: String(ogImage.width) },
     { property: "og:image:height", content: String(ogImage.height) },
-    { property: "og:locale", content: "ja_JP" },
+    { property: "og:locale", content: site.locale },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "author", content: site.name },
   ];

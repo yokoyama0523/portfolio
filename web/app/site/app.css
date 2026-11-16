@@ -1,15 +1,113 @@
 @import "tailwindcss";
 
+@custom-variant mv-dark ([data-mv="dark"] &);
+@custom-variant in-current-page (:where(.group)[aria-current="page"] &);
+
 @theme {
   --font-latin: "Outfit Variable", system-ui, sans-serif;
   --font-jp: "Noto Sans JP Variable", "Hiragino Sans", sans-serif;
+
   --color-ink: #000000;
-  --color-text: #333333;
+  --color-charcoal: #333333;
+  --color-charcoal-soft: #4a4a4a;
+  --color-text: var(--color-charcoal);
   --color-mute: #6f6f74;
   --color-line: #e5e5e2;
+  --color-rule: #d9d9d9;
+  --color-rule-strong: #cfcfcf;
   --color-mist: #f4f5f7;
-  --color-frame: #d6d8de;
-  --color-accent: #000000;
+  --color-mist-deep: #e9ebf2;
+  --color-smoke: #f5f5f5;
+  --color-pale: #ededed;
+  --color-device: #1d1d1f;
+  --color-hinge-light: #cfd2d8;
+  --color-hinge-dark: #a9adb5;
+  --color-accent: var(--color-ink);
+
+  --text-*: initial;
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 14px;
+  --text-base: 15px;
+  --text-lg: 16px;
+  --text-xl: 17px;
+  --text-2xl: 22px;
+  --text-3xl: 24px;
+  --text-4xl: 34px;
+  --text-5xl: 56px;
+  --text-6xl: 64px;
+  --text-sup: 0.55em;
+  --text-display-lead: clamp(18px, 1.6vw, 22px);
+  --text-display-subhead: clamp(22px, 2.8vw, 36px);
+  --text-display-brand: clamp(24px, 2.6vw, 30px);
+  --text-display-tagline: clamp(24px, 3.2vw, 40px);
+  --text-display-panel: clamp(32px, 3vw, 44px);
+  --text-display-cta: clamp(36px, 4vw, 56px);
+  --text-display-contact: clamp(40px, 5.4vw, 84px);
+  --text-display-section: clamp(44px, 5vw, 72px);
+  --text-display-service: clamp(44px, 6vw, 96px);
+  --text-display-business: clamp(44px, 6.2vw, 80px);
+  --text-display-term: clamp(48px, 6.2vw, 80px);
+  --text-display-statement: clamp(48px, 9vw, 148px);
+  --text-display-page: clamp(56px, 9vw, 140px);
+  --text-display-about: clamp(60px, 7.4vw, 90px);
+
+  --tracking-*: initial;
+  --tracking-1: 0.01em;
+  --tracking-2: 0.02em;
+  --tracking-3: 0.03em;
+  --tracking-4: 0.04em;
+  --tracking-6: 0.06em;
+  --tracking-8: 0.08em;
+  --tracking-10: 0.1em;
+  --tracking-12: 0.12em;
+  --tracking-14: 0.14em;
+  --tracking-16: 0.16em;
+
+  --leading-*: initial;
+  --leading-label: calc(1 / 0.75);
+  --leading-display: 0.92;
+  --leading-statement: 0.98;
+  --leading-heading: 1.05;
+  --leading-button: 1.35;
+  --leading-snug: 1.6;
+  --leading-tag: 1.8;
+  --leading-body: 1.9;
+  --leading-relaxed: 2;
+  --leading-loose: 2.1;
+  --leading-airy: 2.2;
+
+  --container-content: 1280px;
+  --container-access: 656px;
+  --container-panel-image: 560px;
+
+  --spacing-word: 0.22em;
+  --spacing-word-gap: 0.3em;
+  --spacing-descender: 0.12em;
+  --spacing-mock-x: 9%;
+  --spacing-mock-bottom: 14%;
+  --spacing-hinge: 6%;
+  --spacing-sakura-x: calc(50% + 385px);
+  --spacing-bleed: max(3rem, calc((100vw - var(--container-content)) / 2));
+  --spacing-bleed-inset: calc(var(--spacing-bleed) + 2rem);
+
+  --aspect-screen: 16 / 10;
+  --aspect-photo: 3 / 2;
+  --aspect-card: 4 / 5;
+  --aspect-shot: 4 / 3;
+  --aspect-phone: 390 / 800;
+
+  --radius-laptop: 10px;
+  --radius-phone: 22px;
+
+  --shadow-hairline: 0 1px 0 var(--color-line);
+  --shadow-float: 0 30px 60px -30px rgb(0 0 0 / 0.5);
+  --shadow-float-soft: 0 30px 60px -30px rgb(0 0 0 / 0.45);
+  --shadow-phone: 0 24px 50px -24px rgb(0 0 0 / 0.5);
+
+  --perspective-stack: 1800px;
+
   --ease-out-soft: cubic-bezier(0.2, 0.75, 0.1, 1);
   --ease-in-out-soft: cubic-bezier(0.7, 0, 0.2, 1);
   --animate-scroll-line: scroll-line 2.2s var(--ease-in-out-soft) infinite;
@@ -40,9 +138,71 @@
   }
 }
 
+@theme static {
+  --color-statement-dim: #d9dbe3;
+}
+
+@utility grid-cols-aside {
+  grid-template-columns: 4fr 7fr;
+}
+
+@utility grid-cols-intro {
+  grid-template-columns: 5fr 7fr;
+}
+
+@utility grid-cols-feature {
+  grid-template-columns: 6fr 5fr;
+}
+
+@utility grid-cols-footer {
+  grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+}
+
+@utility grid-cols-filter {
+  grid-template-columns: 1fr 240px;
+}
+
+@utility grid-cols-toc {
+  grid-template-columns: 200px 1fr;
+}
+
+@utility grid-cols-profile {
+  grid-template-columns: 214px 1fr;
+}
+
+@utility grid-cols-term {
+  grid-template-columns: 96px 1fr;
+}
+
+@utility grid-cols-step {
+  grid-template-columns: 56px 1fr;
+}
+
+@utility grid-cols-step-wide {
+  grid-template-columns: 72px 1fr 48px;
+}
+
+@utility transition-padding {
+  transition-property: padding;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+}
+
+@utility underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 500ms var(--ease-out-soft);
+
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
 @layer base {
   body {
-    @apply bg-white font-jp text-[14px] leading-[1.9] tracking-[0.03em] text-text antialiased;
+    @apply bg-white font-jp text-md leading-body tracking-3 text-text antialiased;
     word-break: auto-phrase;
     text-wrap: pretty;
   }
