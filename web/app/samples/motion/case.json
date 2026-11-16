@@ -1,0 +1,19 @@
+{
+  "id": "motion",
+  "order": 10,
+  "name": "VOID/FORM",
+  "industry": "Web制作会社",
+  "industry_short": "制作会社",
+  "industry_en": "Creative studio",
+  "category": "企業",
+  "summary": "Web制作会社。3Dの金属とスクロールに合わせた動き。",
+  "features": ["3D表示", "スクロール演出", "横スクロールの事例一覧"],
+  "tech": ["HTML", "CSS", "JavaScript", "Three.js r128", "GSAP 3.12", "Lenis 1.0"],
+  "design": {
+    "fonts": "Schibsted Grotesk ＋ Instrument Serif",
+    "palette": ["#e9e9e6", "#101010", "#1b2bff", "#5f5f5c"],
+    "memo": "画像を使わないシェーダーの液体クローム、巨大ワードマーク、横スクロールの事例。白地"
+  },
+  "entry": "index.html",
+  "has_flow": false
+}
