@@ -1,11 +1,14 @@
 {
   "name": "yokoyama-dev",
   "private": true,
+  "engines": {
+    "node": ">=22.18.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
     "build": "react-router build && node scripts/finish-build.ts",
-    "deploy": "wrangler pages deploy build/client --project-name=yokoyama-dev-portfolio --branch=main",
+    "deploy": "wrangler pages deploy build/client --project-name=yokoyama-dev-portfolio",
     "typecheck": "react-router typegen && tsc",
     "check": "biome check .",
     "format": "biome check --write ."
