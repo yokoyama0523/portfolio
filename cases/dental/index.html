@@ -30,7 +30,7 @@ ul{padding:0;list-style:none}
 /* hero：アーチの写真と縦書きの一文 */
 .hero{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,4vw,64px);padding:clamp(16px,3vw,40px) var(--gut) 0;align-items:stretch;max-width:1440px;margin:0 auto}
 .hero .ph{height:min(84vh,860px);overflow:hidden;border-radius:999px 999px 0 0}
-.hero .ph img{width:100%;height:100%;object-fit:cover;object-position:68% 28%}
+.hero .ph img{width:100%;height:100%;object-fit:cover;object-position:45% 30%}
 .hero .tx{display:flex;flex-direction:column;justify-content:space-between;padding:clamp(12px,2vw,32px) 0 clamp(16px,3vw,40px);min-width:0}
 .hero h1{writing-mode:vertical-rl;font-family:var(--maru);font-weight:700;font-size:clamp(24px,2.9vw,40px);line-height:1.9;letter-spacing:.14em;height:clamp(320px,56vh,600px);margin:0}
 .hero h1 span{display:block}
@@ -98,7 +98,7 @@ ul{padding:0;list-style:none}
 /* 院長・スタッフ */
 .doc .box{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,96px);align-items:center}
 .doc .ph{aspect-ratio:4/5;overflow:hidden;border-radius:999px 999px 0 0}
-.doc .ph img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.doc .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 16%}
 .doc h2{font-family:var(--maru);font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.7;letter-spacing:.06em}
 .doc .msg{margin-top:20px;max-width:34em}
 .doc .msg p+p{margin-top:1em}
@@ -117,6 +117,7 @@ ul{padding:0;list-style:none}
 /* 院内：横に流れる写真 */
 .room .strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:36px calc(-1*var(--gut)) 0;padding:0 var(--gut) 6px;scrollbar-width:none}
 .room .strip::-webkit-scrollbar{display:none}
+@media (min-width:901px){.room .strip{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;margin:36px 0 0;padding:0}}
 .room figure{flex:0 0 min(70vw,520px);scroll-snap-align:start}
 .room .im{aspect-ratio:4/3;overflow:hidden;border-radius:16px}
 .room .im img{width:100%;height:100%;object-fit:cover}
@@ -151,6 +152,7 @@ ul{padding:0;list-style:none}
 @media (max-width:880px){
   .hero{grid-template-columns:1fr;padding-top:0}
   .hero .ph{height:auto;aspect-ratio:1;border-radius:0 0 999px 999px;margin:0 calc(-1*var(--gut))}
+  .hero .ph img{object-position:45% 12%}
   .hero .tx{padding:24px 0 8px;flex-direction:row;gap:20px;align-items:flex-start}
   .hero h1{height:auto;writing-mode:horizontal-tb;font-size:clamp(22px,6vw,30px);line-height:1.7;margin:0;order:-1;flex:1}
   .hero .sub,.hero .facts{display:none}
@@ -183,7 +185,7 @@ ul{padding:0;list-style:none}
 
 <main>
 <section class="hero" aria-label="紹介">
-  <div class="ph"><img src="assets/top-arch.jpg" alt="" width="1280" height="853"></div>
+  <div class="ph"><img src="assets/hero-dr.jpg" alt="" width="1200" height="1800"></div>
   <div class="tx">
     <h1><span>治療が苦手な方も、</span><span>そうでない方も。</span><span>桜丘の、家族の</span><span>かかりつけ歯医者さん。</span></h1>
     <div>
@@ -244,9 +246,9 @@ ul{padding:0;list-style:none}
     <a href="treatment.html#general"><div class="im"><img src="assets/tx-general.jpg" alt="" width="1280" height="853"></div><div><h3>むし歯・歯周病の治療</h3><p>できるだけ削らない、神経を残す治療を。歯周病は早めの治療と定期的なケアで守ります。</p></div></a>
     <a href="treatment.html#preventive"><div class="im"><img src="assets/tx-preventive.jpg" alt="" width="1280" height="853"></div><div><h3>予防歯科・クリーニング</h3><p>3か月ごとの検診とクリーニング。担当の歯科衛生士が毎回同じ方を担当します。</p></div></a>
     <a href="treatment.html#pediatric"><div class="im"><img src="assets/tx-pediatric.jpg" alt="" width="1280" height="853"></div><div><h3>小児歯科</h3><p>まずは診療台に座る練習から。フッ素塗布とシーラントでむし歯を予防します。</p></div></a>
-    <a href="treatment.html#ortho"><div class="im"><img src="assets/tx-ortho.jpg" alt="" width="1280" height="853"></div><div><h3>矯正歯科</h3><p>月2回、矯正専門の歯科医師が診療。お子さまからマウスピース矯正まで。相談は無料です。</p></div></a>
+    <a href="treatment.html#ortho"><div class="im"><img src="assets/tx-ortho2.jpg" alt="" width="1280" height="853"></div><div><h3>矯正歯科</h3><p>月2回、矯正専門の歯科医師が診療。お子さまからマウスピース矯正まで。相談は無料です。</p></div></a>
     <a href="treatment.html#whitening"><div class="im"><img src="assets/tx-whitening.jpg" alt="" width="1280" height="853"></div><div><h3>ホワイトニング</h3><p>ご自宅で行うホームと、医院で行うオフィス。歯の状態を確認してからご提案します。</p></div></a>
-    <a href="treatment.html#prosth"><div class="im"><img src="assets/tx-prosth.jpg" alt="" width="1280" height="853"></div><div><h3>入れ歯・インプラント</h3><p>合わない入れ歯の調整から、インプラントのご相談まで。噛めると、食事が楽しくなります。</p></div></a>
+    <a href="treatment.html#prosth"><div class="im"><img src="assets/tx-prosth2.jpg" alt="" width="1280" height="853"></div><div><h3>入れ歯・インプラント</h3><p>合わない入れ歯の調整から、インプラントのご相談まで。噛めると、食事が楽しくなります。</p></div></a>
   </div>
   <a class="all" href="treatment.html">治療の流れと費用の目安を見る</a>
 </section>
@@ -265,7 +267,7 @@ ul{padding:0;list-style:none}
 
 <section class="sec doc" id="doc">
   <div class="box">
-    <div class="ph"><img src="assets/director.jpg" alt="院長 小野寺ひかり" width="1280" height="853"></div>
+    <div class="ph"><img src="assets/director-dr.jpg" alt="院長 小野寺ひかり" width="1200" height="1800"></div>
     <div>
       <h2>はじめまして。院長の小野寺ひかりです。</h2>
       <div class="msg">
@@ -279,9 +281,9 @@ ul{padding:0;list-style:none}
   <div class="staff">
     <h2>スタッフ</h2>
     <div class="grid">
-      <div><div class="ph"><img src="assets/staff-1.jpg" alt="" width="1280" height="853"></div><h3>佐藤 真衣<small>歯科衛生士</small></h3><p>定期検診は毎回同じ衛生士が担当します。前回の写真と見比べてお話しします。</p></div>
-      <div><div class="ph"><img src="assets/staff-2.jpg" alt="" width="1280" height="853"></div><h3>高木 なつみ<small>歯科衛生士・保育士</small></h3><p>お子さまの歯みがき練習と、治療中のお預かりを担当しています。</p></div>
-      <div><div class="ph"><img src="assets/staff-3.jpg" alt="" width="1280" height="853"></div><h3>受付スタッフ<small>受付・歯科助手</small></h3><p>予約の変更、保険のこと、費用のことなど、気になることは受付でお気軽にどうぞ。</p></div>
+      <div><div class="ph"><img src="assets/staff-hyg.jpg" alt="" width="1200" height="1800" style="object-position:50% 24%"></div><h3>佐藤 真衣<small>歯科衛生士</small></h3><p>定期検診は毎回同じ衛生士が担当します。前回の写真と見比べてお話しします。</p></div>
+      <div><div class="ph"><img src="assets/staff-2.jpg" alt="" width="1280" height="853" style="object-position:62% 18%"></div><h3>高木 なつみ<small>歯科衛生士・保育士</small></h3><p>お子さまの歯みがき練習と、治療中のお預かりを担当しています。</p></div>
+      <div><div class="ph"><img src="assets/staff-desk.jpg" alt="" width="1200" height="1800" style="object-position:58% 20%"></div><h3>受付スタッフ<small>受付・歯科助手</small></h3><p>予約の変更、保険のこと、費用のことなど、気になることは受付でお気軽にどうぞ。</p></div>
     </div>
   </div>
 </section>
@@ -341,7 +343,7 @@ ul{padding:0;list-style:none}
     <div><h3>診療時間</h3><table><tr><td></td><td>月</td><td>火</td><td>水</td><td>木</td><td>金</td><td>土</td><td>日</td></tr><tr><td>9:30〜13:00</td><td>●</td><td>●</td><td>●</td><td>／</td><td>●</td><td>●</td><td>●</td></tr><tr><td>14:30〜19:00</td><td>●</td><td>●</td><td>●</td><td>／</td><td>●</td><td>★</td><td>★</td></tr></table><p style="margin-top:6px">★ 土日の午後は17:30まで　休診：木曜・祝日</p></div>
     <div><h3>メニュー</h3><ul><li><a href="#feat">当院の特長</a></li><li><a href="treatment.html">診療案内</a></li><li><a href="#first">初めての方へ</a></li><li><a href="#doc">院長・スタッフ</a></li><li><a href="#room">院内</a></li><li><a href="#access">アクセス</a></li><li><a href="reserve.html">WEB予約</a></li></ul></div>
   </div>
-  <div class="copy"><span>© Hidamari Dental Clinic</span><span>このページはポートフォリオ用の架空の医院です。人物の写真はフリー素材（ぱくたそ）のモデルで、本文の人物とは関係ありません。</span></div>
+  <div class="copy"><span>© Hidamari Dental Clinic</span><span>このページはポートフォリオ用の架空の医院です。人物の写真はフリー素材（ぱくたそ・Pexels）のモデルで、本文の人物とは関係ありません。</span></div>
 </footer>
 
 <nav class="bar" aria-label="予約">

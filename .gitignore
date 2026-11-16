@@ -17,3 +17,6 @@ cases/*/_assets_sheet.png
 
 __pycache__/
 .DS_Store
+
+# 素材サイトの検索結果（作業用）
+tools/media/stock_*.json

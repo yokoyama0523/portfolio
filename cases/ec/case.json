@@ -4,6 +4,7 @@
   "name": "ASAGI",
   "industry": "アパレル通販",
   "industry_short": "アパレル",
+  "industry_en": "Apparel",
   "category": "EC",
   "summary": "アパレルの通販サイト。本物のECと同じ画面構成で、管理画面まで。",
   "features": [

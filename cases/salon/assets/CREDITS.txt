@@ -26,3 +26,6 @@ color.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https:/
 
 # 2026-11-13 差し替え（salon・ぱくたそ）
 portrait.jpg	unsplash（ぱくたそ利用規約・クレジット不要）	https://images.unsplash.com/photo-1575250900466-48f9f225fcf8	昼間は青いVネックトップスを着た女性
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+stylist-owner.jpg	pexels（Pexels License）	https://www.pexels.com/photo/15640974/		https://images.pexels.com/photos/15640974/pexels-photo-15640974/free-photo-of-studio-shot-of-man-with-mustache.jpeg?auto=compress&cs=tinysrgb&w=1600

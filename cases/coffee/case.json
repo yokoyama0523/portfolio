@@ -4,6 +4,7 @@
   "name": "KUMO ROASTERY",
   "industry": "コーヒー豆の通販",
   "industry_short": "焙煎所",
+  "industry_en": "Coffee roastery",
   "category": "EC",
   "summary": "コーヒー豆の通販。左に固定の写真、右は白。下へ行くほど深煎り。",
   "features": [

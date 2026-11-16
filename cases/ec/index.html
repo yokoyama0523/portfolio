@@ -33,9 +33,9 @@
 <main>
 <div class="wrap ship"><span>11,000円以上で送料無料</span><span>15時までのご注文は当日発送</span><span>返品・交換は到着後14日以内</span></div>
 <section class="hero" aria-label="新作">
-  <figure><img src="assets/look-10.jpg" alt="赤いニットにコートを羽織った女性" width="1200" height="1500"></figure>
-  <figure><img src="assets/look-12.jpg" alt="黒のコートにマフラーの女性" width="1200" height="1500"></figure>
-  <div class="cap"><h1>2026 秋冬　コートとニットが入荷しました。</h1><a href="list.html?new=1">新着をすべて見る</a></div>
+  <figure><img src="assets/look-3.jpg" alt="白いニットにダウンジャケットを持つ女性" width="1600" height="1067"></figure>
+  <figure><img src="assets/look-25.jpg" alt="黒いダウンジャケットを羽織った女性" width="1600" height="1067"></figure>
+  <div class="cap"><h1>2026 秋冬　ニットとダウンが入荷しました。</h1><a href="list.html?new=1">新着をすべて見る</a></div>
 </section>
 <section class="sec wrap" id="new"><div class="h"><h2>新着</h2><a href="list.html?new=1">すべて見る</a></div><div class="grid" id="newgrid"></div></section>
 <section class="sec wrap" style="padding-top:0"><div class="h"><h2>カテゴリー</h2></div><div class="cats" id="cats"></div></section>
@@ -46,7 +46,7 @@
 </main>
 <div id="ft"></div>
 <script>
-const catImg={tops:'knit-beige',bottoms:'jeans-indigo',outer:'coat-camel',onepiece:'dress-pink',acc:'tote-natural',shoes:'sneaker-white2'};
+const catImg={tops:'om-knit-white',bottoms:'om-jeans-blue',outer:'om-down-black',onepiece:'om-dress-white',acc:'pk-tote-natural',shoes:'pk-sneaker-navy'};
 q('#newgrid').innerHTML=PRODUCTS.filter(p=>p.new).slice(0,8).map(p=>card(p)).join('');
 q('#cats').innerHTML=CATS.map(c=>`<a href="list.html?cat=${c.id}"><div class="im"><img src="${img(catImg[c.id])}" alt="" width="600" height="600" loading="lazy"></div><b>${c.name}</b></a>`).join('');
 q('#rank').innerHTML=[...PRODUCTS].sort((a,b)=>a.rank-b.rank).slice(0,5).map(p=>card(p)).join('');

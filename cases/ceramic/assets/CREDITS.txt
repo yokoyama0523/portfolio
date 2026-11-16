@@ -20,3 +20,11 @@ p-kohiki.jpg	https://pixabay.com/photos/ceramic-mug-ceramic-handmade-craft-47977
 p-kaiyu.jpg	https://pixabay.com/photos/coffee-cup-ceramic-mug-sunlight-9999653/	https://cdn.pixabay.com/photo/2025/12/07/07/25/07-25-47-55_1280.png
 p-kyusu.jpg	https://pixabay.com/photos/tea-pottery-teatime-green-tea-7968441/	https://cdn.pixabay.com/photo/2023/05/03/19/04/tea-7968441_1280.jpg
 p-yunomi.jpg	https://pixabay.com/photos/tea-ceremony-ceremony-teatime-japan-7807230/	https://cdn.pixabay.com/photo/2023/02/22/19/13/tea-ceremony-7807230_1280.jpg
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+p2-hakuji.jpg	pexels（Pexels License）	https://www.pexels.com/photo/8251788/		https://images.pexels.com/photos/8251788/pexels-photo-8251788.jpeg?auto=compress&cs=tinysrgb&w=1600
+p2-seiji.jpg	pexels（Pexels License）	https://www.pexels.com/photo/5946682/		https://images.pexels.com/photos/5946682/pexels-photo-5946682.jpeg?auto=compress&cs=tinysrgb&w=1600
+p2-kohiki.jpg	pexels（Pexels License）	https://www.pexels.com/photo/4119135/		https://images.pexels.com/photos/4119135/pexels-photo-4119135.jpeg?auto=compress&cs=tinysrgb&w=1600
+p2-kaiyu.jpg	pexels（Pexels License）	https://www.pexels.com/photo/4119134/		https://images.pexels.com/photos/4119134/pexels-photo-4119134.jpeg?auto=compress&cs=tinysrgb&w=1600
+p2-kyusu.jpg	pexels（Pexels License）	https://www.pexels.com/photo/31251487/		https://images.pexels.com/photos/31251487/pexels-photo-31251487/free-photo-of-traditional-japanese-green-tea-setup-with-teapot.png?auto=compress&cs=tinysrgb&w=1600
+p2-yunomi.jpg	pexels（Pexels License）	https://www.pexels.com/photo/6545320/		https://images.pexels.com/photos/6545320/pexels-photo-6545320.jpeg?auto=compress&cs=tinysrgb&w=1600

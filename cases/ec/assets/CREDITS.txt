@@ -97,3 +97,23 @@ sneaker-white.jpg	pexels（Pexels License）	https://images.pexels.com/photos/71
 sneaker-white2.jpg	pexels（Pexels License）	https://images.pexels.com/photos/11324518/pexels-photo-11324518.jpeg		https://images.pexels.com/photos/11324518/pexels-photo-11324518.jpeg?auto=compress&cs=tinysrgb&w=1600
 sneaker-grey.jpg	unsplash（Unsplash License）	https://images.unsplash.com/photo-1585645712146-721f67b41a46		https://images.unsplash.com/photo-1585645712146-721f67b41a46?w=1600&q=80&auto=format&fm=jpg&q=82&w=1600
 sneaker-olive.jpg	pexels（Pexels License）	https://images.pexels.com/photos/29521391/pexels-photo-29521391/free-photo-of-stylish-white-and-green-casual-shoes-on-yellow-background.jpeg		https://images.pexels.com/photos/29521391/pexels-photo-29521391/free-photo-of-stylish-white-and-green-casual-shoes-on-yellow-background.jpeg?auto=compress&cs=tinysrgb&w=1600
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+pk-*.jpg は、下の写真と既存の写真（tee-white・tee-black・tank-*・shirt-blue・knit-beige・scarf-*・tote-grey・cap-yellow・socks-*・jeans-flat）から品物を切り抜き、同じ背景に置いたもの。色違いは同じ写真の色を変えて作った
+pk-cardigan-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/36129313/		https://images.pexels.com/photos/36129313/pexels-photo-36129313/free-photo-of-bright-red-knit-cardigan-on-hanger-display.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-coat-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/19109136/		https://images.pexels.com/photos/19109136/pexels-photo-19109136/free-photo-of-coat-on-mannequin.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-dress-pink（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/19895956/		https://images.pexels.com/photos/19895956/pexels-photo-19895956/free-photo-of-red-dress-on-hanger.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-jeans-st-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/1082528/		https://images.pexels.com/photos/1082528/pexels-photo-1082528.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-shirt-linen-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/22441291/		https://images.pexels.com/photos/22441291/pexels-photo-22441291/free-photo-of-shirt-on-hanger-on-branch.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-slipon-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/15059773/		https://images.pexels.com/photos/15059773/pexels-photo-15059773/free-photo-of-a-pair-of-blue-shoes.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-sneaker-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/20755674/		https://images.pexels.com/photos/20755674/pexels-photo-20755674/free-photo-of-trainer-in-midair-by-wall.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-wide-*（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/31450892/		https://images.pexels.com/photos/31450892/pexels-photo-31450892/free-photo-of-stylish-woman-in-beige-outfit-on-neutral-background.jpeg?auto=compress&cs=tinysrgb&w=1600
+pk-work-jkt-beige（元写真）	pexels（Pexels License）	https://www.pexels.com/photo/13094233/		https://images.pexels.com/photos/13094233/pexels-photo-13094233.jpeg?auto=compress&cs=tinysrgb&w=1600
+
+# 2026-11-16 服の写真をモデル着用に（om-*.jpg）
+om-*.jpg は、下と既存の look-*（ぱくたそ）の原寸から人物を切り抜き、同じ背景に置いて、顔を外して切り取ったもの。服の写真の pk-*.jpg は使わなくなったので消した（小物・靴の pk-*.jpg は残す）
+look-25.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/	黒いダウンジャケットを羽織る女性の試着ポーズ（SAKI037-_MKT50131472）
+look-26.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/20200445108post-26735.html	白いワンピースを着て軽やかに歩き出す女性モデル（320TSURUTAMA20211）
+om-down-black-d／-e（元写真）	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/	黒いダウンジャケットを両肩に掛ける白いTシャツの女性（SAKI037-_MKT50121471）
+om-turtle-bordeaux・om-skirt-black（元写真）	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/	053TSURUTAMA20211・225TSURUTAMA20211
+om-dress-white（元写真）	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/	320TSURUTAMA20211・311TSURUTAMA20211・319TSURUTAMA20211

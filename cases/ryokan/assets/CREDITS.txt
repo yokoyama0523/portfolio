@@ -19,3 +19,8 @@ bath-dawn.jpg	https://pixabay.com/photos/break-view-paradise-mexico-sunny-220927
 corridor.jpg	https://pixabay.com/photos/traditional-door-room-house-8245250/	https://cdn.pixabay.com/photo/2023/09/10/15/33/traditional-8245250_1280.jpg
 kimono.jpg	https://pixabay.com/photos/girls-asia-kimono-geishas-ceremony-1822521/	https://cdn.pixabay.com/photo/2016/11/14/03/44/girls-1822521_1280.jpg
 onsen-town.jpg	https://pixabay.com/photos/yamaga-city-hot-spring-japan-night-636865/	https://cdn.pixabay.com/photo/2015/02/15/03/03/yamaga-city-636865_1280.jpg
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+arrive.jpg	pakutaso（ぱくたそ 利用規約）	https://www.pakutaso.com/		https://cdn.pakutaso.com/shared/img/thumb/yumikoPAR52793_TP_V.jpg
+bath-source.jpg	pakutaso（ぱくたそ 利用規約）	https://www.pakutaso.com/		https://cdn.pakutaso.com/shared/img/thumb/SAYAPAKU4751_TP_V.jpg
+bath-morning.jpg	pakutaso（ぱくたそ 利用規約）	https://www.pakutaso.com/		https://cdn.pakutaso.com/shared/img/thumb/YAMA_DSC0934_TP_V.jpg
