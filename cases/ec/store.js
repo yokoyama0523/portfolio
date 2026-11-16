@@ -31,7 +31,7 @@ function productStock(p) { let t = 0; p.v.forEach(v => p.sizes.forEach(s => t +=
 
 /* かご */
 const Cart = {
-  get() { return DB.get('cart', []); },
+  get() { return DB.get('cart', []).filter(x => P[x.id]); },
   set(c) { DB.set('cart', c); renderCounts(); },
   add(id, c, s, qty = 1) { const cart = this.get(); const f = cart.find(x => x.id === id && x.c === c && x.s === s); const max = stock(id, c, s); if (f) f.qty = Math.min(max, f.qty + qty); else cart.push({ id, c, s, qty: Math.min(max, qty) }); this.set(cart); },
   update(i, qty) { const cart = this.get(); if (!cart[i]) return; const max = stock(cart[i].id, cart[i].c, cart[i].s); cart[i].qty = Math.max(1, Math.min(max, qty | 0)); this.set(cart); },
@@ -50,7 +50,7 @@ const Cart = {
 };
 /* お気に入り */
 const Wish = {
-  get() { return DB.get('wish', []); },
+  get() { return DB.get('wish', []).filter(id => P[id]); },
   has(id) { return this.get().includes(id); },
   toggle(id) { const w = this.get(); const i = w.indexOf(id); if (i >= 0) w.splice(i, 1); else w.unshift(id); DB.set('wish', w); renderCounts(); return i < 0; },
 };

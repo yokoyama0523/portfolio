@@ -18,3 +18,10 @@ floor.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https:/
 
 # 2026-11-13 差し替え（corp・ぱくたそ）
 floor.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/20131133317post-3486.html	汎用旋盤で中グリ用刃物の芯高を確認し、ハンドルで調整中の男性
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+p-tip.jpg	pexels（Pexels License）	https://www.pexels.com/photo/4049353/		https://images.pexels.com/photos/4049353/pexels-photo-4049353.jpeg?auto=compress&cs=tinysrgb&w=1600
+p-chamber.jpg	pexels（Pexels License）	https://www.pexels.com/photo/14522449/		https://images.pexels.com/photos/14522449/pexels-photo-14522449.jpeg?auto=compress&cs=tinysrgb&w=1600
+p-barrel.jpg	pexels（Pexels License）	https://www.pexels.com/photo/31970894/		https://images.pexels.com/photos/31970894/pexels-photo-31970894/free-photo-of-close-up-of-metal-screw-with-textured-surface.jpeg?auto=compress&cs=tinysrgb&w=1600
+eq-lathe.jpg	pexels（Pexels License）	https://www.pexels.com/photo/5846176/		https://images.pexels.com/photos/5846176/pexels-photo-5846176.jpeg?auto=compress&cs=tinysrgb&w=1600
+eq-edm.jpg	pexels（Pexels License）	https://www.pexels.com/photo/20607184/		https://images.pexels.com/photos/20607184/pexels-photo-20607184/free-photo-of-close-up-of-a-cnc-milling-machine.jpeg?auto=compress&cs=tinysrgb&w=1600

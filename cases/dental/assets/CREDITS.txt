@@ -54,3 +54,11 @@ tx-pediatric.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	
 
 # 2026-11-13 差し替え（dental・ぱくたそ）
 tx-whitening.jpg	pakutaso（ぱくたそ利用規約・クレジット不要）	https://www.pakutaso.com/20241221338post-52961.html	歯を見せて笑顔で微笑むスキンケア女子の美肌ポートレート
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+hero-dr.jpg	pexels（Pexels License）	https://www.pexels.com/photo/4687404/		https://images.pexels.com/photos/4687404/pexels-photo-4687404.jpeg?auto=compress&cs=tinysrgb&w=1600
+director-dr.jpg	pexels（Pexels License）	https://www.pexels.com/photo/19332236/		https://images.pexels.com/photos/19332236/pexels-photo-19332236/free-photo-of-photo-of-a-young-doctor-in-a-lab-coat.jpeg?auto=compress&cs=tinysrgb&w=1600
+staff-hyg.jpg	pexels（Pexels License）	https://www.pexels.com/photo/4269699/		https://images.pexels.com/photos/4269699/pexels-photo-4269699.jpeg?auto=compress&cs=tinysrgb&w=1600
+staff-desk.jpg	pexels（Pexels License）	https://www.pexels.com/photo/4270077/		https://images.pexels.com/photos/4270077/pexels-photo-4270077.jpeg?auto=compress&cs=tinysrgb&w=1600
+tx-ortho2.jpg	pexels（Pexels License）	https://www.pexels.com/photo/9951394/		https://images.pexels.com/photos/9951394/pexels-photo-9951394.jpeg?auto=compress&cs=tinysrgb&w=1600
+tx-prosth2.jpg	pexels（Pexels License）	https://www.pexels.com/photo/6502305/		https://images.pexels.com/photos/6502305/pexels-photo-6502305.jpeg?auto=compress&cs=tinysrgb&w=1600

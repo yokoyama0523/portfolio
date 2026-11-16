@@ -26,3 +26,7 @@ roof.jpg	unsplash（ぱくたそ利用規約・クレジット不要）	https://
 
 # 2026-11-13 差し替え（house・ぱくたそ）
 int-2.jpg	unsplash（ぱくたそ利用規約・クレジット不要）	https://images.unsplash.com/photo-1610333684078-c89bd57f2e46	茶色の木枠ガラスドア
+
+# 2026-11-16 差し替え（写真と文の食い違い・切れ方を直した）
+case1-garden.jpg	pexels（Pexels License）	https://www.pexels.com/photo/15864331/		https://images.pexels.com/photos/15864331/pexels-photo-15864331/free-photo-of-plants-and-trees-around-house.jpeg?auto=compress&cs=tinysrgb&w=1600
+case2-cedar.jpg	pexels（Pexels License）	https://www.pexels.com/photo/35361415/		https://images.pexels.com/photos/35361415/pexels-photo-35361415/free-photo-of-modern-luxury-home-exterior-with-wooden-facade.jpeg?auto=compress&cs=tinysrgb&w=1600
