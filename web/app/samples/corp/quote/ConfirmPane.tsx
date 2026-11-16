@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Summary } from "~/samples/shared/form/Summary";
 import { quote } from "../content/quote";
 import { summaryRows } from "./summary";
 import { type QuoteForm, STEP } from "./useQuoteForm";
@@ -9,21 +9,7 @@ export function ConfirmPane({ form }: { form: QuoteForm }) {
     <section className="pane">
       <fieldset>
         <legend>{quote.confirm.legend}</legend>
-        <div className="sum">
-          <dl>
-            {summaryRows(form).map((row) => (
-              <Fragment key={row.label}>
-                <dt>{row.label}</dt>
-                <dd>
-                  {row.value}
-                  <button type="button" className="edit" onClick={() => form.go(row.step)}>
-                    {quote.confirm.edit}
-                  </button>
-                </dd>
-              </Fragment>
-            ))}
-          </dl>
-        </div>
+        <Summary rows={summaryRows(form)} editLabel={quote.confirm.edit} onEdit={form.go} />
         <p className="hint confirm-hint">{mode.confirmNote}</p>
       </fieldset>
       <div className="nav">

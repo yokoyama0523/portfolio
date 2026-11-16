@@ -1,0 +1,125 @@
+import { image } from "../assets";
+import { builder } from "./builder";
+
+export const openhouse = {
+  meta: { title: `見学会の申し込み｜${builder.name}`, slug: "openhouse/" },
+  telLabel: "お電話は",
+  title: "見学会の申し込み",
+  lead: "1組ずつ、1時間。設計した本人と、刻んだ大工がご案内します。",
+  event: {
+    image: image("int-1.jpg"),
+    title: "完成見学会「庭に開いた、平屋の家」",
+    when: "11月22日（土）・23日（日）　浜松市浜名区（場所は申し込み後にご案内）",
+    text: "延床 98㎡の平屋。杉の登り梁と、南の庭に向いた居間。お施主さまのご厚意で、引き渡し前の2日間だけ。",
+  },
+  steps: ["日時", "ご家族のこと", "連絡先", "確認"],
+  back: "戻る",
+  required: "必須",
+  empty: "—",
+  schedule: {
+    legend: "日時",
+    hint: "各回1組。残り枠が少ないところは、お早めに。",
+    status: { open: "空きあり", few: "残り1組", full: "満席" },
+    days: [
+      {
+        title: "11月22日",
+        note: "土曜",
+        label: "11月22日（土）",
+        slots: [
+          { time: "10:00", status: "few" },
+          { time: "11:30", status: "full" },
+          { time: "13:30", status: "open" },
+          { time: "15:00", status: "open" },
+        ],
+      },
+      {
+        title: "11月23日",
+        note: "日曜・祝日",
+        label: "11月23日（日）",
+        slots: [
+          { time: "10:00", status: "full" },
+          { time: "11:30", status: "few" },
+          { time: "13:30", status: "full" },
+          { time: "15:00", status: "open" },
+        ],
+      },
+    ],
+    next: "次へ",
+  },
+  family: {
+    legend: "ご家族のこと",
+    hint: "案内の内容を合わせるために伺います。",
+    adults: { label: "大人", options: ["1名", "2名", "3名", "4名"], initial: "2名" },
+    kids: { label: "お子さま", options: ["なし", "1名", "2名", "3名"], initial: "なし" },
+    stageLegend: "家づくりの段階",
+    stages: ["土地がある", "土地を探している", "建て替え・リフォーム", "まだ考え始めたところ"],
+    interestLegend: "興味のあること（いくつでも）",
+    interests: ["平屋", "二世帯", "薪ストーブ", "断熱・気密", "費用の目安", "土地探し"],
+    initialInterests: ["平屋"],
+    accessLegend: "来場",
+    access: [
+      { value: "車（駐車場を使う）", label: "車で" },
+      { value: "電車・バス（最寄り駅まで送迎）", label: "電車・バスで" },
+    ],
+    next: "連絡先を入力する",
+  },
+  contact: {
+    legend: "連絡先",
+    name: { label: "お名前", placeholder: "高橋 翔太", error: "お名前を入力してください" },
+    kana: {
+      label: "ふりがな",
+      placeholder: "たかはし しょうた",
+      error: "ひらがなで入力してください",
+    },
+    tel: { label: "電話番号", placeholder: "090-1234-5678", error: "電話番号を確認してください" },
+    email: {
+      label: "メール",
+      placeholder: "shota@example.com",
+      error: "メールアドレスを確認してください",
+    },
+    area: { label: "お住まいの市区町村", placeholder: "浜松市中央区" },
+    source: {
+      label: "知ったきっかけ",
+      options: ["検索", "Instagram", "知人の紹介", "現場の看板", "その他"],
+    },
+    note: {
+      label: "聞いてみたいこと",
+      placeholder: "例：平屋で30坪だと総額はどのくらいか。古い家を残して直せるか。",
+    },
+    next: "内容を確認する",
+  },
+  confirm: {
+    legend: "この内容で申し込みます",
+    hint: `場所の地図と駐車場の案内を、確認のメールでお送りします。当日の連絡先は ${builder.tel}（担当：杉浦）。`,
+    edit: "変更",
+    submit: "申し込む",
+    labels: {
+      slot: "日時",
+      people: "人数",
+      stage: "段階",
+      interests: "興味",
+      access: "来場",
+      name: "お名前",
+      contact: "連絡先",
+      area: "お住まい",
+      note: "聞いてみたいこと",
+    },
+    adults: "大人",
+    kids: "お子さま",
+    separator: "、",
+  },
+  done: {
+    title: "お待ちしています",
+    number: "受付番号",
+    receiptPrefix: "K2611-",
+    boxes: [
+      {
+        title: "当日のこと",
+        text: "お施主さまの家なので、靴下でご覧いただきます。スリッパはこちらで用意します。写真は、外観と、お施主さまが許可した部屋だけお願いします。",
+      },
+      { title: "お子さま連れの方へ", text: "庭で遊べます。大工がひとり、庭にいます。" },
+    ],
+    back: "工務店のページへ戻る",
+  },
+  footer: "このページはポートフォリオ用です。申し込みは実際には送信されません。",
+};

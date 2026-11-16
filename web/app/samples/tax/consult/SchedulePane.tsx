@@ -1,7 +1,7 @@
 import { addDays, jpDate, monthDay, shortDate, ymd } from "~/samples/shared/dates";
+import { Choice } from "~/samples/shared/form/Choice";
 import { consult } from "../content/consult";
 import { calendar, openSlots, vacancy, weekdaysFrom } from "./booking";
-import { Option } from "./Option";
 import { type ConsultForm, STEP } from "./useConsultForm";
 
 const text = consult.schedule;
@@ -81,13 +81,17 @@ export function SchedulePane({ form }: { form: ConsultForm }) {
         <legend>{text.howLegend}</legend>
         <div className="opts">
           {text.how.map((option) => (
-            <Option
+            <Choice
               key={option.value}
+              type="radio"
               name="how"
-              {...option}
+              value={option.value}
               checked={form.values.how === option.value}
-              onSelect={(value) => form.update("how", value)}
-            />
+              onChange={() => form.update("how", option.value)}
+            >
+              <b>{option.title}</b>
+              <small>{option.note}</small>
+            </Choice>
           ))}
         </div>
       </fieldset>

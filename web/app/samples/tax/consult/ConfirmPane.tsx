@@ -1,5 +1,5 @@
-import { Fragment } from "react";
 import { jpDate } from "~/samples/shared/dates";
+import { Summary } from "~/samples/shared/form/Summary";
 import { consult } from "../content/consult";
 import { type ConsultForm, STEP } from "./useConsultForm";
 
@@ -31,21 +31,7 @@ export function ConfirmPane({ form }: { form: ConsultForm }) {
     <section className="pane">
       <fieldset>
         <legend>{text.legend}</legend>
-        <div className="sum">
-          <dl>
-            {rows.map((row) => (
-              <Fragment key={row.label}>
-                <dt>{row.label}</dt>
-                <dd>
-                  {row.value}
-                  <button type="button" className="edit" onClick={() => form.go(row.step)}>
-                    {text.edit}
-                  </button>
-                </dd>
-              </Fragment>
-            ))}
-          </dl>
-        </div>
+        <Summary rows={rows} editLabel={text.edit} onEdit={form.go} />
         <p className="hint confirm-hint">
           {text.hint}
           <span className="mk">{text.promise}</span>

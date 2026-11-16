@@ -1,9 +1,7 @@
-import { consult } from "../content/consult";
-
-export function StepIndicator({ step }: { step: number }) {
+export function StepIndicator({ labels, step }: { labels: readonly string[]; step: number }) {
   return (
     <ol className="steps">
-      {consult.steps.map((label, i) => {
+      {labels.map((label, i) => {
         const n = i + 1;
         const state = n === step ? "on" : n < step ? "past" : undefined;
         return (
