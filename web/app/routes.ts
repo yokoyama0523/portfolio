@@ -4,6 +4,7 @@ import coffee from "./samples/coffee/routes";
 import corp from "./samples/corp/routes";
 import dental from "./samples/dental/routes";
 import house from "./samples/house/routes";
+import motion from "./samples/motion/routes";
 import ryokan from "./samples/ryokan/routes";
 import salon from "./samples/salon/routes";
 import tax from "./samples/tax/routes";
@@ -21,6 +22,7 @@ export default [
   ...corp,
   ...dental,
   ...house,
+  ...motion,
   ...ryokan,
   ...salon,
   ...tax,
