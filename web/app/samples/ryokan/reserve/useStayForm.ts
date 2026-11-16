@@ -3,14 +3,13 @@ import { useSearchParams } from "react-router";
 import { addDays, receiptSerial, startOfToday, ymd } from "~/samples/shared/dates";
 import { useFields } from "~/samples/shared/form/useFields";
 import { useStepper } from "~/samples/shared/form/useStepper";
-import { isEmail, isFilled, isPhone } from "~/samples/shared/validation";
+import { isEmail, isFilled, isKana, isPhone } from "~/samples/shared/validation";
 import { reserve } from "../content/reserve";
 import { rooms } from "../content/rooms";
 import { roomOpen } from "./availability";
 
 export const STEP = { stay: 1, room: 2, guest: 3, confirm: 4, done: 5 } as const;
 
-const isKana = (value: string) => /^[ぁ-んー　 ]+$/.test(value);
 const { stay, guest, pricing } = reserve;
 
 export function useStayForm() {

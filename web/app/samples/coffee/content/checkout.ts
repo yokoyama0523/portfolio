@@ -1,7 +1,7 @@
 import { store } from "./store";
 
 export const checkout = {
-  meta: { title: `レジ｜${store.name}`, slug: "checkout/" },
+  meta: { title: `レジ｜${store.name}`, slug: "checkout/", noindex: true },
   secure: "安全な接続です",
   order: {
     title: "Checkout",

@@ -2,7 +2,15 @@ import { type FormEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useFields } from "~/samples/shared/form/useFields";
 import { useStepper } from "~/samples/shared/form/useStepper";
-import { isEmail, isFilled, isPhone } from "~/samples/shared/validation";
+import {
+  isCardNumber,
+  isCvc,
+  isEmail,
+  isExpiry,
+  isFilled,
+  isPhone,
+  isZip,
+} from "~/samples/shared/validation";
 import { useCart } from "../cart/CartContext";
 import { checkout } from "../content/checkout";
 import { plans } from "../content/plans";
@@ -12,11 +20,6 @@ export const STEP = { delivery: 1, payment: 2, confirm: 3, done: 4 } as const;
 const { delivery, payment } = checkout;
 const SERIAL_MIN = 1000;
 const SERIAL_SPAN = 9000;
-
-const isZip = (value: string) => /^[0-9０-９]{3}-?[0-9０-９]{4}$/.test(value);
-const isCardNumber = (value: string) => /^[0-9 ]{13,19}$/.test(value);
-const isExpiry = (value: string) => /^[0-9]{2} ?\/ ?[0-9]{2}$/.test(value);
-const isCvc = (value: string) => /^[0-9]{3,4}$/.test(value);
 
 export function useCheckout() {
   const { step, go } = useStepper();
