@@ -1,12 +1,12 @@
 import type { CSSProperties } from "react";
 import { sampleMeta } from "~/samples/shared/meta";
+import { useActiveSection } from "~/samples/shared/useActiveSection";
 import { Book } from "../components/home/Book";
 import { Clock, type ClockFace } from "../components/home/Clock";
 import { Header } from "../components/home/Header";
 import { Hero } from "../components/home/Hero";
 import { Hour } from "../components/home/Hour";
 import { Rooms } from "../components/home/Rooms";
-import { useActiveSection } from "../components/home/useActiveSection";
 import { darkTones, home, type Tone } from "../content/home";
 import "../styles/home.css";
 
@@ -22,14 +22,16 @@ const scenes: Record<string, Scene> = {
   [home.book.id]: { tone: "t10", clock: null },
 };
 
+const observe = { rootMargin: "-40% 0px -40% 0px" };
 const first = home.hours[0];
 const last = home.hours[home.hours.length - 1];
 
 export default function RyokanHome() {
-  const { active, refs } = useActiveSection<Scene>(scenes, {
-    tone: first.tone,
-    clock: first.clock,
-  });
+  const { active, refs } = useActiveSection<Scene>(
+    scenes,
+    { tone: first.tone, clock: first.clock },
+    observe,
+  );
   const theme = { "--bg": `var(--${active.tone})` } as CSSProperties;
   return (
     <div className={darkTones.includes(active.tone) ? "page dark" : "page"} style={theme}>

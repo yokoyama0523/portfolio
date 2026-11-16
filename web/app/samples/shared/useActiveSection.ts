@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const options = { rootMargin: "-40% 0px -40% 0px" };
-
-export function useActiveSection<T>(sections: Record<string, T>, initial: T) {
+export function useActiveSection<T>(
+  sections: Record<string, T>,
+  initial: T,
+  options: IntersectionObserverInit,
+) {
   const [active, setActive] = useState(initial);
   const elements = useRef(new Map<Element, T>());
   const observer = useRef<IntersectionObserver | null>(null);
@@ -17,7 +19,7 @@ export function useActiveSection<T>(sections: Record<string, T>, initial: T) {
     observer.current = watcher;
     for (const element of elements.current.keys()) watcher.observe(element);
     return () => watcher.disconnect();
-  }, []);
+  }, [options]);
 
   const refs = useMemo(
     () =>
