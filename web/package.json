@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "react-router build && node scripts/finish-build.mjs",
+    "build": "react-router build && node scripts/finish-build.ts",
+    "deploy": "wrangler pages deploy build/client --project-name=yokoyama-dev-portfolio --branch=main",
     "typecheck": "react-router typegen && tsc",
     "check": "biome check .",
     "format": "biome check --write ."
@@ -46,6 +47,7 @@
     "tailwindcss": "4.3.3",
     "typescript": "5.8.3",
     "vite": "7.3.7",
-    "vite-imagetools": "10.0.1"
+    "vite-imagetools": "10.0.1",
+    "wrangler": "4.156.1"
   }
 }
