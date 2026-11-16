@@ -17,7 +17,7 @@ export const meta = ({ params }: Route.MetaArgs) =>
         title: itemPage.title(items[params.id].name),
         slug: `item/${params.id}/`,
       })
-    : [{ title: itemPage.notFound.title }, { name: "robots", content: "noindex" }];
+    : sampleMeta("ceramic", { title: itemPage.notFound.title, noindex: true });
 
 function NotFound() {
   return (

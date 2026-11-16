@@ -29,8 +29,9 @@ export function useFields<V extends Record<string, string>>(initial: V, validato
     refs.current[field] = element;
   };
 
+  const focus = (field: keyof V) => refs.current[field]?.focus();
   const isRequired = (field: keyof V) => required.includes(field);
   const isInvalid = (field: keyof V) => invalid.includes(field);
 
-  return { values, update, validate, register, isRequired, isInvalid };
+  return { values, update, validate, register, focus, isRequired, isInvalid };
 }
