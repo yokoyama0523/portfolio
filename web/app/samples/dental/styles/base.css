@@ -1,0 +1,73 @@
+:root {
+  --w: #fff;
+  --ink: #333;
+  --mute: #7d7873;
+  --sun: #f2b33d;
+  --sun-soft: #d9b57a;
+  --sun-pale: #fbf6ec;
+  --sand: #f7f2e8;
+  --green: #e9f0ea;
+  --line: #e9e4da;
+  --err: #c45a3c;
+  --blue: #4a76b8;
+  --blue-deep: #2d6b9e;
+  --red: #c2372c;
+  --off: #c9c3b9;
+  --off-2: #c8c2b6;
+  --veil: rgb(255 255 255 / 0.92);
+  --veil-strong: rgb(255 255 255 / 0.94);
+  --on-sun-faint: rgb(255 255 255 / 0.7);
+  --sun-glow: rgb(242 179 61 / 0.8);
+  --rule: rgb(59 55 51 / 0.12);
+  --mark-grad: radial-gradient(circle at 35% 35%, #f5d98a, #d9a53c);
+  --map-road: #efe9df;
+  --map-rail: #3b3733;
+  --map-block: #f3eee5;
+  --maru: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --got: "Noto Sans JP Variable", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+
+@media (max-width: 880px) {
+  :root {
+    --sample-credit-offset: 84px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: 3px;
+}
+
+.tooth {
+  fill: var(--w);
+}
+
+.r {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.r.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .r {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
