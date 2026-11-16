@@ -1,0 +1,98 @@
+import { clinic } from "./clinic";
+
+export const reserve = {
+  meta: { title: `WEB予約｜${clinic.name}`, slug: "reserve/" },
+  telLabel: "お電話でも",
+  title: "WEB予約",
+  lead: "初めての方も、通院中の方も、こちらから。入力は3分ほどで終わります。",
+  steps: ["診療内容", "日時", "連絡先", "確認"],
+  back: "戻る",
+  required: "必須",
+  empty: "—",
+  kind: {
+    legend: "来院は初めてですか",
+    options: [
+      { value: "初診", title: "初めて", note: "問診と写真の撮影があります（60分）" },
+      {
+        value: "再診",
+        title: "通院中・以前に来たことがある",
+        note: "診察券の番号があれば備考に（30〜45分）",
+      },
+    ],
+  },
+  menu: {
+    legend: "ご希望の診療",
+    hint: "決まっていなければ「相談したい」で大丈夫です。",
+    options: [
+      { value: "痛み・むし歯の治療", note: "急な痛みは当日枠をご案内します" },
+      { value: "定期検診・クリーニング", note: "3か月ごとの検診" },
+      { value: "こどもの歯", note: "フッ素・シーラント・歯みがきの練習" },
+      { value: "歯ならびの相談", note: "矯正の専門医が診ます（無料）" },
+      { value: "ホワイトニング", note: "自費 22,000円〜" },
+      { value: "相談したい", note: "入れ歯・インプラント・その他" },
+    ],
+    next: "日時を選ぶ",
+  },
+  date: {
+    legend: "ご希望の日",
+    hint: "○は空きあり、△は残りわずか。木曜・祝日は休診です。",
+    prev: "← 前の週",
+    next: "次の週 →",
+    timeLegend: "ご希望の時間",
+    pickDayFirst: "先に日を選んでください。",
+    picked: "選んだ日時",
+    nothingPicked: "—",
+    pickTime: "時間を選んでください",
+    nextStep: "連絡先を入力する",
+  },
+  contact: {
+    legend: "連絡先",
+    name: { label: "お名前", placeholder: "山田 花子", error: "お名前を入力してください" },
+    kana: { label: "ふりがな", placeholder: "やまだ はなこ", error: "ひらがなで入力してください" },
+    tel: { label: "電話番号", placeholder: "090-1234-5678", error: "電話番号を確認してください" },
+    email: {
+      label: "メール",
+      placeholder: "hanako@example.com",
+      error: "メールアドレスの形式を確認してください",
+    },
+    birth: {
+      label: "生年月日",
+      placeholder: "1990/05/23",
+      error: "1990/05/23 のように入力してください",
+    },
+    who: { label: "どなたの予約ですか", options: ["本人", "子ども", "家族（本人以外）"] },
+    note: { label: "備考", placeholder: "痛い場所、苦手なこと、診察券の番号、保育の希望など" },
+    next: "内容を確認する",
+  },
+  confirm: {
+    legend: "この内容で予約します",
+    hint: "予約の確定後、確認のショートメールを送ります。変更・取り消しはメール内のリンク、またはお電話で。",
+    edit: "変更",
+    submit: "予約を確定する",
+    labels: {
+      what: "内容",
+      when: "日時",
+      name: "お名前",
+      tel: "電話",
+      email: "メール",
+      birth: "生年月日",
+      who: "予約する人",
+      note: "備考",
+    },
+  },
+  done: {
+    title: "ご予約を受け付けました",
+    number: "予約番号",
+    receiptPrefix: "H",
+    bring: {
+      title: "当日お持ちいただくもの",
+      items: ["保険証（またはマイナンバーカード）", "お薬手帳（お持ちの方）", "診察券（再診の方）"],
+    },
+    place: {
+      title: "場所",
+      text: "世田谷区桜丘 2-13-7　桜丘駅 北口から徒歩3分。駐車場は建物の裏に2台あります。",
+    },
+    back: "医院のページへ戻る",
+  },
+  footer: "このページはポートフォリオ用です。予約は実際には送信されません。",
+};

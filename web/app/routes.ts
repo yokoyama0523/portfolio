@@ -2,6 +2,7 @@ import { index, layout, type RouteConfig, route } from "@react-router/dev/routes
 import ceramic from "./samples/ceramic/routes";
 import coffee from "./samples/coffee/routes";
 import corp from "./samples/corp/routes";
+import dental from "./samples/dental/routes";
 import house from "./samples/house/routes";
 import ryokan from "./samples/ryokan/routes";
 import salon from "./samples/salon/routes";
@@ -18,6 +19,7 @@ export default [
   ...ceramic,
   ...coffee,
   ...corp,
+  ...dental,
   ...house,
   ...ryokan,
   ...salon,
