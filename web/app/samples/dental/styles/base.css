@@ -1,4 +1,5 @@
 :root {
+  --bar-shadow: 0 -10px 30px -20px rgb(0 0 0 / 0.3);
   --w: #fff;
   --ink: #333;
   --mute: #7d7873;

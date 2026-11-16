@@ -1,4 +1,5 @@
 import { site } from "~/config";
+import { absoluteUrl } from "~/shared/meta";
 import { ContactBand } from "~/site/components/ContactBand";
 import { Mv } from "~/site/components/Mv";
 import { Process } from "~/site/components/Process";
@@ -6,6 +7,7 @@ import { ServicePanels } from "~/site/components/ServicePanels";
 import { WhatIDo } from "~/site/components/WhatIDo";
 import { Works } from "~/site/components/Works";
 import { about } from "~/site/data/copy";
+import { homeCopy } from "~/site/data/home";
 import { countPages } from "~/site/data/pages.server";
 import { ids, pageMeta } from "~/site/seo";
 import type { Route } from "./+types/home";
@@ -14,12 +16,12 @@ export const meta = () =>
   pageMeta({
     title: site.brand,
     description: about.join(""),
-    path: "/",
+    path: site.paths.home,
     graph: [
       {
         "@type": "WebSite",
         "@id": ids.website,
-        url: `${site.url}/`,
+        url: absoluteUrl(site.paths.home),
         name: site.brand,
         inLanguage: "ja",
         publisher: { "@id": ids.person },
@@ -28,9 +30,8 @@ export const meta = () =>
         "@type": "Person",
         "@id": ids.person,
         name: site.name,
-        url: `${site.url}/`,
-        jobTitle: "Web制作",
-        knowsAbout: ["Webサイト制作", "ECサイト", "HTML", "CSS", "JavaScript"],
+        url: absoluteUrl(site.paths.home),
+        ...homeCopy.person,
         sameAs: site.profiles,
       },
     ],

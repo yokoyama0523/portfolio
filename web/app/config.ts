@@ -1,9 +1,24 @@
 export const site = {
   name: "Yuki Yokoyama",
   brand: "Saku²",
+  brandMark: { base: "Saku", exponent: "2" },
   url: "https://yokoyama-dev.com",
+  lang: "ja",
+  locale: "ja_JP",
+  country: "JP",
+  icons: [
+    { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+    { rel: "icon", href: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+  ],
   ogImage: "/og/top.jpg",
-  worksPath: "/portfolio/",
+  paths: {
+    home: "/",
+    works: "/portfolio/",
+    service: "/service/",
+    process: "/service/#process",
+    about: "/about/",
+  },
   crowdworks: "https://crowdworks.jp/public/employees/5842694",
   profiles: [
     "https://crowdworks.jp/public/employees/5842694",
@@ -20,10 +35,11 @@ export const site = {
     id: "G-CSN3EMWVDW",
     delayMs: 1200,
   },
-  nav: [
-    { label: "Works", href: "/portfolio/" },
-    { label: "Service", href: "/service/" },
-    { label: "Process", href: "/service/#process" },
-    { label: "About", href: "/about/" },
-  ],
 } as const;
+
+export const nav = [
+  { label: "Works", href: site.paths.works },
+  { label: "Service", href: site.paths.service },
+  { label: "Process", href: site.paths.process },
+  { label: "About", href: site.paths.about },
+] as const;

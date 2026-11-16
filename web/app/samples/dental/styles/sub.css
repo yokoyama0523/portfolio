@@ -437,7 +437,7 @@ p {
     z-index: 40;
     background: var(--w);
     border-top: 1px solid var(--line);
-    box-shadow: 0 -10px 30px -20px rgb(0 0 0 / 0.3);
+    box-shadow: var(--bar-shadow);
   }
   .bar a {
     display: flex;

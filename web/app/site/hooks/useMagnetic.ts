@@ -1,14 +1,17 @@
 import { useEffect, useRef } from "react";
 import { gsap, reducedMotion } from "./useMotion";
 
-export function useMagnetic<T extends HTMLElement>(strength = 0.35) {
+const DEFAULT_STRENGTH = 0.35;
+const FOLLOW = { duration: 0.6, ease: "power3.out" };
+
+export function useMagnetic<T extends HTMLElement>(strength = DEFAULT_STRENGTH) {
   const ref = useRef<T>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || reducedMotion() || window.matchMedia("(pointer: coarse)").matches) return;
-    const xTo = gsap.quickTo(el, "x", { duration: 0.6, ease: "power3.out" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.6, ease: "power3.out" });
+    const xTo = gsap.quickTo(el, "x", FOLLOW);
+    const yTo = gsap.quickTo(el, "y", FOLLOW);
     const move = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
       xTo((e.clientX - (r.left + r.width / 2)) * strength);

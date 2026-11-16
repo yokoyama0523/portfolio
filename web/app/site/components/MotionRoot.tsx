@@ -2,12 +2,17 @@ import Lenis from "lenis";
 import { useEffect } from "react";
 import { gsap, reducedMotion, ScrollTrigger, useIdleGSAP } from "~/site/hooks/useMotion";
 
+const SMOOTH_SCROLL = { duration: 1.1, anchors: true };
+const MS_PER_SECOND = 1000;
+const REVEAL = { offset: 40, duration: 1.1, stagger: 0.1, start: "top 90%" };
+const COUNT = { duration: 1.6, start: "top 85%" };
+
 export function MotionRoot() {
   useEffect(() => {
     if (reducedMotion() || window.matchMedia("(pointer: coarse)").matches) return;
-    const lenis = new Lenis({ duration: 1.1, anchors: true });
+    const lenis = new Lenis(SMOOTH_SCROLL);
     lenis.on("scroll", ScrollTrigger.update);
-    const tick = (t: number) => lenis.raf(t * 1000);
+    const tick = (t: number) => lenis.raf(t * MS_PER_SECOND);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     return () => {
@@ -18,16 +23,16 @@ export function MotionRoot() {
 
   useIdleGSAP(() => {
     const items = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-    gsap.set(items, { opacity: 0, y: 40 });
+    gsap.set(items, { opacity: 0, y: REVEAL.offset });
     ScrollTrigger.batch(items, {
-      start: "top 90%",
+      start: REVEAL.start,
       onEnter: (batch) =>
         gsap.to(batch, {
           opacity: 1,
           y: 0,
-          duration: 1.1,
+          duration: REVEAL.duration,
           ease: "power3.out",
-          stagger: 0.1,
+          stagger: REVEAL.stagger,
           overwrite: true,
         }),
     });
@@ -37,12 +42,12 @@ export function MotionRoot() {
       el.textContent = "0";
       gsap.to(o, {
         v: to,
-        duration: 1.6,
+        duration: COUNT.duration,
         ease: "power2.out",
         onUpdate: () => {
           el.textContent = String(Math.round(o.v));
         },
-        scrollTrigger: { trigger: el, start: "top 85%" },
+        scrollTrigger: { trigger: el, start: COUNT.start },
       });
     });
     ScrollTrigger.refresh();

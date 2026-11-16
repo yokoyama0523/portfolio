@@ -1,9 +1,12 @@
 import { site } from "~/config";
-import { buildMeta } from "~/shared/meta";
+import { absoluteUrl, buildMeta } from "~/shared/meta";
 
 type Page = { title: string; description: string; path: string; graph: Record<string, unknown>[] };
 
-export const ids = { website: `${site.url}/#website`, person: `${site.url}/#person` };
+export const ids = {
+  website: absoluteUrl(`${site.paths.home}#website`),
+  person: absoluteUrl(`${site.paths.home}#person`),
+};
 
 export const pageMeta = (page: Page) => buildMeta({ ...page, image: site.ogImage });
 
@@ -13,6 +16,6 @@ export const breadcrumb = (items: [string, string][]) => ({
     "@type": "ListItem",
     position: i + 1,
     name,
-    item: `${site.url}${path}`,
+    item: absoluteUrl(path),
   })),
 });
