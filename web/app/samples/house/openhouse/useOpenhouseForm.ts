@@ -2,12 +2,10 @@ import { type FormEvent, useState } from "react";
 import { receiptSerial } from "~/samples/shared/dates";
 import { useFields } from "~/samples/shared/form/useFields";
 import { useStepper } from "~/samples/shared/form/useStepper";
-import { isEmail, isFilled, isPhone } from "~/samples/shared/validation";
+import { isEmail, isFilled, isKana, isPhone } from "~/samples/shared/validation";
 import { openhouse } from "../content/openhouse";
 
 export const STEP = { schedule: 1, family: 2, contact: 3, confirm: 4, done: 5 } as const;
-
-const isKana = (value: string) => /^[ぁ-んー　 ]+$/.test(value);
 
 const slotValue = (label: string, time: string) => `${label}${time}`;
 

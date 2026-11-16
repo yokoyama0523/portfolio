@@ -1,4 +1,5 @@
 import { index, layout, type RouteConfig, route } from "@react-router/dev/routes";
+import ceramic from "./samples/ceramic/routes";
 import coffee from "./samples/coffee/routes";
 import corp from "./samples/corp/routes";
 import house from "./samples/house/routes";
@@ -14,6 +15,7 @@ export default [
     route("about", "site/routes/about.tsx"),
     route("*", "site/routes/not-found.tsx"),
   ]),
+  ...ceramic,
   ...coffee,
   ...corp,
   ...house,

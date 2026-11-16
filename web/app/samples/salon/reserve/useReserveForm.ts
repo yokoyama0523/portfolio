@@ -2,13 +2,12 @@ import { type FormEvent, useEffect, useState } from "react";
 import { addDays, receiptSerial, startOfToday, ymd } from "~/samples/shared/dates";
 import { useFields } from "~/samples/shared/form/useFields";
 import { useStepper } from "~/samples/shared/form/useStepper";
-import { isEmail, isFilled, isPhone } from "~/samples/shared/validation";
+import { isEmail, isFilled, isKana, isPhone } from "~/samples/shared/validation";
 import { reserve } from "../content/reserve";
 import { calendar, sundayOf } from "./calendar";
 
 export const STEP = { menu: 1, stylist: 2, date: 3, contact: 4, confirm: 5, done: 6 } as const;
 
-const isKana = (value: string) => /^[ぁ-んー　 ]+$/.test(value);
 const isOptionalEmail = (value: string) => value === "" || isEmail(value);
 
 const { contact } = reserve;

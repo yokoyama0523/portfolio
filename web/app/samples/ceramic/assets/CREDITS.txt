@@ -1,0 +1,11 @@
+hero.jpg	Pixabay	https://pixabay.com/photos/ceramics-bowls-handmade-minimalism-10534584/
+maker-throw.jpg	Pixabay	https://pixabay.com/photos/pottery-potter-pot-clay-craft-5624066/
+maker-vase.jpg	Pixabay	https://pixabay.com/photos/crafts-mud-ceramics-traditional-2527016/
+maker-hands.jpg	Pixabay	https://pixabay.com/photos/potter-pottery-vase-pot-art-craft-4682257/
+gift-vases.jpg	Pixabay	https://pixabay.com/photos/still-life-vases-decoration-ceramic-790381/
+p2-hakuji.jpg	Pexels	https://www.pexels.com/photo/8251788/
+p2-seiji.jpg	Pexels	https://www.pexels.com/photo/5946682/
+p2-kohiki.jpg	Pexels	https://www.pexels.com/photo/4119135/
+p2-kaiyu.jpg	Pexels	https://www.pexels.com/photo/4119134/
+p2-kyusu.jpg	Pexels	https://www.pexels.com/photo/31251487/
+p2-yunomi.jpg	Pexels	https://www.pexels.com/photo/6545320/

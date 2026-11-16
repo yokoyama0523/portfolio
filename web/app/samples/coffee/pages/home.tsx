@@ -1,5 +1,6 @@
 import { type CSSProperties, useCallback, useState } from "react";
 import { sampleMeta } from "~/samples/shared/meta";
+import { Toast } from "~/samples/shared/Toast";
 import { useActiveSection } from "~/samples/shared/useActiveSection";
 import { useCart } from "../cart/CartContext";
 import { Bean } from "../components/home/Bean";
@@ -9,7 +10,6 @@ import { Header } from "../components/home/Header";
 import { Hero } from "../components/home/Hero";
 import { Shop } from "../components/home/Shop";
 import { Subscription } from "../components/home/Subscription";
-import { Toast } from "../components/home/Toast";
 import { Visual } from "../components/home/Visual";
 import { home, type Scene } from "../content/home";
 import { type ProductId, products } from "../content/store";
