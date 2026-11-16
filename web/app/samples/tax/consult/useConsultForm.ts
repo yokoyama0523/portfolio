@@ -1,14 +1,7 @@
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import { addDays, mondayOf, startOfToday } from "~/samples/shared/dates";
 import { consult } from "../content/consult";
-import {
-  addDays,
-  calendar,
-  mondayOf,
-  type RequiredField,
-  receiptNumber,
-  startOfToday,
-  validators,
-} from "./booking";
+import { calendar, type RequiredField, receiptNumber, validators } from "./booking";
 
 const fieldInitial = (id: string) =>
   consult.company.fields.find((field) => field.id === id)?.initial ?? "";
