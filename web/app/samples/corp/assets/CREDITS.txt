@@ -1,0 +1,9 @@
+hero.jpg	Pixabay	https://pixabay.com/photos/milling-cutters-metal-shavings-tool-3738903/
+cnc.jpg	Pixabay	https://pixabay.com/photos/milling-machining-industry-1151358/
+robot.jpg	Pixabay	https://pixabay.com/photos/robot-arm-technology-robot-arm-2791671/
+floor.jpg	ぱくたそ	https://www.pakutaso.com/20131133317post-3486.html
+p-tip.jpg	Pexels	https://www.pexels.com/photo/4049353/
+p-chamber.jpg	Pexels	https://www.pexels.com/photo/14522449/
+p-barrel.jpg	Pexels	https://www.pexels.com/photo/31970894/
+eq-lathe.jpg	Pexels	https://www.pexels.com/photo/5846176/
+eq-edm.jpg	Pexels	https://www.pexels.com/photo/20607184/

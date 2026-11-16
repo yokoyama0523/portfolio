@@ -1,0 +1,33 @@
+import { shop } from "./catalog";
+
+export const cartPage = {
+  meta: { title: `カート｜${shop.name}`, slug: "cart/", noindex: true },
+  title: "カート",
+  empty: ["カートに商品が入っていません。"],
+  emptyLink: "新着を見る",
+  variant: (color: string, size: string, price: string) =>
+    `${color}　／　サイズ ${size}　／　${price}`,
+  decrease: "減らす",
+  increase: "増やす",
+  remove: "削除",
+  fixed: (n: number) => `在庫が${n}点のため、数量を${n}点に直しました。`,
+  few: (n: number) => `残り${n}点`,
+  fewAt: 3,
+  taxIncluded: "税込",
+  summaryTitle: "ご注文内容",
+  subtotal: (count: number) => `小計（${count}点）`,
+  coupon: (code: string) => `クーポン ${code}`,
+  shipping: "送料",
+  free: "無料",
+  total: "合計（税込）",
+  remaining: { before: "あと ", after: " で送料無料" },
+  qualified: { strong: "送料無料", after: "の対象です" },
+  couponPlaceholder: "クーポンコード",
+  apply: "適用",
+  applied: (label: string) => `${label} を適用中`,
+  invalid: "このクーポンコードは使えません",
+  checkout: "レジへ進む",
+  methods: "クレジットカード・コンビニ払い・代金引換が使えます。",
+  recentTitle: "最近見た商品",
+  recentCount: 4,
+};

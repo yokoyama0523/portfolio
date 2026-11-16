@@ -1,0 +1,12 @@
+room.jpg	Pixabay	https://pixabay.com/photos/japan-japanese-style-room-houses-1750129/
+garden.jpg	Pixabay	https://pixabay.com/photos/japan-japanese-garden-bridge-forest-86183/
+kaiseki-1.jpg	Pixabay	https://pixabay.com/photos/japanese-food-food-vegetable-egg-7006594/
+kaiseki-2.jpg	Pixabay	https://pixabay.com/photos/restaurant-meal-food-cooking-1775862/
+kaiseki-3.jpg	Pixabay	https://pixabay.com/photos/hakone-meal-delicious-432549/
+sashimi.jpg	Pixabay	https://pixabay.com/photos/sashimi-gourmet-kaiseki-salmon-665606/
+stars.jpg	Pixabay	https://pixabay.com/photos/milky-way-galaxy-dark-nebula-6657951/
+umbrella.jpg	Pixabay	https://pixabay.com/photos/japanese-umbrella-umbrella-636869/
+corridor.jpg	Pixabay	https://pixabay.com/photos/traditional-door-room-house-8245250/
+arrive.jpg	ぱくたそ	https://www.pakutaso.com/
+bath-source.jpg	ぱくたそ	https://www.pakutaso.com/
+bath-morning.jpg	ぱくたそ	https://www.pakutaso.com/

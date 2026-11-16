@@ -1,0 +1,423 @@
+.pd {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  margin-top: 12px;
+}
+
+.gal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.gal figure {
+  aspect-ratio: 3 / 4;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.gal figure:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 4 / 5;
+}
+
+.gal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sw {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sw button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--swatch-edge);
+  position: relative;
+  background-clip: content-box;
+  padding: 3px;
+}
+
+.sw button.on {
+  border: 1.5px solid var(--ink);
+}
+
+.sz {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 6px;
+}
+
+.sz button {
+  height: 42px;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  position: relative;
+  background: var(--w);
+}
+
+.sz button.on {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--w);
+}
+
+.sz button.out {
+  color: var(--size-out);
+  background: repeating-linear-gradient(135deg, var(--w) 0 6px, var(--bg) 0 7px);
+}
+
+.sz button small {
+  position: absolute;
+  right: 4px;
+  top: 2px;
+  font-size: 9px;
+  color: var(--sale);
+}
+
+.sz button.on small {
+  color: var(--sale-soft);
+}
+
+.buy {
+  position: sticky;
+  top: 84px;
+}
+
+.buy h1 {
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+}
+
+.buy .cat {
+  font-size: 11.5px;
+  color: var(--mute);
+}
+
+.buy .pr {
+  margin: 10px 0 18px;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.buy .pr s {
+  font-size: 15px;
+  color: var(--mute);
+  font-weight: 400;
+  margin-right: 8px;
+}
+
+.buy .pr .sale {
+  color: var(--sale);
+}
+
+.buy .pr small {
+  font-size: 11px;
+  color: var(--mute);
+  font-weight: 400;
+  margin-left: 6px;
+}
+
+.buy .lb {
+  font-size: 12px;
+  color: var(--mute);
+  margin: 16px 0 8px;
+}
+
+.buy .lb b {
+  color: var(--ink);
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+.guide {
+  font-size: 11.5px;
+  border-bottom: 1px solid var(--ink);
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.stk {
+  font-size: 12px;
+  margin-top: 10px;
+  min-height: 1.5em;
+}
+
+.stk.few {
+  color: var(--sale);
+}
+
+.stk.ok {
+  color: var(--ok);
+}
+
+.qty {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  height: 48px;
+  align-items: center;
+}
+
+.qty button {
+  width: 40px;
+  height: 100%;
+  font-size: 18px;
+}
+
+.qty input[type="text"] {
+  width: 44px;
+  text-align: center;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.act {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.wishb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--line);
+  font-size: 12.5px;
+}
+
+.wishb svg {
+  width: 18px;
+  height: 18px;
+}
+
+.wishb.on svg {
+  fill: var(--ink);
+}
+
+.ship {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: var(--bg);
+  font-size: 12px;
+  color: var(--mute);
+  display: grid;
+  gap: 4px;
+}
+
+.acc {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.acc details {
+  border-bottom: 1px solid var(--line);
+}
+
+.acc summary {
+  cursor: pointer;
+  padding: 14px 0;
+  font-size: 13px;
+  font-weight: 500;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.acc summary::after {
+  content: "+";
+  font-weight: 400;
+  color: var(--mute);
+}
+
+.acc details[open] summary::after {
+  content: "−";
+}
+
+.acc .b {
+  padding: 0 0 16px;
+  font-size: 12.5px;
+  color: var(--body-soft);
+}
+
+.meas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.meas th,
+.meas td {
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.meas th {
+  background: var(--bg);
+  font-weight: 500;
+}
+
+.rv {
+  margin-top: clamp(40px, 6vw, 72px);
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.rv .sum {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.rv .sum b {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.stars {
+  color: var(--star);
+  letter-spacing: -0.02em;
+  font-size: 13px;
+}
+
+.rv li {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.rv li .who {
+  font-size: 11.5px;
+  color: var(--mute);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: var(--scrim);
+  z-index: 70;
+  display: none;
+  place-items: center;
+  padding: 20px;
+}
+
+.modal.on {
+  display: grid;
+}
+
+.modal .bx {
+  background: var(--w);
+  max-width: 640px;
+  width: 100%;
+  padding: 28px;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.modal .x {
+  float: right;
+  font-size: 12.5px;
+}
+
+.modal-note {
+  margin-top: 12px;
+}
+
+.mini {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(400px, 100%);
+  background: var(--w);
+  z-index: 60;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  padding: 24px;
+  box-shadow: -10px 0 40px var(--shadow);
+}
+
+.mini.on {
+  transform: none;
+}
+
+.mini h2 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.mini .it {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  font-size: 12.5px;
+}
+
+.mini .it img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+.mini .it .name {
+  font-weight: 500;
+}
+
+.mini .x {
+  position: absolute;
+  right: 20px;
+  top: 22px;
+  font-size: 12.5px;
+}
+
+.mini-actions {
+  margin-top: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .pd {
+    grid-template-columns: 1fr;
+  }
+
+  .buy {
+    position: static;
+  }
+
+  .gal figure:first-child {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mini {
+    transition: none;
+  }
+}
