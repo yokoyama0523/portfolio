@@ -1,5 +1,5 @@
+import { Choice } from "~/samples/shared/form/Choice";
 import { consult } from "../content/consult";
-import { Option } from "./Option";
 import { type ConsultForm, type Field, STEP } from "./useConsultForm";
 
 export function TopicPane({ form }: { form: ConsultForm }) {
@@ -9,13 +9,17 @@ export function TopicPane({ form }: { form: ConsultForm }) {
         <legend>{consult.topic.legend}</legend>
         <div className="opts">
           {consult.topic.options.map((option) => (
-            <Option
+            <Choice
               key={option.value}
+              type="radio"
               name="topic"
-              {...option}
+              value={option.value}
               checked={form.values.topic === option.value}
-              onSelect={(value) => form.update("topic", value)}
-            />
+              onChange={() => form.update("topic", option.value)}
+            >
+              <b>{option.title}</b>
+              <small>{option.note}</small>
+            </Choice>
           ))}
         </div>
       </fieldset>

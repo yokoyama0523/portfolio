@@ -1,3 +1,4 @@
+import { StepIndicator } from "~/samples/shared/form/StepIndicator";
 import { sampleMeta } from "~/samples/shared/meta";
 import { quote } from "../content/quote";
 import { ConfirmPane } from "../quote/ConfirmPane";
@@ -6,7 +7,6 @@ import { DonePane } from "../quote/DonePane";
 import { Header } from "../quote/Header";
 import { ModeTabs } from "../quote/ModeTabs";
 import { QuoteFields } from "../quote/QuoteFields";
-import { StepIndicator } from "../quote/StepIndicator";
 import { STEP, useQuoteForm } from "../quote/useQuoteForm";
 import { VisitFields } from "../quote/VisitFields";
 import "../styles/quote.css";
@@ -23,7 +23,7 @@ export default function CorpQuote() {
         <h1>{mode.title}</h1>
         <p className="lead">{mode.lead}</p>
         <ModeTabs mode={form.mode} onChange={form.setMode} />
-        <StepIndicator step={form.step} />
+        <StepIndicator labels={quote.steps} step={form.step} />
         <form noValidate onSubmit={form.submit}>
           {form.step === STEP.content && (
             <section className="pane">
