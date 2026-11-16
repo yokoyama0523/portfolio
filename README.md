@@ -1,112 +1,211 @@
-# Saku²｜yokoyama-dev.com
+<a id="readme-top"></a>
 
-Web制作をしている Yuki Yokoyama（屋号 Saku²）のポートフォリオサイトと、架空のクライアントを想定した制作サンプル10件のソースコードです。
+<div align="center">
+  <a href="https://yokoyama-dev.com/">
+    <img src="web/public/favicon.svg" alt="Saku² logo" width="80" height="80">
+  </a>
 
-**サイト：** https://yokoyama-dev.com/
+  <h1 align="center">Saku²</h1>
 
-## 制作サンプル
+  <p align="center">
+    Portfolio site of Yuki Yokoyama, a web designer and developer, with ten production-grade website samples for fictional clients.
+    <br />
+    <br />
+    <a href="https://yokoyama-dev.com/"><strong>Visit the site »</strong></a>
+    <br />
+    <br />
+    <a href="https://yokoyama-dev.com/portfolio/">Works</a>
+    &middot;
+    <a href="https://yokoyama-dev.com/service/">Service</a>
+    &middot;
+    <a href="https://yokoyama-dev.com/about/">About</a>
+    &middot;
+    <a href="README.ja.md">日本語</a>
+  </p>
 
-業種ごとに、情報設計・デザイン・コーディングまでを1人で作っています。会社・店舗・人物はすべて架空です。
+  <p align="center">
+    <a href="https://github.com/yokoyama0523/portfolio/actions/workflows/check.yml"><img src="https://github.com/yokoyama0523/portfolio/actions/workflows/check.yml/badge.svg?branch=develop" alt="check"></a>
+    <a href="https://github.com/yokoyama0523/portfolio/actions/workflows/deploy.yml"><img src="https://github.com/yokoyama0523/portfolio/actions/workflows/deploy.yml/badge.svg?branch=main" alt="deploy"></a>
+    <img src="https://img.shields.io/badge/React_Router-7.18.5-CA4245?logo=reactrouter&logoColor=white" alt="React Router 7.18.5">
+    <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white" alt="TypeScript 5.8">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-4.3-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4.3">
+    <img src="https://img.shields.io/badge/Cloudflare_Pages-deployed-F38020?logo=cloudflarepages&logoColor=white" alt="Cloudflare Pages">
+  </p>
+</div>
 
-| サンプル | 業種 | 内容 |
-|---|---|---|
-| [ASAGI](https://yokoyama-dev.com/portfolio/ec/) | アパレル通販 | 一覧・商品・カート・注文手続き・マイページ・管理画面まで、ECの画面をひととおり |
-| [ひだまり歯科クリニック](https://yokoyama-dev.com/portfolio/dental/) | 歯科医院 | 診療案内と、空き枠から選ぶ予約フォーム |
-| [株式会社ミナト精機](https://yokoyama-dev.com/portfolio/corp/) | 部品メーカー | 会社案内と、図面を添える見積もり・工場見学の申し込み |
-| [KUMO ROASTERY](https://yokoyama-dev.com/portfolio/coffee/) | コーヒー豆の通販 | 焙煎度で並ぶ商品と、定期便を選べる注文手続き |
-| [土と火](https://yokoyama-dev.com/portfolio/ceramic/) | 器の店 | 一点ものの商品ページと、のし・包装を選べる注文手続き |
-| [税理士法人あさひ会計](https://yokoyama-dev.com/portfolio/tax/) | 税理士事務所 | 料金の目安と、日時を選ぶ初回相談の申し込み |
-| [杉浦工務店](https://yokoyama-dev.com/portfolio/house/) | 工務店 | 施工事例と、見学会の予約 |
-| [湯宿 ゆらぎ](https://yokoyama-dev.com/portfolio/ryokan/) | 温泉旅館 | スクロールで時間が進むトップと、宿泊の予約 |
-| [SOU.hair](https://yokoyama-dev.com/portfolio/salon/) | 美容室 | メニューと、スタイリスト・日時を選ぶ予約 |
-| [VOID/FORM](https://yokoyama-dev.com/portfolio/motion/) | Web制作会社 | three.js の3Dと、スクロールに合わせた動き |
+<p align="center">
+  <img src=".github/assets/hero.png" alt="Top page of yokoyama-dev.com" width="100%">
+</p>
 
-## 技術的なポイント
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#showcase">Showcase</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#scripts">Scripts</a></li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#deployment">Deployment</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-- **全ページを静的に出す：** React Router のフレームワークモードで、全ページ（サンプルの商品ページを含む）をビルド時にHTMLにしてから、ブラウザで動かしています
-- **1つのアプリに11のサイト：** サイト本体と10のサンプルを1つのアプリで持ち、CSS・フォントはルートごとに読み込むので、ほかのサイトの見た目が混ざりません
-- **画像はビルドで最適化：** vite-imagetools で縮小し、`srcset` と幅・高さを自動で付けています
-- **値は1か所で管理：** 色・文字・余白はデザイントークン（Tailwind CSS v4 の `@theme`、サンプルは CSS 変数）に、文言は `data/`・`content/` にまとめ、部品には書きません
-- **動くフォーム：** 入力チェック、空き枠、合計金額の計算まで動きます。ECはカート・会員・注文・在庫・管理画面をブラウザの中（localStorage）だけで動かしています
-- **トップの動き：** Canvas 2D で描いています。数式・場面・時間割り・描画をファイルごとに分けています
-- **CI/CD：** プルリクエストごとに Biome・型チェック・ビルドを通し、`staging` と `main` に入れると Cloudflare Pages に公開します
+## About The Project
 
-## 技術スタック
+This repository holds [yokoyama-dev.com](https://yokoyama-dev.com/), the portfolio of the web studio Saku², and the ten website samples it presents. Each sample is a complete site for a fictional business, from information design and visual design to working forms.
 
-| 用途 | 使っているもの |
+- **Statically rendered:** every page, including each product page of the shop samples, is prerendered to HTML at build time and hydrated in the browser.
+- **Eleven sites in one app:** the portfolio and all ten samples share one React Router app. Stylesheets and fonts load per route, so no site leaks its look into another.
+- **Working flows:** reservation, quote and checkout forms validate input, show open slots and calculate totals. The fashion store runs its cart, accounts, orders, stock and admin panel entirely in the browser with `localStorage`.
+- **Design tokens:** colors, type, spacing and layout values live in Tailwind CSS v4 `@theme` tokens (CSS custom properties in the samples). Copy and paths live in data files, not in components.
+- **Optimized images:** vite-imagetools resizes every image at build time and adds `srcset`, width and height.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Showcase
+
+All companies, shops and people are fictional.
+
+| | |
 |---|---|
-| フレームワーク | React 19.1.10・React Router 7.18.5（フレームワークモード・プリレンダー） |
-| ビルド | Vite 7.3.7・vite-imagetools 10.0.1 |
-| 見た目 | Tailwind CSS 4.3.3（サイト本体）・CSS（サンプル）・Fontsource |
-| 動き | GSAP 3.15.0・Lenis 1.3.27・three.js 0.187.0・Canvas 2D |
-| 言語・品質 | TypeScript 5.8.3（strict）・Biome 2.5.1 |
-| 公開 | Cloudflare Pages・wrangler 4.156.1・GitHub Actions |
+| [<img src="web/app/samples/ec/media/thumb.jpg" alt="ASAGI" width="400">](https://yokoyama-dev.com/portfolio/ec/)<br>**ASAGI** — fashion store<br>Catalog, product pages, cart, checkout, account and admin panel | [<img src="web/app/samples/dental/media/thumb.jpg" alt="Hidamari Dental Clinic" width="400">](https://yokoyama-dev.com/portfolio/dental/)<br>**Hidamari Dental Clinic** — dental clinic<br>Treatment guide and a booking form with open slots |
+| [<img src="web/app/samples/corp/media/thumb.jpg" alt="Minato Seiki" width="400">](https://yokoyama-dev.com/portfolio/corp/)<br>**Minato Seiki** — precision parts maker<br>Company site with a drawing-based quote request and factory tours | [<img src="web/app/samples/coffee/media/thumb.jpg" alt="KUMO ROASTERY" width="400">](https://yokoyama-dev.com/portfolio/coffee/)<br>**KUMO ROASTERY** — coffee bean store<br>Beans ordered by roast level and a subscription checkout |
+| [<img src="web/app/samples/ceramic/media/thumb.jpg" alt="Tsuchi to Hi" width="400">](https://yokoyama-dev.com/portfolio/ceramic/)<br>**Tsuchi to Hi** — tableware shop<br>One-of-a-kind items and a checkout with gift wrapping | [<img src="web/app/samples/tax/media/thumb.jpg" alt="Asahi Tax Accountants" width="400">](https://yokoyama-dev.com/portfolio/tax/)<br>**Asahi Tax Accountants** — tax office<br>Published fees and a first-consultation booking |
+| [<img src="web/app/samples/house/media/thumb.jpg" alt="Sugiura Komuten" width="400">](https://yokoyama-dev.com/portfolio/house/)<br>**Sugiura Komuten** — home builder<br>Project gallery and open-house reservations | [<img src="web/app/samples/ryokan/media/thumb.jpg" alt="Yuyado Yuragi" width="400">](https://yokoyama-dev.com/portfolio/ryokan/)<br>**Yuyado Yuragi** — hot spring inn<br>A day that passes as you scroll, and a stay reservation |
+| [<img src="web/app/samples/salon/media/thumb.jpg" alt="SOU.hair" width="400">](https://yokoyama-dev.com/portfolio/salon/)<br>**SOU.hair** — hair salon<br>Menu and a booking form by stylist and time | [<img src="web/app/samples/motion/media/thumb.jpg" alt="VOID/FORM" width="400">](https://yokoyama-dev.com/portfolio/motion/)<br>**VOID/FORM** — creative studio<br>three.js 3D and scroll-driven motion |
 
-## はじめかた
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Node.js 22.18 以上が要ります（`web/.node-version`）。
+## Built With
+
+| Area | Tools |
+|---|---|
+| Framework | [React](https://react.dev/) 19.1.10, [React Router](https://reactrouter.com/) 7.18.5 (framework mode, prerendering) |
+| Build | [Vite](https://vite.dev/) 7.3.7, [vite-imagetools](https://github.com/JonasKruckenberg/imagetools) 10.0.1 |
+| Styling | [Tailwind CSS](https://tailwindcss.com/) 4.3.3 (portfolio), plain CSS (samples), [Fontsource](https://fontsource.org/) |
+| Motion | [GSAP](https://gsap.com/) 3.15.0, [Lenis](https://lenis.darkroom.engineering/) 1.3.27, [three.js](https://threejs.org/) 0.187.0, Canvas 2D |
+| Quality | [TypeScript](https://www.typescriptlang.org/) 5.8.3 (strict), [Biome](https://biomejs.dev/) 2.5.1 |
+| Hosting | [Cloudflare Pages](https://pages.cloudflare.com/), [wrangler](https://developers.cloudflare.com/workers/wrangler/) 4.156.1, GitHub Actions |
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 22.18 or later (the exact version is in [`web/.node-version`](web/.node-version))
+- npm
+
+### Installation
 
 ```sh
-cd web
+git clone https://github.com/yokoyama0523/portfolio.git
+cd portfolio/web
 npm ci
 npm run dev
 ```
 
-| コマンド | すること |
-|---|---|
-| `npm run dev` | 開発サーバーを起動する |
-| `npm run check` | Biome で整形とリントを確かめる |
-| `npm run format` | Biome で整形と修正をかける |
-| `npm run typecheck` | 型を確かめる |
-| `npm run build` | 全ページをプリレンダーし、サイトマップ・`_headers`・`_redirects` を作る（`web/build/client`） |
-| `npm run deploy -- --branch=<ブランチ>` | Cloudflare Pages に公開する（`CLOUDFLARE_API_TOKEN`・`CLOUDFLARE_ACCOUNT_ID` が要る） |
+Open the URL that `npm run dev` prints. The portfolio is at `/` and the samples are at `/portfolio/<id>/`.
 
-## ディレクトリ構成
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Scripts
+
+Run these from `web/`.
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run check` | Check formatting and lint rules with Biome |
+| `npm run format` | Format and apply safe fixes with Biome |
+| `npm run typecheck` | Generate route types and run the TypeScript compiler |
+| `npm run build` | Prerender every page to `build/client` and write the sitemap, `robots.txt`, `_headers` and `_redirects` |
+| `npm run deploy -- --branch=<branch>` | Upload `build/client` to Cloudflare Pages (needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`) |
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Project Structure
 
 ```
 web/
 ├── app/
-│   ├── config.ts          サイト名・URL・パス・アイコンなど、全体の設定
-│   ├── root.tsx           HTMLの骨組みとエラー画面
-│   ├── routes.ts          ルートの一覧
-│   ├── site/              サイト本体
-│   │   ├── app.css        デザイントークンと独自のユーティリティ
-│   │   ├── components/    部品（orbit/ はトップの動き）
-│   │   ├── data/          文言・パス・画像
-│   │   └── routes/        トップ・制作事例・サービス・運営者情報
-│   ├── samples/           制作サンプル
-│   │   ├── <id>/          case.json・content/・styles/・pages/・routes.ts・assets/・media/
-│   │   └── shared/        サンプルどうしで使う部品・フォーム・入力チェック
-│   └── shared/            meta とアクセス解析
-├── scripts/               ビルドの後処理（サイトマップ・_headers・_redirects）
-└── public/                そのまま配るファイル
+│   ├── config.ts            Site-wide settings: name, URL, paths, icons
+│   ├── root.tsx             HTML shell and error boundary
+│   ├── routes.ts            Route table for the portfolio and every sample
+│   ├── site/                The portfolio
+│   │   ├── app.css          Design tokens and custom utilities
+│   │   ├── components/      UI components (orbit/ is the top-page animation)
+│   │   ├── data/            Copy, paths and images
+│   │   └── routes/          Home, Works, Service, About
+│   ├── samples/
+│   │   ├── <id>/            One sample: case.json, content/, styles/, pages/, routes.ts, assets/, media/
+│   │   └── shared/          Components, form helpers and validation shared by samples
+│   └── shared/              Meta tags and analytics
+├── scripts/                 Post-build steps: sitemap, _headers, _redirects
+└── public/                  Static files served as-is
 ```
 
-## 開発の流れ
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-| ブランチ | 役割 | 公開先 |
+## Architecture
+
+- **Routing:** `app/routes.ts` combines the portfolio routes with each sample's `routes.ts`. Every sample has its own layout, fonts and stylesheets.
+- **Rendering:** `ssr: false` with prerendering. Where output depends on the query string, it is read after hydration so the prerendered HTML matches the first client render.
+- **State:** the shop samples keep their state in a React context backed by `localStorage`, each sample under its own keys.
+- **Content:** each sample's copy lives in `content/`, and the portfolio's copy lives in `site/data/`. `case.json` drives the works list, the footer, the page count, the sitemap and the legacy-URL redirects.
+- **Top-page animation:** split into `orbit/math.ts`, `orbit/scene.ts` (dot formations), `orbit/timeline.ts` (stages and text reveals) and `orbit/renderer.ts` (Canvas 2D).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Deployment
+
+| Branch | Purpose | Deployed to |
 |---|---|---|
-| `feature/*` | 作業 | なし |
-| `develop` | まとめる | なし |
-| `staging` | 本番の前の確認 | https://staging.yokoyama-dev-portfolio.pages.dev/ |
-| `main` | 本番 | https://yokoyama-dev.com/ |
+| `feature/*` | Work in progress | — |
+| `develop` | Integration | — |
+| `staging` | Pre-release check | https://staging.yokoyama-dev-portfolio.pages.dev/ |
+| `main` | Production | https://yokoyama-dev.com/ |
 
-`feature/*` → `develop` → `staging` → `main` の順に、プルリクエストでマージします。
+- [`check.yml`](.github/workflows/check.yml) runs Biome, the type check and the build on every pull request and on pushes to `develop`, `staging` and `main`.
+- [`deploy.yml`](.github/workflows/deploy.yml) builds and uploads to Cloudflare Pages on pushes to `staging` and `main`. It needs the repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 
-## コーディング規約
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- 色・大きさ・余白はトークンを使い、Tailwind の任意値（`[...]`）は使わない。足りないときはトークンか `@utility` を足す
-- 文言・パス・画像は部品に書かず、`data/`・`content/`・`config.ts` に置く
-- コードにコメントを書かない。名前で意味が分かるようにする
-- パッケージの版は完全に固定し、公開から2週間以上たったものを使う
-- `npm run check` と `npm run typecheck` を通してからプルリクエストを出す
+## Contributing
 
-## サンプルを足すとき
+1. Create a branch from `develop`: `git checkout -b feature/<name>`
+2. Make your changes and run `npm run check`, `npm run typecheck` and `npm run build`
+3. Open a pull request into `develop`. Releases go `develop` → `staging` → `main` by pull request.
 
-1. `web/app/samples/<id>/` に、`case.json`・`media/`（`thumb.jpg`・`desktop.png`・`mobile.png`）・`routes.ts`・`layout.tsx`・`pages/`・`content/`・`styles/` を置く
-2. `web/app/routes.ts` にサンプルのルートを足す
-3. 制作事例の一覧・フッター・ページ数・サイトマップ・旧URLの転送は、`case.json` と `pages/` から自動で作られる
+Conventions:
 
-## 写真について
+- Use design tokens. Don't use Tailwind arbitrary values (`[...]`); add a token or an `@utility` instead.
+- Keep copy, paths and images in `data/`, `content/` or `config.ts`, not in components.
+- No code comments. Names carry the meaning.
+- Pin every dependency to an exact version that has been public for at least two weeks.
 
-サンプルの写真はフリー素材（ぱくたそ・Unsplash・Pexels・Pixabay）で、人物はモデルです。出典は各サンプルの `assets/CREDITS.txt` に書いています。
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## License
+
+© 2026 Yuki Yokoyama. All rights reserved. No license is granted to use, copy or redistribute this code or its assets.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contact
+
+Yuki Yokoyama (Saku²) — [yokoyama-dev.com](https://yokoyama-dev.com/) · [CrowdWorks](https://crowdworks.jp/public/employees/5842694)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Acknowledgments
+
+- Photos in the samples come from [PAKUTASO](https://www.pakutaso.com/), [Unsplash](https://unsplash.com/), [Pexels](https://www.pexels.com/) and [Pixabay](https://pixabay.com/). People shown are models. Sources are listed in each sample's `assets/CREDITS.txt`.
+- [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the structure of this README.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
