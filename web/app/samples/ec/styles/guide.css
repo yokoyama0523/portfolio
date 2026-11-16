@@ -1,0 +1,104 @@
+.lay {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: start;
+  margin-top: 12px;
+}
+
+.toc {
+  position: sticky;
+  top: 84px;
+}
+
+.toc a {
+  display: block;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+}
+
+.g h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 14px;
+  padding-top: 40px;
+  letter-spacing: 0.04em;
+}
+
+.g section:first-child h2 {
+  padding-top: 0;
+}
+
+.g p,
+.g li {
+  max-width: 40em;
+}
+
+.g ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+
+.g li {
+  margin: 4px 0;
+}
+
+.g table {
+  width: 100%;
+  max-width: 640px;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin: 10px 0;
+}
+
+.g th,
+.g td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.g th {
+  background: var(--bg);
+  font-weight: 500;
+}
+
+.faq details {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 500;
+  list-style: none;
+}
+
+.faq summary::before {
+  content: "Q. ";
+  color: var(--mute);
+}
+
+.faq .a {
+  padding: 0 0 14px;
+  color: var(--body-soft);
+}
+
+@media (max-width: 900px) {
+  .lay {
+    grid-template-columns: 1fr;
+  }
+
+  .toc {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .toc a {
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+  }
+}

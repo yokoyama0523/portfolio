@@ -20,7 +20,7 @@ if (ids.some((id) => !existsSync(join(ogCache, `${id}.jpg`))))
 mkdirSync(join(out, "og"), { recursive: true });
 for (const id of ids) copyFileSync(join(ogCache, `${id}.jpg`), join(out, "og", `${id}.jpg`));
 
-execFileSync("python3", ["-I", join(root, "tools/seo.py"), out, root], { stdio: "inherit" });
+execFileSync("python3", ["-I", join(root, "tools/seo.py"), out], { stdio: "inherit" });
 
 copyFileSync(join(out, "__spa-fallback.html"), join(out, "404.html"));
 

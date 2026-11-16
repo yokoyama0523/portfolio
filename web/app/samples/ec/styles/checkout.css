@@ -1,0 +1,246 @@
+.lay {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  margin-top: 12px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 8px 0 28px;
+  font-size: 11.5px;
+  color: var(--mute);
+}
+
+.steps li {
+  padding: 10px 0 0;
+  border-top: 2px solid var(--line);
+}
+
+.steps li.on {
+  border-color: var(--ink);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.steps li.past {
+  border-color: var(--ink);
+}
+
+.pane fieldset {
+  margin: 0 0 28px;
+}
+
+legend {
+  padding: 0;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.login-hint {
+  margin-bottom: 16px;
+}
+
+.date-select {
+  margin-top: 6px;
+}
+
+.card-note {
+  margin-top: 8px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.sum {
+  background: var(--bg);
+  padding: 22px;
+  position: sticky;
+  top: 84px;
+}
+
+.sum h2 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.sum .it {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 10px;
+  font-size: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.sum .it img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.sum .it small {
+  color: var(--mute);
+  display: block;
+}
+
+.sum .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 12.5px;
+}
+
+.sum .row.first {
+  margin-top: 8px;
+}
+
+.sum .row.t {
+  border-top: 1px solid var(--ink);
+  margin-top: 8px;
+  padding-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card-f {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+}
+
+.card-f .w {
+  grid-column: 1 / -1;
+}
+
+.cf {
+  border: 1px solid var(--line);
+  padding: 14px 16px;
+  font-size: 12.5px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 7em 1fr auto;
+  gap: 6px 12px;
+  align-items: start;
+}
+
+.cf b {
+  font-weight: 500;
+}
+
+.cf .ed {
+  font-size: 11.5px;
+  color: var(--mute);
+  border-bottom: 1px solid var(--line);
+}
+
+.cf .total {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cf .total .note {
+  margin-left: 8px;
+}
+
+.fin {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.fin h1 {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.fin .no {
+  font-family: var(--en);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 14px 0 2px;
+  letter-spacing: 0.04em;
+}
+
+.fin .no small {
+  display: block;
+  font-family: var(--f);
+  font-size: 11px;
+  color: var(--mute);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+.fin .box {
+  text-align: left;
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  max-width: 520px;
+  margin: 24px auto 0;
+  font-size: 12.5px;
+}
+
+.fin .box-head {
+  display: block;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.fin .register {
+  margin-top: 10px;
+}
+
+.register-button {
+  margin-top: 10px;
+}
+
+.register-message {
+  margin-top: 6px;
+}
+
+.fin-links {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.agree {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12.5px;
+  margin: 14px 0;
+}
+
+.agree input {
+  margin-top: 4px;
+  accent-color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .lay {
+    grid-template-columns: 1fr;
+  }
+
+  .sum {
+    position: static;
+    order: -1;
+  }
+
+  .card-f {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .steps {
+    font-size: 10.5px;
+  }
+}
