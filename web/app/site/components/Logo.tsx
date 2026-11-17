@@ -19,7 +19,9 @@ export function Logo({
       </svg>
       <span className="font-latin text-2xl font-medium leading-none tracking-1">
         {site.brandMark.base}
-        <sup className="ml-px align-super text-sup">{site.brandMark.exponent}</sup>
+        <span className="relative -top-[0.234em] ml-[calc(1px-0.0266em)] text-[1.084em] leading-0 font-[280]">
+          {site.brandMark.exponent}
+        </span>
       </span>
     </span>
   );
