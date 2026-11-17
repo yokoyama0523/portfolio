@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { jpDate, ymd } from "~/samples/shared/dates";
 import { adminPage } from "../content/admin";
 import type { Slot } from "./DayView";
+import { Sheet } from "./Sheet";
 import {
   clinicActions,
   fits,
@@ -329,42 +330,21 @@ type Props = {
 
 export function Drawer({ data, openId, slot, onClose, onCreated }: Props) {
   const reservation = data.reservations.find((r) => r.id === openId) ?? null;
-  const open = Boolean(reservation || slot);
-
-  useEffect(() => {
-    if (!open) return;
-    const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, [open, onClose]);
-
-  if (!open) return null;
-  const title = reservation ? reservation.name : text.newTitle;
+  if (!reservation && !slot) return null;
   return (
-    <div className="drawer-layer">
-      <button type="button" className="scrim" aria-label={text.close} onClick={onClose} />
-      <aside className="drawer" aria-label={title}>
-        <div className="drawer-head">
-          <h2>{title}</h2>
-          <button type="button" className="ghost" onClick={onClose}>
-            {text.close}
-          </button>
-        </div>
-        {reservation ? (
-          <Detail key={reservation.id + reservation.status} r={reservation} data={data} />
-        ) : (
-          slot && (
-            <NewForm
-              key={`${slot.date}${slot.time}${slot.chair}`}
-              slot={slot}
-              data={data}
-              onDone={onCreated}
-            />
-          )
-        )}
-      </aside>
-    </div>
+    <Sheet title={reservation ? reservation.name : text.newTitle} onClose={onClose}>
+      {reservation ? (
+        <Detail key={reservation.id + reservation.status} r={reservation} data={data} />
+      ) : (
+        slot && (
+          <NewForm
+            key={`${slot.date}${slot.time}${slot.chair}`}
+            slot={slot}
+            data={data}
+            onDone={onCreated}
+          />
+        )
+      )}
+    </Sheet>
   );
 }
