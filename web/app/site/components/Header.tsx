@@ -50,7 +50,7 @@ export function Header() {
           href={site.crowdworks}
           target="_blank"
           rel="noopener"
-          className={`grid place-items-center rounded-full bg-accent font-latin text-white transition-all duration-500 ease-out-soft hover:scale-105 ${
+          className={`grid place-items-center rounded-full bg-accent font-latin font-bold text-white transition-all duration-500 ease-out-soft hover:scale-105 ${
             scrolled
               ? "size-14 text-xs leading-label"
               : "size-14 text-xs leading-label md:size-18 md:text-sm mv-dark:bg-white mv-dark:text-charcoal"
