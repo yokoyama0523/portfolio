@@ -73,14 +73,15 @@ const BLOOM_DRIFT = { from: 16.0, rate: 0.04, x: 0.8, y: -0.6 };
 const PETAL_COUNT = 5;
 const FILL = { draw: 1, shimmer: 0.16, speed: 0.35 };
 const FILL_SIZE = {
-  min: 0.03,
-  max: 0.1,
-  gap: 0.006,
-  curve: 1.3,
+  min: 0.016,
+  max: 0.07,
+  gap: 0.003,
+  space: 0.035,
+  curve: 1.6,
   density: 5,
   minTries: 300,
   maxTries: 4000,
-  bySize: 0.6,
+  bySize: 0.85,
   seedStride: 7919,
   petalStride: 104729,
   plainBelow: 1.8,
@@ -124,6 +125,7 @@ const fillSize = (scale: number): PackSize => {
     min,
     max: FILL_SIZE.max * k,
     gap: FILL_SIZE.gap * k,
+    space: FILL_SIZE.space * k,
     curve: FILL_SIZE.curve,
     tries: Math.min(FILL_SIZE.maxTries, Math.max(FILL_SIZE.minTries, tries)),
   };

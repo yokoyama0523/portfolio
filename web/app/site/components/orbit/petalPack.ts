@@ -2,7 +2,14 @@ import { CENTER_RADIUS, type Point, petalOutline } from "../sakuraShape";
 import { rand } from "./math";
 
 export type Disc = { x: number; y: number; r: number };
-export type PackSize = { min: number; max: number; gap: number; curve: number; tries: number };
+export type PackSize = {
+  min: number;
+  max: number;
+  gap: number;
+  space: number;
+  curve: number;
+  tries: number;
+};
 
 const OUTLINE_STEPS = 48;
 const SEED = { x: 1, y: 2, size: 3 };
@@ -109,7 +116,8 @@ const edgeRoom = (x: number, y: number) => {
 
 export const packPetal = (size: PackSize, seed: number) => {
   const discs: Disc[] = [];
-  const cell = 2 * size.max + size.gap;
+  const apart = size.gap + size.space;
+  const cell = 2 * size.max + apart;
   const cols = Math.ceil((BOX.x1 - BOX.x0) / cell) + 1;
   const rows = Math.ceil((BOX.y1 - BOX.y0) / cell) + 1;
   const grid: Disc[][] = Array.from({ length: cols * rows }, () => []);
@@ -133,7 +141,7 @@ export const packPetal = (size: PackSize, seed: number) => {
     for (let gx = Math.max(0, cx - 1); gx <= Math.min(cols - 1, cx + 1) && r >= size.min; gx++)
       for (let gy = Math.max(0, cy - 1); gy <= Math.min(rows - 1, cy + 1) && r >= size.min; gy++)
         for (const d of grid[gx + gy * cols])
-          r = Math.min(r, Math.hypot(x - d.x, y - d.y) - d.r - size.gap);
+          r = Math.min(r, Math.hypot(x - d.x, y - d.y) - d.r - apart);
     r = Math.min(r, room);
     if (r < size.min) continue;
     const disc = { x, y, r };
