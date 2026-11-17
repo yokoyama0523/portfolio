@@ -1,17 +1,17 @@
 import { sampleMeta } from "~/samples/shared/meta";
+import { Cta } from "../components/Cta";
 import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 import { Access } from "../components/home/Access";
-import { Cta } from "../components/home/Cta";
+import { Concept } from "../components/home/Concept";
 import { Doctor } from "../components/home/Doctor";
-import { Features } from "../components/home/Features";
 import { First } from "../components/home/First";
-import { Header } from "../components/home/Header";
 import { Hero } from "../components/home/Hero";
-import { Hours } from "../components/home/Hours";
+import { Info } from "../components/home/Info";
 import { Menu } from "../components/home/Menu";
-import { News } from "../components/home/News";
 import { Room } from "../components/home/Room";
 import { MobileBar } from "../components/MobileBar";
+import { ReserveTab } from "../components/ReserveTab";
 import { home } from "../content/home";
 import "../styles/home.css";
 
@@ -20,20 +20,20 @@ export const meta = () => sampleMeta("dental", home.meta);
 export default function DentalHome() {
   return (
     <>
-      <Header />
+      <Header onHome />
       <main>
         <Hero />
-        <News />
-        <Features />
-        <Hours />
+        <Info />
+        <Concept />
         <Menu />
         <First />
         <Doctor />
         <Room />
         <Access />
-        <Cta />
+        <Cta title={home.cta.title} text={home.cta.text} />
       </main>
-      <Footer variant="home" />
+      <Footer onHome />
+      <ReserveTab />
       <MobileBar onHome />
     </>
   );

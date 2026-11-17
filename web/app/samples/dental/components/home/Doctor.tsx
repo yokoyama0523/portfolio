@@ -1,44 +1,54 @@
 import { Img } from "~/samples/shared/Img";
+import { Lines } from "~/samples/shared/Lines";
 import { home } from "../../content/home";
+import { Sentences } from "../Sentences";
 
 const { doctor, staff } = home;
 
 export function Doctor() {
   return (
-    <section className="sec doc" id={doctor.id}>
-      <div className="box">
-        <div className="ph">
+    <section className="doctor" id={doctor.id} aria-labelledby="doctor-title">
+      <div className="doctor-main">
+        <figure className="doctor-photo">
           <Img image={doctor.image} alt={doctor.alt} />
-        </div>
-        <div>
-          <h2>{doctor.title}</h2>
-          <div className="msg">
-            {doctor.message.map((text) => (
-              <p key={text}>{text}</p>
-            ))}
-          </div>
-          <div className="nm">
+        </figure>
+        <div className="doctor-body">
+          <h2 id="doctor-title" className="h2">
+            {doctor.title}
+          </h2>
+          <p className="prose">
+            <Lines lines={doctor.message} />
+          </p>
+          <p className="sign">
+            <small>{doctor.role}</small>
             {doctor.name}
-            <small className="role">{doctor.role}</small>
-          </div>
-          <p className="cv">{doctor.career}</p>
+          </p>
+          <ul className="career">
+            {doctor.career.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className="staff">
-        <h2>{staff.title}</h2>
-        <div className="grid">
-          {staff.items.map((member) => (
-            <div key={member.name}>
-              <div className="ph">
-                <Img image={member.image} style={{ objectPosition: member.focus }} />
-              </div>
-              <h3>
-                {member.name}
-                <small>{member.role}</small>
-              </h3>
-              <p>{member.text}</p>
-            </div>
-          ))}
+        <h3 className="h3">{staff.title}</h3>
+        <div className="staff-grid">
+          <figure className="staff-photo">
+            <Img image={staff.image} alt={staff.alt} />
+          </figure>
+          <ul>
+            {staff.items.map((item) => (
+              <li key={item.name}>
+                <p className="who">
+                  <small>{item.role}</small>
+                  {item.name}
+                </p>
+                <p>
+                  <Sentences text={item.text} />
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

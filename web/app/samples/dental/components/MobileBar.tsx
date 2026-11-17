@@ -10,7 +10,7 @@ export function MobileBar({ onHome }: { onHome: boolean }) {
         <PhoneIcon />
         {mobileBar.tel}
       </a>
-      <Link className="y" to={clinic.paths.reserve}>
+      <Link className="main" to={clinic.paths.reserve}>
         <CalendarIcon />
         {mobileBar.reserve}
       </Link>
