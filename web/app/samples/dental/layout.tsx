@@ -5,6 +5,7 @@ import "@fontsource/zen-kaku-gothic-new/500.css";
 import "@fontsource/zen-kaku-gothic-new/700.css";
 import { Outlet } from "react-router";
 import { SampleCredit } from "~/samples/shared/SampleCredit";
+import { DemoSwitch } from "./components/DemoSwitch";
 import "./styles/base.css";
 
 export default function DentalLayout() {
@@ -12,6 +13,7 @@ export default function DentalLayout() {
     <div className="mdb">
       <Outlet />
       <SampleCredit />
+      <DemoSwitch />
     </div>
   );
 }

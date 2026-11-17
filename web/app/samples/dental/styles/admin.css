@@ -1,7 +1,3 @@
-.mdb:has(.adm) {
-  --sample-credit-offset: 16px;
-}
-
 .mdb .adm {
   min-height: 100vh;
   background: var(--mist);

@@ -349,6 +349,44 @@ body {
   display: none;
 }
 
+.mdb .demo-switch {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #1c2733;
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.45);
+  font: 500 12px / 1 var(--got);
+  letter-spacing: 0.06em;
+}
+
+.mdb .demo-tag {
+  padding: 0 10px 0 8px;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 11px;
+}
+
+.mdb .demo-switch a {
+  padding: 9px 14px;
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.85);
+  white-space: nowrap;
+}
+
+.mdb .demo-switch a[aria-current="page"] {
+  background: #fff;
+  color: #1c2733;
+}
+
+.mdb .demo-switch a:not([aria-current]):hover {
+  color: #fff;
+}
+
 .mdb .cta {
   margin: 140px 24px 0;
   border-radius: var(--radius);
@@ -540,7 +578,12 @@ body {
 
 @media (max-width: 860px) {
   .mdb {
-    --sample-credit-offset: 72px;
+    --sample-credit-offset: 124px;
+  }
+
+  .mdb:has(.rmain),
+  .mdb:has(.adm) {
+    --sample-credit-offset: 62px;
   }
 
   .mdb .rtab {
@@ -578,6 +621,15 @@ body {
     fill: none;
     stroke: currentcolor;
     stroke-width: 1.6;
+  }
+
+  .mdb .demo-switch {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .mdb:has(.bar) .demo-switch {
+    bottom: calc(74px + env(safe-area-inset-bottom));
   }
 
   .mdb .bar .main {

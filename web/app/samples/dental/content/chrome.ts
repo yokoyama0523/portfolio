@@ -20,6 +20,13 @@ export const header = {
   telLabel: "お電話でのご予約",
 };
 
+export const demoSwitch = {
+  label: "見本の画面の切り替え",
+  tag: "デモ",
+  patient: "患者さん向け",
+  staff: "医院向け",
+};
+
 export const reserveTab = { label: reserveLabel, hours: "24", note: "時間" };
 
 export const mobileBar = {

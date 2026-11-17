@@ -1,7 +1,3 @@
-.mdb:has(.rmain) {
-  --sample-credit-offset: 16px;
-}
-
 .mdb .rhd {
   display: flex;
   align-items: center;
