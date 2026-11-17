@@ -74,7 +74,7 @@ export const reserve = {
       what: "内容",
       when: "日時",
       name: "お名前",
-      tel: "電話",
+      tel: "TEL",
       email: "メール",
       birth: "生年月日",
       who: "予約する人",

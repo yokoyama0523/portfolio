@@ -160,7 +160,7 @@ export const home = {
         term: "駐車場",
         value: "建物の裏に2台。満車のときは近くのコインパーキングをご利用ください。",
       },
-      { term: "電話", value: clinic.tel },
+      { term: "TEL", value: clinic.tel },
     ],
   },
   cta: {
