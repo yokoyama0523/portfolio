@@ -1,18 +1,22 @@
 {
   "id": "dental",
   "order": 2,
-  "name": "ひだまり歯科クリニック",
+  "name": "まどべ歯科",
   "industry": "歯科医院",
   "industry_short": "歯科医院",
   "industry_en": "Dental clinic",
   "category": "医療・士業",
-  "summary": "歯科医院。アーチの写真と縦書きの一文、診療時間の表。",
-  "features": ["WEB予約（日時→連絡先→確認→完了）", "診療案内", "お知らせ"],
+  "summary": "歯科医院。窓の大きな院内の写真に縦書きの一文、お知らせと診療時間を並べたトップ。",
+  "features": [
+    "WEB予約（診療内容→日時→連絡先→確認→完了）",
+    "診療案内（流れ・費用・リスク）",
+    "お知らせ"
+  ],
   "tech": ["HTML", "CSS", "JavaScript"],
   "design": {
-    "fonts": "Zen Maru Gothic ＋ Noto Sans JP",
-    "palette": ["#ffffff", "#f7f2ea", "#b58b4a", "#3b3733"],
-    "memo": "しま歯科の型。アーチ形の写真と縦書きの一文、白地に陽の色1つ。英字ラベルとカードをやめ、診療案内は丸い小さな写真のリスト、院内は横に流れる写真"
+    "fonts": "Shippori Mincho ＋ Zen Kaku Gothic New",
+    "palette": ["#ffffff", "#f2f6f8", "#86aac8", "#15395a"],
+    "memo": "参考は六本松MI歯科（白と青、縦書きの明朝、小さめの本文と広い余白）、おかもと歯科医院（院内の写真を大きく、白い帯の縦書き）、マリモ歯科（写真の下にお知らせと診療時間）。写真は写真ACの日本の歯科医院の写真"
   },
   "entry": "index.html",
   "has_flow": true,

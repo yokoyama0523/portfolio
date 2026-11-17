@@ -1,5 +1,6 @@
 import { jpDate } from "~/samples/shared/dates";
 import { Summary } from "~/samples/shared/form/Summary";
+import { Sentences } from "../components/Sentences";
 import { reserve } from "../content/reserve";
 import { type ReserveForm, STEP } from "./useReserveForm";
 
@@ -28,7 +29,9 @@ export function ConfirmPane({ form }: { form: ReserveForm }) {
       <fieldset>
         <legend>{text.legend}</legend>
         <Summary rows={rows} editLabel={text.edit} onEdit={form.go} />
-        <p className="hint confirm-hint">{text.hint}</p>
+        <p className="hint confirm-hint">
+          <Sentences text={text.hint} />
+        </p>
       </fieldset>
       <div className="nav">
         <button type="button" className="btn g" onClick={() => form.go(STEP.contact)}>

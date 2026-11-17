@@ -1,68 +1,47 @@
-import { footers } from "../content/chrome";
-import { clinic, hours } from "../content/clinic";
-import { Mark } from "./Mark";
-import { NavLink } from "./NavLink";
+import { Link } from "react-router";
+import { footer } from "../content/chrome";
+import { clinic, hours, reserveLabel } from "../content/clinic";
+import { Address } from "./Address";
+import { HoursTable } from "./HoursTable";
+import { Logo } from "./Logo";
+import { NavLinks } from "./NavLinks";
 
-export function Footer({ variant }: { variant: "home" | "sub" }) {
-  const footer = footers[variant];
+export function Footer({ onHome }: { onHome: boolean }) {
   return (
     <footer className="ft">
-      <div className="in">
-        <div>
-          <div className="logo">
-            <Mark />
-            {footer.showLatin ? (
-              <span>
-                <b>{clinic.name}</b>
-                <small>{clinic.latin}</small>
-              </span>
-            ) : (
-              clinic.name
-            )}
-          </div>
-          <address>
-            {clinic.zip} {clinic.address}
+      <div className="ft-in">
+        <div className="ft-about">
+          <Logo />
+          <p>
+            <Address withZip />
             <br />
-            {footers.telPrefix}
-            {clinic.tel}
-          </address>
+            {clinic.station}
+          </p>
+          <p className="ft-tel">
+            <small>{footer.telLabel}</small>
+            <a href={clinic.telHref}>{clinic.tel}</a>
+          </p>
+          <Link className="btn" to={clinic.paths.reserve}>
+            {reserveLabel}
+          </Link>
         </div>
-        <div>
-          <h3>{footers.hoursTitle}</h3>
-          <table>
-            <tbody>
-              <tr>
-                <td />
-                {hours.days.map((day) => (
-                  <td key={day}>{day}</td>
-                ))}
-              </tr>
-              {hours.rows.map((row) => (
-                <tr key={row.time}>
-                  <td>{row.time}</td>
-                  {row.marks.map((mark, i) => (
-                    <td key={hours.days[i]}>{mark}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="hours-note">{hours.shortNote}</p>
-        </div>
-        <div>
-          <h3>{footers.menuTitle}</h3>
-          <ul>
-            {footer.menu.map((item) => (
-              <li key={item.label}>
-                <NavLink item={item} />
-              </li>
+        <div className="ft-hours">
+          <HoursTable caption={footer.hoursTitle} />
+          <ul className="notes">
+            {hours.notes.map((note) => (
+              <li key={note}>{note}</li>
             ))}
           </ul>
         </div>
+        <nav className="ft-nav" aria-label={footer.menuTitle}>
+          <NavLinks onHome={onHome} />
+        </nav>
       </div>
-      <div className="copy">
-        <span>{clinic.copyright}</span>
-        <span>{footer.note}</span>
+      <div className="ft-bottom">
+        <div>
+          <p>{footer.note}</p>
+          <small>{clinic.copyright}</small>
+        </div>
       </div>
     </footer>
   );

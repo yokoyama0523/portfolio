@@ -1,4 +1,5 @@
 import { jpDate, ymd } from "~/samples/shared/dates";
+import { Sentences } from "../components/Sentences";
 import { reserve } from "../content/reserve";
 import { availability, calendar, dayRange, rangeLabel, slotsFor } from "./calendar";
 import { type ReserveForm, STEP } from "./useReserveForm";
@@ -77,7 +78,9 @@ export function DatePane({ form }: { form: ReserveForm }) {
     <section className="pane">
       <fieldset>
         <legend>{text.legend}</legend>
-        <p className="hint">{text.hint}</p>
+        <p className="hint">
+          <Sentences text={text.hint} />
+        </p>
         <Calendar form={form} />
       </fieldset>
       <fieldset>

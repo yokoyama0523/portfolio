@@ -1,31 +1,34 @@
 import { Img } from "~/samples/shared/Img";
+import { Lines } from "~/samples/shared/Lines";
 import { home } from "../../content/home";
+import { Sentences } from "../Sentences";
 
-const { room } = home;
+const text = home.room;
 
 export function Room() {
   return (
-    <section className="sec room" id={room.id}>
-      <h2>{room.title}</h2>
-      <p className="lead">{room.lead}</p>
-      <div className="strip">
-        {room.photos.map((photo) => (
-          <figure key={photo.caption}>
-            <div className="im">
-              <Img image={photo.image} />
-            </div>
-            <figcaption>{photo.caption}</figcaption>
-          </figure>
-        ))}
+    <section className="room" id={text.id} aria-labelledby="room-title">
+      <div className="sec-head">
+        <h2 id="room-title" className="h2">
+          {text.title}
+        </h2>
+        <p className="prose">
+          <Lines lines={text.lead} />
+        </p>
       </div>
-      <div className="eq">
-        {room.equipment.map((item) => (
-          <div key={item.title}>
-            <b>{item.title}</b>
-            <p>{item.text}</p>
-          </div>
+      <ul className="room-list">
+        {text.photos.map((photo) => (
+          <li key={photo.caption}>
+            <figure>
+              <Img image={photo.image} alt={photo.caption} />
+              <figcaption>
+                <b>{photo.caption}</b>
+                <Sentences text={photo.text} />
+              </figcaption>
+            </figure>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

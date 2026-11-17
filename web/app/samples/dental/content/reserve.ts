@@ -2,9 +2,9 @@ import { clinic } from "./clinic";
 
 export const reserve = {
   meta: { title: `WEB予約｜${clinic.name}`, slug: "reserve/" },
+  lead: ["初めての方も、通院中の方も、こちらからご予約ください。", "入力は3分ほどで終わります。"],
   telLabel: "お電話でも",
   title: "WEB予約",
-  lead: "初めての方も、通院中の方も、こちらから。入力は3分ほどで終わります。",
   steps: ["診療内容", "日時", "連絡先", "確認"],
   back: "戻る",
   required: "必須",
@@ -35,9 +35,9 @@ export const reserve = {
   },
   date: {
     legend: "ご希望の日",
-    hint: "○は空きあり、△は残りわずか。木曜・祝日は休診です。",
-    prev: "← 前の週",
-    next: "次の週 →",
+    hint: "○は空きあり、△は残りわずかです。木曜・祝日は休診です。",
+    prev: "前の2週間",
+    next: "次の2週間",
     timeLegend: "ご希望の時間",
     pickDayFirst: "先に日を選んでください。",
     picked: "選んだ日時",
@@ -49,7 +49,7 @@ export const reserve = {
     legend: "連絡先",
     name: { label: "お名前", placeholder: "山田 花子", error: "お名前を入力してください" },
     kana: { label: "ふりがな", placeholder: "やまだ はなこ", error: "ひらがなで入力してください" },
-    tel: { label: "電話番号", placeholder: "090-1234-5678", error: "電話番号を確認してください" },
+    tel: { label: "電話番号", placeholder: "090-0000-0000", error: "電話番号を確認してください" },
     email: {
       label: "メール",
       placeholder: "hanako@example.com",
@@ -83,16 +83,16 @@ export const reserve = {
   done: {
     title: "ご予約を受け付けました",
     number: "予約番号",
-    receiptPrefix: "H",
+    receiptPrefix: "M",
     bring: {
       title: "当日お持ちいただくもの",
       items: ["保険証（またはマイナンバーカード）", "お薬手帳（お持ちの方）", "診察券（再診の方）"],
     },
     place: {
       title: "場所",
-      text: "世田谷区桜丘 2-13-7　桜丘駅 北口から徒歩3分。駐車場は建物の裏に2台あります。",
+      text: `${clinic.address}　${clinic.station}。駐車場は建物の裏に2台あります。`,
     },
-    back: "医院のページへ戻る",
+    back: "まどべ歯科のトップへ戻る",
   },
   footer: "このページはポートフォリオ用です。予約は実際には送信されません。",
 };
