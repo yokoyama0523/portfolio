@@ -1,10 +1,12 @@
 import { site } from "~/config";
 
+export const specialty = "ハイクオリティホームページ";
+
 export const about = [
   "ヒアリングからサイト設計、デザイン、コーディング、",
   "公開後の運用まで一貫して対応します。",
   "業種やターゲットに合わせた情報設計で、",
-  "成果につながるWebサイトを制作します。",
+  `成果につながる${specialty}を制作します。`,
 ];
 
 export const worksLead = [
