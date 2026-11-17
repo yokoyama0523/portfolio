@@ -62,10 +62,13 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto mt-20 flex max-w-content items-center justify-between border-t border-line py-8">
-        <Link to={site.paths.home} aria-label={layoutCopy.homeLabel}>
-          <Logo />
-        </Link>
+      <div className="mx-auto mt-20 flex max-w-content items-end justify-between border-t border-line py-8 md:items-center">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-5">
+          <Link to={site.paths.home} aria-label={layoutCopy.homeLabel}>
+            <Logo />
+          </Link>
+          <p className="text-xs tracking-6 text-mute">{text.tagline}</p>
+        </div>
         <p className="font-latin text-xs tracking-6 text-mute">{text.copyright}</p>
       </div>
     </footer>
