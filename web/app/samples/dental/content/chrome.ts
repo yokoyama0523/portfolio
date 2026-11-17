@@ -22,7 +22,6 @@ export const header = {
 
 export const demoSwitch = {
   label: "見本の画面の切り替え",
-  tag: "デモ",
   patient: "患者さん向け",
   staff: "医院向け",
 };

@@ -453,7 +453,7 @@
   line-height: 1.6;
 }
 
-.mdb .adm .tag.first {
+.mdb .adm .tag-first {
   border-color: var(--sun);
   color: var(--sun);
 }
@@ -705,7 +705,7 @@
   letter-spacing: 0.1em;
 }
 
-.mdb .adm .info div {
+.mdb .adm .detail-list div {
   display: grid;
   grid-template-columns: 7em minmax(0, 1fr);
   gap: 8px;
@@ -714,11 +714,11 @@
   font-size: 13px;
 }
 
-.mdb .adm .info dt {
+.mdb .adm .detail-list dt {
   color: var(--ink-2);
 }
 
-.mdb .adm .info dd {
+.mdb .adm .detail-list dd {
   overflow-wrap: anywhere;
 }
 

@@ -11,7 +11,6 @@ export function DemoSwitch() {
   ];
   return (
     <nav className="demo-switch" aria-label={text.label}>
-      <span className="demo-tag">{text.tag}</span>
       {items.map((item) => (
         <Link key={item.label} to={item.to} aria-current={item.active ? "page" : undefined}>
           {item.label}

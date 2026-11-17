@@ -195,7 +195,7 @@ export function ListView({ reservations, onOpen }: Props) {
                     <small>{r.tel}</small>
                   </td>
                   <td>{r.menu}</td>
-                  <td>{r.kind === "初診" && <span className="tag first">{r.kind}</span>}</td>
+                  <td>{r.kind === "初診" && <span className="tag tag-first">{r.kind}</span>}</td>
                   <td>{adminPage.source[r.source]}</td>
                   <td>
                     <span className={`state ${r.status}`}>{adminPage.status[r.status]}</span>

@@ -59,7 +59,7 @@ function Appointment({ r, onOpen }: { r: Reservation; onOpen: (id: string) => vo
         <b>{r.name}</b>
       </span>
       <span className="appt-l2">
-        {r.kind === "初診" && <span className="tag first">{r.kind}</span>}
+        {r.kind === "初診" && <span className="tag tag-first">{r.kind}</span>}
         <span className="tag">{adminPage.source[r.source]}</span>
         {r.status === "arrived" && <span className="tag done">{adminPage.status.arrived}</span>}
         <span className="appt-menu">{r.menu}</span>

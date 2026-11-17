@@ -115,7 +115,7 @@ function Detail({ r, data }: { r: Reservation; data: Data }) {
   return (
     <>
       <p className={`state ${r.status}`}>{adminPage.status[r.status]}</p>
-      <dl className="info">
+      <dl className="detail-list">
         {rows.map(([term, value]) => (
           <div key={term}>
             <dt>{term}</dt>
