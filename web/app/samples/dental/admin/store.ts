@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { addDays, startOfToday, ymd } from "~/samples/shared/dates";
+import { type NewsPost, seedNews } from "../content/posts";
 
 export type Status = "booked" | "arrived" | "cancelled";
 export type Source = "web" | "tel";
@@ -37,7 +38,12 @@ export type Settings = {
   holidays: string[];
 };
 
-type State = { reservations: Reservation[]; settings: Settings; signedIn: boolean };
+type State = {
+  reservations: Reservation[];
+  settings: Settings;
+  news: NewsPost[];
+  signedIn: boolean;
+};
 
 const PREFIX = "madobe_v2_";
 
@@ -52,7 +58,16 @@ export const defaultSettings: Settings = {
   slotMinutes: 30,
   chairs: 3,
   lookaheadDays: 28,
-  holidays: ["2026-11-23", "2026-12-29", "2026-12-30", "2026-12-31", "2027-01-01"],
+  holidays: [
+    "2026-11-23",
+    "2026-12-29",
+    "2026-12-30",
+    "2026-12-31",
+    "2027-01-01",
+    "2027-01-02",
+    "2027-01-03",
+    "2027-01-04",
+  ],
 };
 
 export const toMinutes = (time: string) => {
@@ -240,19 +255,21 @@ const write = (key: string, value: unknown) => {
 
 const fresh = (): State => {
   const settings = defaultSettings;
-  return { settings, reservations: seedReservations(settings), signedIn: false };
+  return { settings, reservations: seedReservations(settings), news: seedNews, signedIn: false };
 };
 
 const load = (): State => {
   const settings = read<Settings | null>("settings", null);
   const reservations = read<Reservation[] | null>("reservations", null);
+  const news = read<NewsPost[] | null>("news", null) ?? seedNews;
   if (!settings || !reservations) {
     const state = fresh();
     write("settings", state.settings);
     write("reservations", state.reservations);
+    write("news", state.news);
     return state;
   }
-  return { settings, reservations, signedIn: read("signedIn", false) };
+  return { settings, reservations, news, signedIn: read("signedIn", false) };
 };
 
 let current: State | null = null;
@@ -275,6 +292,7 @@ const commit = (next: State) => {
   current = next;
   write("settings", next.settings);
   write("reservations", next.reservations);
+  write("news", next.news);
   write("signedIn", next.signedIn);
   for (const listener of listeners) listener();
 };
@@ -294,6 +312,13 @@ export const clinicActions = {
       reservations: state.reservations.map((r) => (r.id === id ? { ...r, ...patch } : r)),
     })),
   saveSettings: (settings: Settings) => update(() => ({ settings })),
+  saveNews: (post: NewsPost) =>
+    update((state) => ({
+      news: state.news.some((p) => p.id === post.id)
+        ? state.news.map((p) => (p.id === post.id ? post : p))
+        : [post, ...state.news],
+    })),
+  removeNews: (id: string) => update((state) => ({ news: state.news.filter((p) => p.id !== id) })),
   reset: () => {
     const state = fresh();
     commit({ ...state, signedIn: true });
@@ -304,3 +329,5 @@ export const useClinic = () => useSyncExternalStore(subscribe, snapshot, () => n
 
 export const newId = (date: string) =>
   `M${date.replace(/-/g, "").slice(2)}-${String(Math.floor(Math.random() * 900) + 100)}`;
+
+export const newNewsId = () => `post-${Date.now().toString(36)}`;

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { addDays, jpDate, startOfToday, ymd } from "~/samples/shared/dates";
 import { adminPage } from "../content/admin";
+import { Pager } from "./Pager";
 import { type Reservation, type Source, type Status, toMinutes } from "./store";
 
 const text = adminPage.list;
@@ -21,57 +22,6 @@ const inPeriod = (r: Reservation, period: Period) => {
 
 const order = (a: Reservation, b: Reservation) =>
   a.date === b.date ? toMinutes(a.time) - toMinutes(b.time) : a.date < b.date ? -1 : 1;
-
-const pageList = (current: number, last: number) => {
-  if (last <= 7) return Array.from({ length: last }, (_, i) => i + 1);
-  const middle = [current - 1, current, current + 1].filter((n) => n > 1 && n < last);
-  const list: (number | "gap")[] = [1];
-  if (middle[0] > 2) list.push("gap");
-  list.push(...middle);
-  if (middle[middle.length - 1] < last - 1) list.push("gap");
-  list.push(last);
-  return list;
-};
-
-function Pager({
-  current,
-  last,
-  onPage,
-}: {
-  current: number;
-  last: number;
-  onPage: (page: number) => void;
-}) {
-  if (last <= 1) return null;
-  return (
-    <nav className="pager" aria-label={text.pager.label}>
-      <button type="button" disabled={current === 1} onClick={() => onPage(current - 1)}>
-        {text.pager.prev}
-      </button>
-      {pageList(current, last).map((n, i) =>
-        n === "gap" ? (
-          <span key={`gap-${i < 2 ? "a" : "b"}`} className="gap" aria-hidden="true">
-            …
-          </span>
-        ) : (
-          <button
-            key={n}
-            type="button"
-            className="num"
-            aria-label={text.pager.page(n)}
-            aria-current={n === current ? "page" : undefined}
-            onClick={() => onPage(n)}
-          >
-            {n}
-          </button>
-        ),
-      )}
-      <button type="button" disabled={current === last} onClick={() => onPage(current + 1)}>
-        {text.pager.next}
-      </button>
-    </nav>
-  );
-}
 
 type Props = { reservations: Reservation[]; onOpen: (id: string) => void };
 
