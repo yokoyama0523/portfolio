@@ -17,6 +17,7 @@ export const clinic = {
     treatment: `${home}treatment/`,
     news: `${home}news/`,
     reserve: `${home}reserve/`,
+    admin: `${home}admin/`,
     section: (id: string) => `${home}#${id}`,
   },
 };

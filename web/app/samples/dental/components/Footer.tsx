@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { adminPage } from "../content/admin";
 import { footer } from "../content/chrome";
 import { clinic, hours, reserveLabel } from "../content/clinic";
 import { Address } from "./Address";
@@ -40,7 +41,10 @@ export function Footer({ onHome }: { onHome: boolean }) {
       <div className="ft-bottom">
         <div>
           <p>{footer.note}</p>
-          <small>{clinic.copyright}</small>
+          <p className="ft-links">
+            <Link to={clinic.paths.admin}>{adminPage.footerLink}</Link>
+            <small>{clinic.copyright}</small>
+          </p>
         </div>
       </div>
     </footer>

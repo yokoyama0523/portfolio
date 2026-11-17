@@ -6,5 +6,6 @@ export default prefix("portfolio/dental", [
     route("treatment", "samples/dental/pages/treatment.tsx"),
     route("news", "samples/dental/pages/news.tsx"),
     route("reserve", "samples/dental/pages/reserve.tsx"),
+    route("admin", "samples/dental/pages/admin.tsx"),
   ]),
 ]);

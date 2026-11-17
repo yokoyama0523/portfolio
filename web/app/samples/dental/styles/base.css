@@ -432,6 +432,18 @@ body {
   padding: 0 var(--gutter);
 }
 
+.mdb .ft-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  white-space: nowrap;
+}
+
+.mdb .ft-links a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .mdb .ft-bottom > div {
   display: flex;
   justify-content: space-between;

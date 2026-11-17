@@ -9,8 +9,8 @@ const headClass = (i: number) =>
   i === 0 ? "d sun" : i === calendar.dayNames.length - 1 ? "d sat" : "d";
 
 function Calendar({ form }: { form: ReserveForm }) {
-  const { today, weekStart, date } = form;
-  if (!today || !weekStart) return null;
+  const { today, weekStart, date, clinic, minutes } = form;
+  if (!today || !weekStart || !clinic) return null;
   return (
     <>
       <div className="calhead">
@@ -29,7 +29,7 @@ function Calendar({ form }: { form: ReserveForm }) {
           </div>
         ))}
         {dayRange(weekStart).map((day) => {
-          const state = availability(day, today);
+          const state = availability(day, today, clinic, minutes);
           const picked = date && ymd(date) === ymd(day);
           const classes = [state === "x" ? "" : state, picked ? "on" : ""]
             .filter(Boolean)
@@ -52,11 +52,11 @@ function Calendar({ form }: { form: ReserveForm }) {
 }
 
 function Slots({ form }: { form: ReserveForm }) {
-  const { date } = form;
-  if (!date) return <p className="hint">{text.pickDayFirst}</p>;
+  const { date, clinic, minutes } = form;
+  if (!date || !clinic) return <p className="hint">{text.pickDayFirst}</p>;
   return (
     <>
-      {slotsFor(date).map((slot) => (
+      {slotsFor(date, clinic, minutes).map((slot) => (
         <button
           key={slot.time}
           type="button"
