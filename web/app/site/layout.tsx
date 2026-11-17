@@ -1,5 +1,8 @@
-import "@fontsource-variable/noto-sans-jp";
 import "@fontsource-variable/outfit";
+import "@fontsource/m-plus-rounded-1c/300.css";
+import "@fontsource/m-plus-rounded-1c/400.css";
+import "@fontsource/m-plus-rounded-1c/500.css";
+import "@fontsource/m-plus-rounded-1c/700.css";
 import { Outlet, useLocation } from "react-router";
 import { Footer } from "~/site/components/Footer";
 import { Header } from "~/site/components/Header";
