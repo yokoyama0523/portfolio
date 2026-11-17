@@ -1,6 +1,7 @@
 import { expoInOut, mix, rand, rotX, rotZ, scale3, seg, sineInOut, TAU, type V3 } from "./math";
+import { type PackSize, PETAL_AREA, packBloom } from "./petalPack";
 
-export type Dot = { p: V3; sz: number; dc: number };
+export type Dot = { p: V3; sz: number; dc: number; so?: number };
 
 export const LOOP = 24.1;
 export const DOT_COUNT = 240;
@@ -54,23 +55,23 @@ const SATELLITE = { phase: 2.1, size: 0.015 };
 const BURST_SCALE = 9;
 const TUNNEL = { spin: 0.45, size: 0.009, from: 19.4, to: 23.4, distance: 6 };
 
-const PETAL = {
-  count: 5,
-  bins: 3600,
-  samples: 3000,
-  length: 0.44,
-  offset: 0.56,
-  width: 0.34,
-  notchDepth: 0.11,
-  notchWidth: 0.09,
-};
-
 export const SAKURA_SCALE = 0.9;
 const SAKURA_TILT = { base: -0.22, sway: 0.1, rate: 0.6 };
 const BLOOM_PULSE = { amount: 0.025, rate: 0.9 };
 const BLOOM_DRIFT = { from: 16.0, rate: 0.04, x: 0.8, y: -0.6 };
-const BLOOM_DOT = { size: 0.0056, base: 0.55, bySize: 0.45 };
-const PETAL_WAVE = { base: 0.82, amount: 0.36, speed: 0.35 };
+const PETAL_COUNT = 5;
+const FILL = { draw: 1, shimmer: 0.16, speed: 0.35 };
+const FILL_SIZE = {
+  min: 0.0075,
+  max: 0.06,
+  gap: 0.0022,
+  curve: 2.6,
+  density: 5,
+  minTries: 400,
+  maxTries: 9000,
+  bySize: 0.85,
+  seedStride: 7919,
+};
 const BLOOM_FIT = {
   padding: 0.1,
   depthFalloff: 0.8,
@@ -90,22 +91,41 @@ const BLOOM_FIT = {
 };
 
 const BLOOMS = [
-  { n: 240, s: 1, r: 0, z: 0, w: 0.05, nx: 0, ny: 0 },
-  { n: 170, s: 0.95, r: 0.3, z: -0.45, w: -0.04, nx: -0.92, ny: 0.8 },
-  { n: 80, s: 0.45, r: 1.1, z: -0.1, w: 0.07, nx: -0.5, ny: 0.98 },
-  { n: 90, s: 0.42, r: 0.8, z: 0.25, w: -0.08, nx: 0.64, ny: -0.4 },
-  { n: 62, s: 0.3, r: 2.0, z: 0.5, w: 0.1, nx: 0.86, ny: -0.72 },
-  { n: 48, s: 0.2, r: 1.4, z: 0.8, w: -0.12, nx: 1.0, ny: -0.98 },
-  { n: 40, s: 0.14, r: 0.5, z: 1.0, w: 0.14, nx: 0.6, ny: -0.95 },
-  { n: 44, s: 0.17, r: 2.6, z: 0.9, w: -0.1, nx: -0.78, ny: -0.6 },
-  { n: 54, s: 0.24, r: 1.9, z: 0.6, w: 0.09, nx: 0.9, ny: 0.66 },
-  { n: 36, s: 0.12, r: 0.9, z: 1.1, w: -0.15, nx: -0.15, ny: 0.94 },
+  { s: 1, r: 0, z: 0, w: 0.05, nx: 0, ny: 0 },
+  { s: 0.95, r: 0.3, z: -0.45, w: -0.04, nx: -0.92, ny: 0.8 },
+  { s: 0.45, r: 1.1, z: -0.1, w: 0.07, nx: -0.5, ny: 0.98 },
+  { s: 0.42, r: 0.8, z: 0.25, w: -0.08, nx: 0.64, ny: -0.4 },
+  { s: 0.3, r: 2.0, z: 0.5, w: 0.1, nx: 0.86, ny: -0.72 },
+  { s: 0.2, r: 1.4, z: 0.8, w: -0.12, nx: 1.0, ny: -0.98 },
+  { s: 0.14, r: 0.5, z: 1.0, w: 0.14, nx: 0.6, ny: -0.95 },
+  { s: 0.17, r: 2.6, z: 0.9, w: -0.1, nx: -0.78, ny: -0.6 },
+  { s: 0.24, r: 1.9, z: 0.6, w: 0.09, nx: 0.9, ny: 0.66 },
+  { s: 0.12, r: 0.9, z: 1.1, w: -0.15, nx: -0.15, ny: 0.94 },
 ];
 
-export const ALL_DOTS = Math.max(
-  DOT_COUNT,
-  BLOOMS.reduce((a, b) => a + b.n, 0),
+const fillSize = (scale: number): PackSize => {
+  const k = scale ** -FILL_SIZE.bySize;
+  const min = FILL_SIZE.min * k;
+  const tries = Math.round((PETAL_AREA / (min * min)) * FILL_SIZE.density);
+  return {
+    min,
+    max: FILL_SIZE.max * k,
+    gap: FILL_SIZE.gap * k,
+    curve: FILL_SIZE.curve,
+    tries: Math.min(FILL_SIZE.maxTries, Math.max(FILL_SIZE.minTries, tries)),
+  };
+};
+
+const BLOOM_DOTS = BLOOMS.flatMap((bl, b) =>
+  packBloom(fillSize(bl.s), b * FILL_SIZE.seedStride).map((d) => ({
+    b,
+    q: [d.x, d.y] as const,
+    r: d.r,
+    u: ((Math.atan2(d.y, d.x) + TAU) % TAU) / TAU,
+  })),
 );
+
+export const ALL_DOTS = Math.max(DOT_COUNT, BLOOM_DOTS.length);
 
 const ORBITS = [
   { tx: 0.22, rz: -0.28, r: 1.36, w: 0.8 },
@@ -186,52 +206,6 @@ const travel = (t: number) => {
 };
 const fieldTime = (t: number) => (t < FIELD.wrapAt ? t : t - LOOP);
 
-const SAKURA_PATH = (() => {
-  const B = PETAL.bins;
-  const rmax = new Array<number>(B).fill(0);
-  for (let k = 0; k < PETAL.count; k++) {
-    const c = -Math.PI / 2 + (k * TAU) / PETAL.count;
-    for (let j = 0; j < PETAL.samples; j++) {
-      const q = (j / PETAL.samples) * TAU;
-      const u = PETAL.length * Math.cos(q) + PETAL.offset;
-      const v = PETAL.width * Math.sin(q);
-      const x = u * Math.cos(c) - v * Math.sin(c);
-      const y = u * Math.sin(c) + v * Math.cos(c);
-      const th = (Math.atan2(y, x) + TAU) % TAU;
-      const b = Math.floor((th / TAU) * B) % B;
-      rmax[b] = Math.max(rmax[b], Math.hypot(x, y));
-    }
-  }
-  const step = TAU / PETAL.count;
-  const pts = rmax.map((r0, b): [number, number] => {
-    const th = ((b + 0.5) / B) * TAU;
-    const m = (th + Math.PI / 2) % step;
-    const rel = Math.min(m, step - m);
-    const r = r0 - PETAL.notchDepth * Math.exp(-((rel / PETAL.notchWidth) ** 2));
-    return [Math.cos(th) * r, Math.sin(th) * r];
-  });
-  const len = [0];
-  for (let j = 1; j < B; j++)
-    len.push(len[j - 1] + Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]));
-  const total = len[B - 1] + Math.hypot(pts[0][0] - pts[B - 1][0], pts[0][1] - pts[B - 1][1]);
-  return { pts, len, total };
-})();
-
-const outline = (n: number) => {
-  const { pts, len, total } = SAKURA_PATH;
-  const out: [number, number][] = [];
-  let j = 0;
-  for (let i = 0; i < n; i++) {
-    const target = (i / n) * total;
-    while (j + 1 < pts.length && len[j + 1] < target) j++;
-    out.push(pts[j]);
-  }
-  return out;
-};
-
-const BLOOM_DOTS = BLOOMS.flatMap((bl, b) => outline(bl.n).map((q, k) => ({ b, q, u: k / bl.n })));
-const PETAL_REACH = Math.max(...SAKURA_PATH.pts.map(([x, y]) => Math.hypot(x, y)));
-
 type Slot = { x: number; y: number; k: number; on: boolean };
 export type Layout = { scale: number; viewX: number; viewY: number; slots: Slot[] };
 
@@ -253,8 +227,7 @@ export const layoutBlooms = (layout: Layout, top: number) => {
     const slot = layout.slots[b];
     slot.on = false;
     for (let k = 1; k > BLOOM_FIT.shrinkLimit && !slot.on; k *= BLOOM_FIT.shrink) {
-      const r =
-        (layout.scale * bl.s * k * PETAL_REACH * BLOOM_FIT.margin + pad) * proj + BLOOM_FIT.gap;
+      const r = (layout.scale * bl.s * k * BLOOM_FIT.margin + pad) * proj + BLOOM_FIT.gap;
       for (let a = 0; a < BLOOM_FIT.tries; a++) {
         const spread = b ? Math.min(1, a / BLOOM_FIT.spreadRamp) * BLOOM_FIT.spread : 0;
         const at = b * BLOOM_FIT.seedStride + a * SEED_STRIDE;
@@ -289,7 +262,7 @@ const hide =
 export const dotSakura: Form = (i, t, layout) => {
   const bd = BLOOM_DOTS[i];
   if (!bd) return { ...dotSakura(i % BLOOM_DOTS.length, t, layout), sz: 0 };
-  const { b, q, u } = bd;
+  const { b, q, r, u } = bd;
   const bl = BLOOMS[b];
   const slot = layout.slots[b];
   const drift = b ? ((t - BLOOM_DRIFT.from) * BLOOM_DRIFT.rate) / depthShrink(bl.z) : 0;
@@ -301,15 +274,9 @@ export const dotSakura: Form = (i, t, layout) => {
     f[1] + slot.y + drift * BLOOM_DRIFT.y,
     f[2] + bl.z,
   ];
-  if (!slot.on) return { p, sz: 0, dc: 1 };
-  const wave =
-    PETAL_WAVE.base +
-    PETAL_WAVE.amount * Math.sin(Math.PI * (u * PETAL.count - PETAL_WAVE.speed * t)) ** 2;
-  return {
-    p,
-    sz: BLOOM_DOT.size * Math.sqrt(DOTS[i].mul) * wave * (BLOOM_DOT.base + BLOOM_DOT.bySize * bl.s),
-    dc: 1,
-  };
+  if (!slot.on) return { p, sz: 0, dc: 1, so: 1 };
+  const shimmer = Math.sin(Math.PI * (u * PETAL_COUNT - FILL.speed * t)) ** 2;
+  return { p, sz: r * k * (FILL.draw - FILL.shimmer * shimmer), dc: 1, so: 1 };
 };
 
 export const dotField = hide((i, t) => {

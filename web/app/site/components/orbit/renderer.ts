@@ -1,7 +1,8 @@
-import { clamp, TAU, type V3 } from "./math";
+import { clamp, mix, TAU, type V3 } from "./math";
 import {
   ALL_DOTS,
   createLayout,
+  DOT_COUNT,
   DOTS,
   FOCAL,
   KIND,
@@ -10,7 +11,7 @@ import {
   layoutBlooms,
   SAKURA_SCALE,
 } from "./scene";
-import { CAPTION, dotAt, invertAt, reveal, stageAt, TAGLINE } from "./timeline";
+import { CAPTION, dotAt, invertAt, reveal, showsBlooms, stageAt, TAGLINE } from "./timeline";
 
 const MAX_PIXEL_RATIO = 1.5;
 const VIEW_SCALE = 0.42;
@@ -35,6 +36,7 @@ const MS_PER_SECOND = 1000;
 const MIN_FRAME = 1 / 62;
 const MAX_STEP = 0.1;
 const START = 0;
+const SOLID_FROM = 0.5;
 
 type Colors = { ink: string; paper: string };
 type Targets = {
@@ -104,14 +106,19 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   const collect = (t: number) => {
     items.length = 0;
     const st = stageAt(t);
-    for (let i = 0; i < ALL_DOTS; i++) {
+    const count = showsBlooms(st) ? ALL_DOTS : DOT_COUNT;
+    for (let i = 0; i < count; i++) {
       const d = dotAt(st, i, t, layout);
       if (d.sz <= MIN_SIZE) continue;
       const pt = project(d.p);
       if (!pt) continue;
-      const kind = DOTS[i].kind;
+      const solid = d.so ?? 0;
+      const kind = solid > SOLID_FROM ? KIND.solid : DOTS[i].kind;
       const r = Math.min(
-        d.sz * pt.s ** (1 + PERSPECTIVE_GROWTH * d.dc) * unit * KIND_SCALE[kind],
+        d.sz *
+          pt.s ** (1 + PERSPECTIVE_GROWTH * d.dc) *
+          unit *
+          mix(KIND_SCALE[DOTS[i].kind], 1, solid),
         MAX_RADIUS,
       );
       const a = depthAlpha(pt.s, d.dc);
