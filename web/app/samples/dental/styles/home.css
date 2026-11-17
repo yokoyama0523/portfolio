@@ -125,6 +125,7 @@
 
 .mdb .info-news li a {
   display: grid;
+  align-items: center;
   grid-template-columns: 6.6em 1fr;
   gap: 16px;
   padding: 18px 0;
@@ -207,6 +208,7 @@
 
 .mdb .points div {
   display: grid;
+  align-items: center;
   grid-template-columns: 9.5em 1fr;
   gap: 16px;
   padding: 18px 0;
@@ -581,6 +583,7 @@
 
 .mdb .access dl div {
   display: grid;
+  align-items: center;
   grid-template-columns: 6.5em 1fr;
   gap: 16px;
   padding: 16px 0;

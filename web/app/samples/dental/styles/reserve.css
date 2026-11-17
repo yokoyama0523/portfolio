@@ -366,6 +366,7 @@
 
 .mdb .sum dl {
   display: grid;
+  align-items: center;
   grid-template-columns: 8em 1fr;
   border-top: 1px solid var(--line);
   font-size: 14px;
@@ -384,7 +385,7 @@
 
 .mdb .sum dd {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   white-space: pre-wrap;
