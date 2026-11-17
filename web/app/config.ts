@@ -1,12 +1,13 @@
 export const site = {
   name: "Yuki Yokoyama",
   brand: "Saku²",
-  brandMark: { base: "Saku", exponent: "2" },
+  brandMark: { base: "Saku", exponent: "²" },
   url: "https://yokoyama-dev.com",
   lang: "ja",
   locale: "ja_JP",
   country: "JP",
   icons: [
+    { rel: "icon", href: "/favicon-192.png", sizes: "192x192", type: "image/png" },
     { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
     { rel: "icon", href: "/favicon-48.png", sizes: "48x48", type: "image/png" },
     { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
