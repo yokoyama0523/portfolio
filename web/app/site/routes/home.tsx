@@ -6,7 +6,7 @@ import { Process } from "~/site/components/Process";
 import { ServicePanels } from "~/site/components/ServicePanels";
 import { WhatIDo } from "~/site/components/WhatIDo";
 import { Works } from "~/site/components/Works";
-import { about } from "~/site/data/copy";
+import { about, specialty } from "~/site/data/copy";
 import { homeCopy } from "~/site/data/home";
 import { countPages } from "~/site/data/pages.server";
 import { ids, pageMeta } from "~/site/seo";
@@ -14,7 +14,7 @@ import type { Route } from "./+types/home";
 
 export const meta = () =>
   pageMeta({
-    title: site.brand,
+    title: `${site.brand}｜${specialty}`,
     description: about.join(""),
     path: site.paths.home,
     graph: [
