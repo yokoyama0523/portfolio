@@ -1,4 +1,6 @@
 import { jpDate, ymd } from "~/samples/shared/dates";
+import { useHours } from "../admin/hours";
+import { Sentences } from "../components/Sentences";
 import { reserve } from "../content/reserve";
 import { availability, calendar, dayRange, rangeLabel, slotsFor } from "./calendar";
 import { type ReserveForm, STEP } from "./useReserveForm";
@@ -8,8 +10,8 @@ const headClass = (i: number) =>
   i === 0 ? "d sun" : i === calendar.dayNames.length - 1 ? "d sat" : "d";
 
 function Calendar({ form }: { form: ReserveForm }) {
-  const { today, weekStart, date } = form;
-  if (!today || !weekStart) return null;
+  const { today, weekStart, date, clinic, minutes } = form;
+  if (!today || !weekStart || !clinic) return null;
   return (
     <>
       <div className="calhead">
@@ -28,7 +30,7 @@ function Calendar({ form }: { form: ReserveForm }) {
           </div>
         ))}
         {dayRange(weekStart).map((day) => {
-          const state = availability(day, today);
+          const state = availability(day, today, clinic, minutes);
           const picked = date && ymd(date) === ymd(day);
           const classes = [state === "x" ? "" : state, picked ? "on" : ""]
             .filter(Boolean)
@@ -51,11 +53,11 @@ function Calendar({ form }: { form: ReserveForm }) {
 }
 
 function Slots({ form }: { form: ReserveForm }) {
-  const { date } = form;
-  if (!date) return <p className="hint">{text.pickDayFirst}</p>;
+  const { date, clinic, minutes } = form;
+  if (!date || !clinic) return <p className="hint">{text.pickDayFirst}</p>;
   return (
     <>
-      {slotsFor(date).map((slot) => (
+      {slotsFor(date, clinic, minutes).map((slot) => (
         <button
           key={slot.time}
           type="button"
@@ -71,13 +73,16 @@ function Slots({ form }: { form: ReserveForm }) {
 }
 
 export function DatePane({ form }: { form: ReserveForm }) {
+  const { closedText } = useHours();
   const { date, time } = form;
   const picked = date ? `${jpDate(date)}　${time ?? text.pickTime}` : text.nothingPicked;
   return (
     <section className="pane">
       <fieldset>
         <legend>{text.legend}</legend>
-        <p className="hint">{text.hint}</p>
+        <p className="hint">
+          <Sentences text={text.hint + text.closedHint(closedText)} />
+        </p>
         <Calendar form={form} />
       </fieldset>
       <fieldset>

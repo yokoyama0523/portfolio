@@ -1,6 +1,8 @@
-import { Link } from "react-router";
 import { StepIndicator } from "~/samples/shared/form/StepIndicator";
+import { Lines } from "~/samples/shared/Lines";
 import { sampleMeta } from "~/samples/shared/meta";
+import { Logo } from "../components/Logo";
+import { Sentences } from "../components/Sentences";
 import { clinic } from "../content/clinic";
 import { reserve } from "../content/reserve";
 import { ConfirmPane } from "../reserve/ConfirmPane";
@@ -26,25 +28,26 @@ export default function DentalReserve() {
   const Pane = panes[form.step as keyof typeof panes];
   return (
     <>
-      <header className="hd">
-        <Link className="logo" to={clinic.paths.home}>
-          <span className="mark" aria-hidden="true" />
-          <b>{clinic.name}</b>
-        </Link>
-        <div className="tel">
-          {reserve.telLabel}
-          <b className="number">{clinic.tel}</b>
-        </div>
+      <header className="rhd">
+        <Logo />
+        <p className="rhd-tel">
+          <small>{reserve.telLabel}</small>
+          <a href={clinic.telHref}>{clinic.tel}</a>
+        </p>
       </header>
-      <main>
-        <h1>{reserve.title}</h1>
-        <p className="lead">{reserve.lead}</p>
+      <main className="rmain">
+        <h1 className="h1">{reserve.title}</h1>
+        <p className="prose">
+          <Lines lines={reserve.lead} />
+        </p>
         <StepIndicator labels={reserve.steps} step={form.step} pastClass="done" />
         <form noValidate onSubmit={form.submit}>
           <Pane form={form} />
         </form>
       </main>
-      <footer className="ft">{reserve.footer}</footer>
+      <footer className="rft">
+        <Sentences text={reserve.footer} />
+      </footer>
     </>
   );
 }

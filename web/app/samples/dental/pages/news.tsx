@@ -1,33 +1,38 @@
+import { Lines } from "~/samples/shared/Lines";
 import { sampleMeta } from "~/samples/shared/meta";
-import { Reveal } from "~/samples/shared/Reveal";
 import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 import { MobileBar } from "../components/MobileBar";
-import { Header } from "../components/sub/Header";
-import { PageHead } from "../components/sub/PageHead";
-import { newsItems } from "../content/news";
-import { newsPage } from "../content/newsPage";
+import { PageHead } from "../components/PageHead";
+import { ReserveTab } from "../components/ReserveTab";
+import { newsItems, newsPage as page } from "../content/news";
 import "../styles/sub.css";
 
-export const meta = () => sampleMeta("dental", newsPage.meta);
+export const meta = () => sampleMeta("dental", page.meta);
 
 export default function DentalNews() {
   return (
     <>
-      <Header />
-      <main>
-        <PageHead en={newsPage.en} title={newsPage.title} />
-        <div className="nl">
+      <Header onHome={false} />
+      <main className="sub">
+        <PageHead title={page.title} lead={page.lead} image={page.image} alt={page.alt} />
+        <div className="news-list">
           {newsItems.map((item) => (
-            <Reveal key={item.id} as="article" id={item.id}>
-              <time dateTime={item.iso}>{item.date}</time>
-              <span className="cat">{item.category}</span>
-              <h2>{item.title}</h2>
-              <p>{item.text}</p>
-            </Reveal>
+            <article key={item.id} id={item.id} aria-labelledby={`${item.id}-title`}>
+              <p className="news-meta">
+                <time dateTime={item.iso}>{item.date}</time>
+                <span>{item.category}</span>
+              </p>
+              <h2 id={`${item.id}-title`}>{item.title}</h2>
+              <p className="prose">
+                <Lines lines={item.text} />
+              </p>
+            </article>
           ))}
         </div>
       </main>
-      <Footer variant="sub" />
+      <Footer onHome={false} />
+      <ReserveTab />
       <MobileBar onHome={false} />
     </>
   );

@@ -1,69 +1,59 @@
 import { addDays, ymd } from "~/samples/shared/dates";
+import {
+  fits,
+  freeChairs,
+  isClosed,
+  type Reservation,
+  type Settings,
+  slotTimes,
+  toMinutes,
+} from "../admin/store";
 
 export const calendar = {
   dayNames: ["日", "月", "火", "水", "木", "金", "土"],
   spanDays: 14,
-  lookaheadDays: 28,
-  closedDay: 4,
-  holidays: [
-    "2026-11-23",
-    "2026-12-29",
-    "2026-12-30",
-    "2026-12-31",
-    "2027-01-01",
-    "2027-01-02",
-    "2027-01-03",
-  ],
-  slots: [
-    "9:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-  ],
-  weekendClose: "17:00",
+  fewSlots: 3,
 };
 
 export type Availability = "x" | "few" | "ok";
 
-const SUNDAY = 0;
-const SATURDAY = 6;
+export type ClinicData = { reservations: Reservation[]; settings: Settings };
+
+export const minutesFor = (kind: string) => (kind === "初診" ? 60 : 30);
 
 export const sundayOf = (date: Date) => addDays(date, -date.getDay());
 
 export const dayRange = (weekStart: Date) =>
   Array.from({ length: calendar.spanDays }, (_, i) => addDays(weekStart, i));
 
-export const availability = (date: Date, today: Date): Availability => {
-  if (date < today || date.getDay() === calendar.closedDay || calendar.holidays.includes(ymd(date)))
+const nowMinutes = () => new Date().getHours() * 60 + new Date().getMinutes();
+
+export const slotsFor = (date: Date, data: ClinicData, minutes: number) => {
+  const today = ymd(date) === ymd(new Date());
+  return slotTimes(date, data.settings).map((time) => ({
+    time,
+    open:
+      !(today && toMinutes(time) <= nowMinutes()) &&
+      fits(date, time, minutes, data.settings) &&
+      freeChairs(data, ymd(date), time, minutes).length > 0,
+  }));
+};
+
+export const availability = (
+  date: Date,
+  today: Date,
+  data: ClinicData,
+  minutes: number,
+): Availability => {
+  if (
+    date < today ||
+    date > addDays(today, data.settings.lookaheadDays) ||
+    isClosed(date, data.settings)
+  )
     return "x";
-  const n = (date.getDate() * 7 + date.getMonth() * 3) % 5;
-  if (n === 0) return "x";
-  return n < 2 ? "few" : "ok";
-};
-
-const minutes = (time: string) => {
-  const [hour, minute] = time.split(":").map(Number);
-  return hour * 60 + minute;
-};
-
-export const slotsFor = (date: Date) => {
-  const weekend = date.getDay() === SUNDAY || date.getDay() === SATURDAY;
-  const list = weekend
-    ? calendar.slots.filter((time) => minutes(time) < minutes(calendar.weekendClose))
-    : calendar.slots;
-  const seed = date.getDate() * 13 + date.getMonth();
-  return list.map((time, i) => ({ time, open: (seed + i * 7) % 4 !== 0 }));
+  const free = slotsFor(date, data, minutes).filter((slot) => slot.open).length;
+  if (free === 0) return "x";
+  return free <= calendar.fewSlots ? "few" : "ok";
 };
 
 export const rangeLabel = (weekStart: Date) => {

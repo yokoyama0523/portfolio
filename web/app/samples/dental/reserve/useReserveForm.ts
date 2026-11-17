@@ -3,8 +3,9 @@ import { addDays, receiptSerial, startOfToday, ymd } from "~/samples/shared/date
 import { useFields } from "~/samples/shared/form/useFields";
 import { useStepper } from "~/samples/shared/form/useStepper";
 import { isEmail, isFilled, isKana, isPhone } from "~/samples/shared/validation";
+import { clinicActions, freeChairs, useClinic } from "../admin/store";
 import { reserve } from "../content/reserve";
-import { calendar, sundayOf } from "./calendar";
+import { calendar, minutesFor, sundayOf } from "./calendar";
 
 export const STEP = { menu: 1, date: 2, contact: 3, confirm: 4, done: 5 } as const;
 
@@ -14,7 +15,8 @@ const isOptionalEmail = (value: string) => value === "" || isEmail(value);
 
 export function useReserveForm() {
   const { step, go } = useStepper();
-  const [kind, setKind] = useState(reserve.kind.options[0].value);
+  const clinic = useClinic();
+  const [kind, setKindValue] = useState(reserve.kind.options[0].value);
   const [menu, setMenu] = useState(reserve.menu.options[0].value);
   const [today, setToday] = useState<Date | null>(null);
   const [weekStart, setWeekStart] = useState<Date | null>(null);
@@ -45,7 +47,13 @@ export function useReserveForm() {
     setTime(null);
   };
 
-  const lastWeekStart = today ? addDays(today, calendar.lookaheadDays) : null;
+  const setKind = (value: string) => {
+    setKindValue(value);
+    setTime(null);
+  };
+
+  const lookahead = clinic?.settings.lookaheadDays ?? 0;
+  const lastWeekStart = today ? addDays(today, lookahead - calendar.spanDays + 1) : null;
   const moveWeek = (direction: 1 | -1) =>
     setWeekStart((current) =>
       current ? addDays(current, direction * calendar.spanDays) : current,
@@ -57,16 +65,39 @@ export function useReserveForm() {
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!date) return;
-    setReceipt(
-      `${reserve.done.receiptPrefix}${ymd(date).replace(/-/g, "").slice(2)}-${receiptSerial()}`,
-    );
+    if (!date || !time || !clinic) return;
+    const id = `${reserve.done.receiptPrefix}${ymd(date).replace(/-/g, "").slice(2)}-${receiptSerial()}`;
+    const minutes = minutesFor(kind);
+    const [chair = 1] = freeChairs(clinic, ymd(date), time, minutes);
+    const { values } = fields;
+    clinicActions.add({
+      id,
+      date: ymd(date),
+      time,
+      minutes,
+      chair,
+      kind: kind === "初診" ? "初診" : "再診",
+      menu,
+      name: values.name,
+      kana: values.kana,
+      tel: values.tel,
+      email: values.email,
+      birth: values.birth,
+      who: values.who,
+      note: values.note,
+      status: "booked",
+      source: "web",
+      createdAt: ymd(new Date()),
+    });
+    setReceipt(id);
     go(STEP.done);
   };
 
   return {
     step,
     go,
+    clinic,
+    minutes: minutesFor(kind),
     kind,
     setKind,
     menu,
