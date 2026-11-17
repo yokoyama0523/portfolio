@@ -4,7 +4,8 @@ import { clinic } from "../content/clinic";
 
 export function DemoSwitch() {
   const { pathname } = useLocation();
-  const staff = pathname.startsWith(clinic.paths.admin);
+  const trim = (path: string) => path.replace(/\/$/, "");
+  const staff = trim(pathname).startsWith(trim(clinic.paths.admin));
   const items = [
     { to: clinic.paths.home, label: text.patient, active: !staff },
     { to: clinic.paths.admin, label: text.staff, active: staff },

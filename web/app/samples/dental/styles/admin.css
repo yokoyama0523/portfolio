@@ -841,10 +841,14 @@
   color: var(--ink-2);
 }
 
-.mdb .adm .save-bar .warn {
+.mdb .adm .settings-bar .warn {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.mdb .adm .settings-bar .btn {
+  margin-left: auto;
 }
 
 .mdb .adm .grid-fields {
@@ -874,20 +878,6 @@
   justify-content: space-between;
   padding: 6px 0;
   border-bottom: 1px solid var(--line);
-}
-
-.mdb .adm .save-bar {
-  position: sticky;
-  bottom: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 16px;
-  padding: 14px 24px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
 }
 
 @media (max-width: 860px) {

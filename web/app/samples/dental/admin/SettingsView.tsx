@@ -126,6 +126,22 @@ export function SettingsView({ settings }: { settings: Settings }) {
 
   return (
     <>
+      <div className="toolbar settings-bar">
+        {errors.length > 0 ? (
+          <ul className="warn" role="alert">
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        ) : (
+          <span className="ok" role="status">
+            {message}
+          </span>
+        )}
+        <button type="button" className="btn" disabled={errors.length > 0} onClick={save}>
+          {text.save}
+        </button>
+      </div>
       <section className="pnl">
         <h2>{text.weekTitle}</h2>
         <p className="lead">
@@ -237,22 +253,6 @@ export function SettingsView({ settings }: { settings: Settings }) {
           ))}
         </ul>
       </section>
-      <div className="save-bar">
-        <button type="button" className="btn" disabled={errors.length > 0} onClick={save}>
-          {text.save}
-        </button>
-        {errors.length > 0 ? (
-          <ul className="warn" role="alert">
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
-        ) : (
-          <span className="ok" role="status">
-            {message}
-          </span>
-        )}
-      </div>
       <section className="pnl">
         <h2>{text.resetTitle}</h2>
         <p className="lead">{text.resetLead}</p>
