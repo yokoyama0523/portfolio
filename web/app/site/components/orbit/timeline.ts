@@ -23,7 +23,7 @@ type Move = Stage & {
   order: (i: number) => number;
 };
 
-const randomOrder = (i: number) => DOTS[i].order;
+const randomOrder = (i: number) => DOTS[i % DOT_COUNT].order;
 
 const STAGES: (Stage | Move)[] = [
   { from: 0, to: 3.6, form: dotField },
@@ -105,7 +105,7 @@ export const dotAt = (st: Stage | Move, i: number, t: number, layout: Layout): D
     p: mix3(a.p, b.p, w),
     sz: mix(a.sz, b.sz, w),
     dc: mix(a.dc, b.dc, w),
-    so: mix(a.so ?? 0, b.so ?? 0, w),
+    bloom: mix(a.bloom ?? 0, b.bloom ?? 0, w),
   };
 };
 
@@ -153,8 +153,8 @@ const INVERT = {
   seedRadius: 0.034,
   grow: 6.65,
   dark: 7.3,
-  close: 11.65,
-  light: 12.6,
+  close: 18.45,
+  light: 19.4,
 };
 
 export const invertAt = (t: number, unit: number, full: number) => {

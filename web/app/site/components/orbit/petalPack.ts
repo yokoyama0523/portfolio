@@ -1,4 +1,4 @@
-import { CENTER_RADIUS, PETAL_ANGLES, type Point, petalOutline } from "../sakuraShape";
+import { CENTER_RADIUS, type Point, petalOutline } from "../sakuraShape";
 import { rand } from "./math";
 
 export type Disc = { x: number; y: number; r: number };
@@ -107,7 +107,7 @@ const edgeRoom = (x: number, y: number) => {
   return EDGE_FIELD[col + row * FIELD_COLS] - FIELD_SLACK;
 };
 
-const packPetal = (size: PackSize, seed: number) => {
+export const packPetal = (size: PackSize, seed: number) => {
   const discs: Disc[] = [];
   const cell = 2 * size.max + size.gap;
   const cols = Math.ceil((BOX.x1 - BOX.x0) / cell) + 1;
@@ -143,12 +143,9 @@ const packPetal = (size: PackSize, seed: number) => {
   return discs;
 };
 
-export const packBloom = (size: PackSize, seed: number): Disc[] => {
-  const petal = packPetal(size, seed);
-  return PETAL_ANGLES.flatMap((deg) => {
-    const a = (deg * Math.PI) / 180;
-    const c = Math.cos(a);
-    const s = Math.sin(a);
-    return petal.map((d) => ({ x: d.x * c - d.y * s, y: d.x * s + d.y * c, r: d.r }));
-  });
+export const turnPetal = (discs: Disc[], deg: number): Disc[] => {
+  const a = (deg * Math.PI) / 180;
+  const c = Math.cos(a);
+  const s = Math.sin(a);
+  return discs.map((d) => ({ x: d.x * c - d.y * s, y: d.x * s + d.y * c, r: d.r }));
 };

@@ -1,6 +1,8 @@
 import { clamp, mix, TAU, type V3 } from "./math";
 import {
-  ALL_DOTS,
+  BLOOM_KINDS,
+  bloomCount,
+  bloomsReady,
   createLayout,
   DOT_COUNT,
   DOTS,
@@ -9,6 +11,7 @@ import {
   KIND_SCALE,
   LOOP,
   layoutBlooms,
+  prepareBlooms,
   SAKURA_SCALE,
 } from "./scene";
 import { CAPTION, dotAt, invertAt, reveal, showsBlooms, stageAt, TAGLINE } from "./timeline";
@@ -36,7 +39,10 @@ const MS_PER_SECOND = 1000;
 const MIN_FRAME = 1 / 62;
 const MAX_STEP = 0.1;
 const START = 0;
-const SOLID_FROM = 0.5;
+const BLOOM_FROM = 0.5;
+const IDLE_RESERVE = 1;
+const SLICE_MS = 8;
+const SLICE_GAP = 40;
 
 type Colors = { ink: string; paper: string };
 type Targets = {
@@ -106,19 +112,22 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   const collect = (t: number) => {
     items.length = 0;
     const st = stageAt(t);
-    const count = showsBlooms(st) ? ALL_DOTS : DOT_COUNT;
+    const blooms = showsBlooms(st);
+    if (blooms && !bloomsReady()) prepareBlooms(() => Number.POSITIVE_INFINITY);
+    const count = blooms ? Math.max(DOT_COUNT, bloomCount()) : DOT_COUNT;
     for (let i = 0; i < count; i++) {
       const d = dotAt(st, i, t, layout);
       if (d.sz <= MIN_SIZE) continue;
       const pt = project(d.p);
       if (!pt) continue;
-      const solid = d.so ?? 0;
-      const kind = solid > SOLID_FROM ? KIND.solid : DOTS[i].kind;
+      const bloom = d.bloom ?? 0;
+      const base = DOTS[i % DOT_COUNT];
+      const kind = bloom > BLOOM_FROM ? (BLOOM_KINDS[i] ?? KIND.solid) : base.kind;
       const r = Math.min(
         d.sz *
           pt.s ** (1 + PERSPECTIVE_GROWTH * d.dc) *
           unit *
-          mix(KIND_SCALE[DOTS[i].kind], 1, solid),
+          mix(KIND_SCALE[base.kind], 1, bloom),
         MAX_RADIUS,
       );
       const a = depthAlpha(pt.s, d.dc);
@@ -192,6 +201,26 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
     return () => ro.disconnect();
   }
 
+  let cancelPrepare = () => {};
+  const schedulePrepare = () => {
+    if (bloomsReady()) return;
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback((deadline) => {
+        prepareBlooms(() => deadline.timeRemaining() - IDLE_RESERVE);
+        schedulePrepare();
+      });
+      cancelPrepare = () => window.cancelIdleCallback(id);
+      return;
+    }
+    const id = window.setTimeout(() => {
+      const start = performance.now();
+      prepareBlooms(() => SLICE_MS - (performance.now() - start));
+      schedulePrepare();
+    }, SLICE_GAP);
+    cancelPrepare = () => window.clearTimeout(id);
+  };
+  schedulePrepare();
+
   let raf = 0;
   let visible = false;
   let last = 0;
@@ -223,6 +252,7 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   document.addEventListener("visibilitychange", run);
   return () => {
     cancelAnimationFrame(raf);
+    cancelPrepare();
     io.disconnect();
     ro.disconnect();
     document.removeEventListener("visibilitychange", run);
