@@ -6,7 +6,7 @@ import styles from "./SampleCredit.module.css";
 export function SampleCredit() {
   return (
     <aside className={styles.credit}>
-      {sampleCopy.credit.notice(site.name)}
+      {sampleCopy.credit.notice(sampleCopy.maker(site.brand, site.name))}
       <Link to={site.paths.works} className={styles.link}>
         {sampleCopy.credit.back}
       </Link>
