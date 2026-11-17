@@ -1,29 +1,31 @@
-import { Img } from "~/samples/shared/Img";
+import { hero } from "../../assets";
 import { home } from "../../content/home";
 
-const { hero } = home;
+const text = home.hero;
 
 export function Hero() {
   return (
-    <section className="hero" aria-label={hero.label}>
-      <div className="ph">
-        <Img image={hero.image} priority />
-      </div>
-      <div className="tx">
-        <h1>
-          {hero.title.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </h1>
-        <div>
-          <p className="sub">{hero.sub}</p>
-          <div className="facts">
-            {hero.facts.map((fact) => (
-              <span key={fact}>{fact}</span>
-            ))}
-          </div>
-        </div>
-      </div>
+    <section className="hero" aria-label={text.lines.join("")}>
+      <img
+        src={hero.src}
+        srcSet={hero.srcSet}
+        sizes="(min-width: 1081px) calc(100vw - 48px), (min-width: 861px) 140vw, 260vw"
+        width={hero.width}
+        height={hero.height}
+        alt={text.alt}
+        fetchPriority="high"
+        decoding="async"
+      />
+      <h1 className="hero-copy">
+        {text.lines.map((line) => (
+          <span key={line}>{line}</span>
+        ))}
+      </h1>
+      <p className="hero-sub">
+        {text.sub.map((line) => (
+          <span key={line}>{line}</span>
+        ))}
+      </p>
     </section>
   );
 }
