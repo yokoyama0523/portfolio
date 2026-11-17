@@ -50,7 +50,7 @@ export function OrbitCanvas({ message, tagline }: { message: string; tagline: re
           ))}
         </span>
       </h1>
-      <p className="pointer-events-none absolute inset-0 grid place-items-center px-5 text-center text-sm font-medium leading-relaxed tracking-14 text-white mix-blend-difference md:text-3xl md:tracking-16">
+      <p className="pointer-events-none absolute inset-0 grid place-items-center px-5 text-center text-sm font-medium leading-relaxed tracking-14 text-white [-webkit-text-stroke:0.22em_var(--color-charcoal)] [paint-order:stroke_fill] md:text-3xl md:tracking-16">
         <span className="block">
           {tagline.map((l, i) => (
             <span key={l} className="block overflow-hidden">
