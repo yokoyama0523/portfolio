@@ -68,7 +68,7 @@ export default function Service() {
                     {s.items.map((item) => (
                       <span
                         key={item}
-                        className="border border-current/30 px-3 py-2 text-center text-xs tracking-4 transition-colors"
+                        className="whitespace-nowrap border border-current/30 px-2 py-2 text-center text-xs tracking-4 transition-colors sm:px-3"
                       >
                         {item}
                       </span>
