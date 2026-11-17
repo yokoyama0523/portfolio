@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { addDays, jpDate, startOfToday, ymd } from "~/samples/shared/dates";
 import { adminPage } from "../content/admin";
 import { type Reservation, type Source, type Status, toMinutes } from "./store";
@@ -22,6 +22,57 @@ const inPeriod = (r: Reservation, period: Period) => {
 const order = (a: Reservation, b: Reservation) =>
   a.date === b.date ? toMinutes(a.time) - toMinutes(b.time) : a.date < b.date ? -1 : 1;
 
+const pageList = (current: number, last: number) => {
+  if (last <= 7) return Array.from({ length: last }, (_, i) => i + 1);
+  const middle = [current - 1, current, current + 1].filter((n) => n > 1 && n < last);
+  const list: (number | "gap")[] = [1];
+  if (middle[0] > 2) list.push("gap");
+  list.push(...middle);
+  if (middle[middle.length - 1] < last - 1) list.push("gap");
+  list.push(last);
+  return list;
+};
+
+function Pager({
+  current,
+  last,
+  onPage,
+}: {
+  current: number;
+  last: number;
+  onPage: (page: number) => void;
+}) {
+  if (last <= 1) return null;
+  return (
+    <nav className="pager" aria-label={text.pager.label}>
+      <button type="button" disabled={current === 1} onClick={() => onPage(current - 1)}>
+        {text.pager.prev}
+      </button>
+      {pageList(current, last).map((n, i) =>
+        n === "gap" ? (
+          <span key={`gap-${i < 2 ? "a" : "b"}`} className="gap" aria-hidden="true">
+            …
+          </span>
+        ) : (
+          <button
+            key={n}
+            type="button"
+            className="num"
+            aria-label={text.pager.page(n)}
+            aria-current={n === current ? "page" : undefined}
+            onClick={() => onPage(n)}
+          >
+            {n}
+          </button>
+        ),
+      )}
+      <button type="button" disabled={current === last} onClick={() => onPage(current + 1)}>
+        {text.pager.next}
+      </button>
+    </nav>
+  );
+}
+
 type Props = { reservations: Reservation[]; onOpen: (id: string) => void };
 
 export function ListView({ reservations, onOpen }: Props) {
@@ -29,6 +80,8 @@ export function ListView({ reservations, onOpen }: Props) {
   const [status, setStatus] = useState<Status | "all">("all");
   const [source, setSource] = useState<Source | "all">("all");
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const top = useRef<HTMLDivElement>(null);
 
   const q = query.trim();
   const rows = reservations
@@ -40,10 +93,24 @@ export function ListView({ reservations, onOpen }: Props) {
         !q || r.name.includes(q) || r.kana.includes(q) || r.tel.includes(q) || r.id.includes(q),
     )
     .sort(period === "past" ? (a, b) => order(b, a) : order);
+  const last = Math.max(1, Math.ceil(rows.length / text.pageSize));
+  const current = Math.min(page, last);
+  const start = (current - 1) * text.pageSize;
+  const shown = rows.slice(start, start + text.pageSize);
+  const filtered =
+    <T,>(set: (value: T) => void) =>
+    (value: T) => {
+      set(value);
+      setPage(1);
+    };
+  const goTo = (next: number) => {
+    setPage(next);
+    top.current?.scrollIntoView({ block: "start" });
+  };
 
   return (
     <>
-      <div className="pnl filters">
+      <div className="pnl filters" ref={top}>
         <fieldset className="seg">
           <legend className="sr">{text.period}</legend>
           {text.periods.map((item) => (
@@ -51,7 +118,7 @@ export function ListView({ reservations, onOpen }: Props) {
               key={item.id}
               type="button"
               aria-pressed={period === item.id}
-              onClick={() => setPeriod(item.id)}
+              onClick={() => filtered(setPeriod)(item.id)}
             >
               {item.label}
             </button>
@@ -59,7 +126,10 @@ export function ListView({ reservations, onOpen }: Props) {
         </fieldset>
         <label className="sel">
           <span>{text.status}</span>
-          <select value={status} onChange={(e) => setStatus(e.target.value as Status | "all")}>
+          <select
+            value={status}
+            onChange={(e) => filtered(setStatus)(e.target.value as Status | "all")}
+          >
             <option value="all">{text.all}</option>
             {(Object.keys(adminPage.status) as Status[]).map((key) => (
               <option key={key} value={key}>
@@ -70,7 +140,10 @@ export function ListView({ reservations, onOpen }: Props) {
         </label>
         <label className="sel">
           <span>{text.source}</span>
-          <select value={source} onChange={(e) => setSource(e.target.value as Source | "all")}>
+          <select
+            value={source}
+            onChange={(e) => filtered(setSource)(e.target.value as Source | "all")}
+          >
             <option value="all">{text.all}</option>
             {(Object.keys(adminPage.source) as Source[]).map((key) => (
               <option key={key} value={key}>
@@ -85,9 +158,13 @@ export function ListView({ reservations, onOpen }: Props) {
           placeholder={text.search}
           aria-label={text.search}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => filtered(setQuery)(e.target.value)}
         />
-        <span className="count">{text.count(rows.length)}</span>
+        <span className="count">
+          {rows.length > 0
+            ? text.range(start + 1, start + shown.length, rows.length)
+            : text.count(0)}
+        </span>
       </div>
       <div className="pnl table-wrap">
         {rows.length === 0 ? (
@@ -105,7 +182,7 @@ export function ListView({ reservations, onOpen }: Props) {
               </tr>
             </thead>
             <tbody>
-              {rows.map((r) => (
+              {shown.map((r) => (
                 <tr key={r.id} className={r.status}>
                   <td className="when">
                     <button type="button" onClick={() => onOpen(r.id)}>
@@ -129,6 +206,7 @@ export function ListView({ reservations, onOpen }: Props) {
           </table>
         )}
       </div>
+      <Pager current={current} last={last} onPage={goTo} />
     </>
   );
 }

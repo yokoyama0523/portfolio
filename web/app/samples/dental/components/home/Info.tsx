@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { clinic, hours } from "../../content/clinic";
 import { home } from "../../content/home";
 import { latestNewsCount, newsItems } from "../../content/news";
-import { HoursTable } from "../HoursTable";
+import { HoursNotes, HoursTable } from "../HoursTable";
 
 export function Info() {
   return (
@@ -28,11 +28,7 @@ export function Info() {
           <h2 id="info-hours">{hours.title}</h2>
         </div>
         <HoursTable />
-        <ul className="notes">
-          {hours.notes.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
+        <HoursNotes />
         <p className="info-tel">
           <small>{home.hours.telLabel}</small>
           <a href={clinic.telHref}>{clinic.tel}</a>

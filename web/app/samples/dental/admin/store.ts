@@ -25,15 +25,12 @@ export type Reservation = {
   createdAt: string;
 };
 
-export type DayHours = { am: boolean; pm: boolean };
+export type Session = { open: boolean; start: string; end: string };
+export type DayHours = { am: Session; pm: Session };
+export type Part = keyof DayHours;
 
 export type Settings = {
   week: DayHours[];
-  amStart: string;
-  amEnd: string;
-  pmStart: string;
-  pmEnd: string;
-  weekendPmEnd: string;
   slotMinutes: number;
   chairs: number;
   lookaheadDays: number;
@@ -42,20 +39,16 @@ export type Settings = {
 
 type State = { reservations: Reservation[]; settings: Settings; signedIn: boolean };
 
-const PREFIX = "madobe_v1_";
-const SUNDAY = 0;
-const SATURDAY = 6;
+const PREFIX = "madobe_v2_";
 
-const open = { am: true, pm: true };
-const closed = { am: false, pm: false };
+const am = { open: true, start: "9:30", end: "13:00" };
+const pm = { open: true, start: "14:30", end: "19:00" };
+const weekday = { am, pm };
+const weekend = { am, pm: { ...pm, end: "17:30" } };
+const closedDay = { am: { ...am, open: false }, pm: { ...pm, open: false } };
 
 export const defaultSettings: Settings = {
-  week: [open, open, open, open, closed, open, open],
-  amStart: "9:30",
-  amEnd: "13:00",
-  pmStart: "14:30",
-  pmEnd: "19:00",
-  weekendPmEnd: "17:30",
+  week: [weekend, weekday, weekday, weekday, closedDay, weekday, weekend],
   slotMinutes: 30,
   chairs: 3,
   lookaheadDays: 28,
@@ -70,18 +63,19 @@ export const toMinutes = (time: string) => {
 export const toTime = (minutes: number) =>
   `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}`;
 
-const isWeekend = (date: Date) => date.getDay() === SUNDAY || date.getDay() === SATURDAY;
-
-const range = (start: string, end: string, step: number) => {
+const range = (session: Session, step: number) => {
   const times: string[] = [];
-  for (let t = toMinutes(start); t + step <= toMinutes(end); t += step) times.push(toTime(t));
+  if (!session.open) return times;
+  for (let t = toMinutes(session.start); t + step <= toMinutes(session.end); t += step)
+    times.push(toTime(t));
   return times;
 };
 
 export const sessionEnd = (date: Date, time: string, settings: Settings) => {
+  const day = settings.week[date.getDay()];
   const t = toMinutes(time);
-  if (t < toMinutes(settings.amEnd)) return toMinutes(settings.amEnd);
-  return toMinutes(isWeekend(date) ? settings.weekendPmEnd : settings.pmEnd);
+  const inAm = day.am.open && t >= toMinutes(day.am.start) && t < toMinutes(day.am.end);
+  return toMinutes(inAm ? day.am.end : day.pm.end);
 };
 
 export const fits = (date: Date, time: string, minutes: number, settings: Settings) =>
@@ -89,17 +83,13 @@ export const fits = (date: Date, time: string, minutes: number, settings: Settin
 
 export const isClosed = (date: Date, settings: Settings) => {
   const day = settings.week[date.getDay()];
-  return (!day.am && !day.pm) || settings.holidays.includes(ymd(date));
+  return (!day.am.open && !day.pm.open) || settings.holidays.includes(ymd(date));
 };
 
 export const slotTimes = (date: Date, settings: Settings) => {
   if (settings.holidays.includes(ymd(date))) return [];
   const day = settings.week[date.getDay()];
-  const pmEnd = isWeekend(date) ? settings.weekendPmEnd : settings.pmEnd;
-  return [
-    ...(day.am ? range(settings.amStart, settings.amEnd, settings.slotMinutes) : []),
-    ...(day.pm ? range(settings.pmStart, pmEnd, settings.slotMinutes) : []),
-  ];
+  return [...range(day.am, settings.slotMinutes), ...range(day.pm, settings.slotMinutes)];
 };
 
 const overlaps = (r: Reservation, time: string, minutes: number) => {

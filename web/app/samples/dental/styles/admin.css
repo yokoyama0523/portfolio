@@ -29,6 +29,21 @@
   background: var(--paper);
 }
 
+.mdb .adm select {
+  padding-right: 34px;
+  background:
+    var(--paper)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2315395a' stroke-width='1.4'/%3E%3C/svg%3E")
+    no-repeat right 12px center / 10px 6px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.mdb .adm select:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
 .mdb .adm textarea {
   width: 100%;
   min-height: 90px;
@@ -447,11 +462,19 @@
   color: var(--sun);
 }
 
-.mdb .adm .cancelled li + li {
+.mdb .adm .outside {
+  border-color: var(--sun);
+}
+
+.mdb .adm .outside h3 {
+  color: var(--sun);
+}
+
+.mdb .adm .cancel-list li + li {
   border-top: 1px solid var(--line);
 }
 
-.mdb .adm .cancelled button {
+.mdb .adm .cancel-list button {
   display: flex;
   gap: 14px;
   width: 100%;
@@ -582,6 +605,47 @@
 }
 
 .mdb .adm .rlist tr.cancelled td {
+  color: var(--ink-2);
+}
+
+.mdb .adm .pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.mdb .adm .pager button {
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.mdb .adm .pager button:hover:not(:disabled) {
+  border-color: var(--sky);
+}
+
+.mdb .adm .pager button[aria-current="page"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+.mdb .adm .pager button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.mdb .adm .pager .gap {
+  padding: 0 2px;
   color: var(--ink-2);
 }
 
@@ -724,17 +788,34 @@
   font-size: 13px;
 }
 
+.mdb .adm .week-wrap {
+  overflow-x: auto;
+}
+
 .mdb .adm .week {
+  min-width: 560px;
   border-collapse: collapse;
 }
 
 .mdb .adm .week th,
 .mdb .adm .week td {
-  padding: 6px 12px;
-  text-align: center;
+  padding: 8px 20px 8px 0;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .mdb .adm .week thead th {
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.mdb .adm .week tbody tr {
+  border-top: 1px solid var(--line);
+}
+
+.mdb .adm .week tbody th {
+  width: 3em;
   font-weight: 500;
 }
 
@@ -746,17 +827,28 @@
   color: var(--sat);
 }
 
-.mdb .adm .week tbody th {
-  padding-left: 0;
-  font-weight: 400;
-  text-align: left;
+.mdb .adm .session {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.mdb .adm .week input {
+.mdb .adm .session input {
   width: 18px;
   height: 18px;
   min-height: 0;
+  margin: 0 4px 0 0;
   accent-color: var(--ink);
+}
+
+.mdb .adm .session > span {
+  color: var(--ink-2);
+}
+
+.mdb .adm .save-bar .warn {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .mdb .adm .grid-fields {
@@ -882,6 +974,99 @@
   .mdb .adm .search {
     flex: 1 1 100%;
     min-width: 0;
+  }
+
+  .mdb .adm .week {
+    display: block;
+    min-width: 0;
+  }
+
+  .mdb .adm .week thead {
+    display: none;
+  }
+
+  .mdb .adm .week tbody {
+    display: block;
+  }
+
+  .mdb .adm .week tbody tr {
+    display: grid;
+    grid-template-columns: 2.5em minmax(0, 1fr);
+    padding: 8px 0;
+  }
+
+  .mdb .adm .week tbody th {
+    grid-row: span 2;
+    padding: 6px 0 0;
+  }
+
+  .mdb .adm .week td {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+  }
+
+  .mdb .adm .week td::before {
+    width: 2.5em;
+    color: var(--ink-2);
+    font-size: 12px;
+    content: attr(data-label);
+  }
+
+  .mdb .adm .rlist {
+    min-width: 0;
+  }
+
+  .mdb .adm .rlist thead {
+    display: none;
+  }
+
+  .mdb .adm .rlist tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mdb .adm .rlist tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .mdb .adm .rlist td {
+    padding: 0;
+    border: 0;
+  }
+
+  .mdb .adm .rlist td:nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .mdb .adm .rlist td:nth-child(6) {
+    grid-area: 1 / 2;
+    justify-self: end;
+  }
+
+  .mdb .adm .rlist td:nth-child(2) {
+    grid-area: 2 / 1;
+  }
+
+  .mdb .adm .rlist td:nth-child(5) {
+    grid-area: 2 / 2;
+    color: var(--ink-2);
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .mdb .adm .rlist td:nth-child(3) {
+    grid-area: 3 / 1;
+    color: var(--ink-2);
+  }
+
+  .mdb .adm .rlist td:nth-child(4) {
+    grid-area: 3 / 2;
+    justify-self: end;
   }
 
   .mdb .adm .when-fields {

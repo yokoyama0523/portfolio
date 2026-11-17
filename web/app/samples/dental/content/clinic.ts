@@ -24,22 +24,9 @@ export const clinic = {
 
 export const reserveLabel = "WEB予約";
 
-export type Mark = "open" | "short" | "closed";
-
 export const hours = {
   title: "診療時間",
   days: ["月", "火", "水", "木", "金", "土", "日"],
-  rows: [
-    {
-      time: "9:30〜13:00",
-      marks: ["open", "open", "open", "closed", "open", "open", "open"] as Mark[],
-    },
-    {
-      time: "14:30〜19:00",
-      marks: ["open", "open", "open", "closed", "open", "short", "short"] as Mark[],
-    },
-  ],
-  symbols: { open: "●", short: "▲", closed: "−" } satisfies Record<Mark, string>,
-  labels: { open: "診療", short: "17:30まで", closed: "休診" } satisfies Record<Mark, string>,
-  notes: ["▲ 土曜・日曜の午後は17:30まで", "休診日　木曜・祝日"],
+  symbols: { open: "●", other: "▲", closed: "−" },
+  labels: { open: "診療", other: "時間が違う日", closed: "休診" },
 };

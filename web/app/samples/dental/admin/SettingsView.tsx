@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { jpDate } from "~/samples/shared/dates";
+import { Lines } from "~/samples/shared/Lines";
 import { adminPage } from "../content/admin";
-import { clinicActions, defaultSettings, type Settings, toTime } from "./store";
+import { DAY_NAMES, WEEK_ORDER } from "./hours";
+import {
+  clinicActions,
+  defaultSettings,
+  type Part,
+  type Session,
+  type Settings,
+  toMinutes,
+  toTime,
+} from "./store";
 
 const text = adminPage.settings;
-const DAYS = ["日", "月", "火", "水", "木", "金", "土"];
-const ORDER = [1, 2, 3, 4, 5, 6, 0];
+const PARTS: Part[] = ["am", "pm"];
 
 const timeOptions = (from: number, to: number) => {
   const list: string[] = [];
@@ -13,8 +22,7 @@ const timeOptions = (from: number, to: number) => {
   return list;
 };
 
-const AM = timeOptions(8 * 60, 13 * 60 + 30);
-const PM = timeOptions(13 * 60, 21 * 60);
+const TIMES = timeOptions(7 * 60, 22 * 60);
 const SLOTS = [15, 30, 60];
 const CHAIRS = [1, 2, 3, 4, 5];
 
@@ -23,28 +31,61 @@ const parse = (date: string) => {
   return new Date(y, m - 1, d);
 };
 
-function TimeSelect({
-  id,
-  label,
-  value,
-  options,
+const problems = (settings: Settings) =>
+  WEEK_ORDER.flatMap((day) => {
+    const { am, pm } = settings.week[day];
+    const name = DAY_NAMES[day];
+    const list = PARTS.filter((part) => {
+      const s = settings.week[day][part];
+      return s.open && toMinutes(s.end) <= toMinutes(s.start);
+    }).map((part) => text.orderError(name, text[part]));
+    if (am.open && pm.open && toMinutes(pm.start) < toMinutes(am.end))
+      list.push(text.overlapError(name));
+    return list;
+  });
+
+function SessionFields({
+  day,
+  part,
+  session,
   onChange,
 }: {
-  id: string;
-  label: string;
-  value: string;
-  options: string[];
-  onChange: (value: string) => void;
+  day: number;
+  part: Part;
+  session: Session;
+  onChange: (session: Session) => void;
 }) {
+  const name = DAY_NAMES[day];
   return (
-    <label className="sel" htmlFor={id}>
-      <span>{label}</span>
-      <select id={id} value={value} onChange={(e) => onChange(e.target.value)}>
-        {options.map((t) => (
+    <div className={session.open ? "session" : "session off"}>
+      <input
+        type="checkbox"
+        aria-label={text.openLabel(name, text[part])}
+        checked={session.open}
+        onChange={() => onChange({ ...session, open: !session.open })}
+      />
+      <select
+        aria-label={text.start(name, text[part])}
+        value={session.start}
+        disabled={!session.open}
+        onChange={(e) => onChange({ ...session, start: e.target.value })}
+      >
+        {TIMES.map((t) => (
           <option key={t}>{t}</option>
         ))}
       </select>
-    </label>
+      <span aria-hidden="true">{text.to}</span>
+      <select
+        aria-label={text.end(name, text[part])}
+        value={session.end}
+        disabled={!session.open}
+        onChange={(e) => onChange({ ...session, end: e.target.value })}
+      >
+        {TIMES.map((t) => (
+          <option key={t}>{t}</option>
+        ))}
+      </select>
+    </div>
   );
 }
 
@@ -52,15 +93,16 @@ export function SettingsView({ settings }: { settings: Settings }) {
   const [draft, setDraft] = useState(settings);
   const [holiday, setHoliday] = useState("");
   const [message, setMessage] = useState("");
+  const errors = problems(draft);
 
   const set = (patch: Partial<Settings>) => {
     setDraft((current) => ({ ...current, ...patch }));
     setMessage("");
   };
 
-  const toggle = (day: number, part: "am" | "pm") =>
+  const setSession = (day: number, part: Part, session: Session) =>
     set({
-      week: draft.week.map((value, i) => (i === day ? { ...value, [part]: !value[part] } : value)),
+      week: draft.week.map((value, i) => (i === day ? { ...value, [part]: session } : value)),
     });
 
   const addHoliday = () => {
@@ -70,6 +112,7 @@ export function SettingsView({ settings }: { settings: Settings }) {
   };
 
   const save = () => {
+    if (errors.length > 0) return;
     clinicActions.saveSettings(draft);
     setMessage(text.saved);
   };
@@ -85,75 +128,38 @@ export function SettingsView({ settings }: { settings: Settings }) {
     <>
       <section className="pnl">
         <h2>{text.weekTitle}</h2>
-        <p className="lead">{text.weekLead}</p>
-        <table className="week">
-          <thead>
-            <tr>
-              <td />
-              {ORDER.map((day) => (
-                <th key={day} scope="col" className={day === 0 ? "sun" : day === 6 ? "sat" : ""}>
-                  {DAYS[day]}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {(["am", "pm"] as const).map((part) => (
-              <tr key={part}>
-                <th scope="row">{text[part]}</th>
-                {ORDER.map((day) => (
-                  <td key={day}>
-                    <input
-                      type="checkbox"
-                      aria-label={`${DAYS[day]} ${text[part]}`}
-                      checked={draft.week[day][part]}
-                      onChange={() => toggle(day, part)}
-                    />
-                  </td>
-                ))}
+        <p className="lead">
+          <Lines lines={text.weekLead} />
+        </p>
+        <div className="week-wrap">
+          <table className="week">
+            <thead>
+              <tr>
+                <th scope="col">{text.day}</th>
+                <th scope="col">{text.am}</th>
+                <th scope="col">{text.pm}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-      <section className="pnl">
-        <h2>{text.timesTitle}</h2>
-        <div className="grid-fields">
-          <TimeSelect
-            id="s-am-start"
-            label={text.amStart}
-            value={draft.amStart}
-            options={AM}
-            onChange={(amStart) => set({ amStart })}
-          />
-          <TimeSelect
-            id="s-am-end"
-            label={text.amEnd}
-            value={draft.amEnd}
-            options={AM}
-            onChange={(amEnd) => set({ amEnd })}
-          />
-          <TimeSelect
-            id="s-pm-start"
-            label={text.pmStart}
-            value={draft.pmStart}
-            options={PM}
-            onChange={(pmStart) => set({ pmStart })}
-          />
-          <TimeSelect
-            id="s-pm-end"
-            label={text.pmEnd}
-            value={draft.pmEnd}
-            options={PM}
-            onChange={(pmEnd) => set({ pmEnd })}
-          />
-          <TimeSelect
-            id="s-we-end"
-            label={text.weekendPmEnd}
-            value={draft.weekendPmEnd}
-            options={PM}
-            onChange={(weekendPmEnd) => set({ weekendPmEnd })}
-          />
+            </thead>
+            <tbody>
+              {WEEK_ORDER.map((day) => (
+                <tr key={day}>
+                  <th scope="row" className={day === 0 ? "sun" : day === 6 ? "sat" : undefined}>
+                    {DAY_NAMES[day]}
+                  </th>
+                  {PARTS.map((part) => (
+                    <td key={part} data-label={text[part]}>
+                      <SessionFields
+                        day={day}
+                        part={part}
+                        session={draft.week[day][part]}
+                        onChange={(session) => setSession(day, part, session)}
+                      />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
       <section className="pnl">
@@ -232,12 +238,20 @@ export function SettingsView({ settings }: { settings: Settings }) {
         </ul>
       </section>
       <div className="save-bar">
-        <button type="button" className="btn" onClick={save}>
+        <button type="button" className="btn" disabled={errors.length > 0} onClick={save}>
           {text.save}
         </button>
-        <span className="ok" role="status">
-          {message}
-        </span>
+        {errors.length > 0 ? (
+          <ul className="warn" role="alert">
+            {errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        ) : (
+          <span className="ok" role="status">
+            {message}
+          </span>
+        )}
       </div>
       <section className="pnl">
         <h2>{text.resetTitle}</h2>

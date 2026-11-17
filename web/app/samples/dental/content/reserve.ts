@@ -35,7 +35,8 @@ export const reserve = {
   },
   date: {
     legend: "ご希望の日",
-    hint: "○は空きあり、△は残りわずかです。木曜・祝日は休診です。",
+    hint: "○は空きあり、△は残りわずかです。",
+    closedHint: (days: string) => `${days}は休診です。`,
     prev: "前の2週間",
     next: "次の2週間",
     timeLegend: "ご希望の時間",

@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import { adminPage } from "../content/admin";
 import { footer } from "../content/chrome";
-import { clinic, hours, reserveLabel } from "../content/clinic";
+import { clinic, reserveLabel } from "../content/clinic";
 import { Address } from "./Address";
-import { HoursTable } from "./HoursTable";
+import { HoursNotes, HoursTable } from "./HoursTable";
 import { Logo } from "./Logo";
 import { NavLinks } from "./NavLinks";
 
@@ -28,11 +28,7 @@ export function Footer({ onHome }: { onHome: boolean }) {
         </div>
         <div className="ft-hours">
           <HoursTable caption={footer.hoursTitle} />
-          <ul className="notes">
-            {hours.notes.map((note) => (
-              <li key={note}>{note}</li>
-            ))}
-          </ul>
+          <HoursNotes />
         </div>
         <nav className="ft-nav" aria-label={footer.menuTitle}>
           <NavLinks onHome={onHome} />

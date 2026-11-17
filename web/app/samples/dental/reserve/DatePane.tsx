@@ -1,4 +1,5 @@
 import { jpDate, ymd } from "~/samples/shared/dates";
+import { useHours } from "../admin/hours";
 import { Sentences } from "../components/Sentences";
 import { reserve } from "../content/reserve";
 import { availability, calendar, dayRange, rangeLabel, slotsFor } from "./calendar";
@@ -72,6 +73,7 @@ function Slots({ form }: { form: ReserveForm }) {
 }
 
 export function DatePane({ form }: { form: ReserveForm }) {
+  const { closedText } = useHours();
   const { date, time } = form;
   const picked = date ? `${jpDate(date)}　${time ?? text.pickTime}` : text.nothingPicked;
   return (
@@ -79,7 +81,7 @@ export function DatePane({ form }: { form: ReserveForm }) {
       <fieldset>
         <legend>{text.legend}</legend>
         <p className="hint">
-          <Sentences text={text.hint} />
+          <Sentences text={text.hint + text.closedHint(closedText)} />
         </p>
         <Calendar form={form} />
       </fieldset>

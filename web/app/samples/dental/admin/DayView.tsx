@@ -92,10 +92,13 @@ export function DayView({ date, reservations, settings, onDate, onOpen, onNew }:
     }
   }
   const rowFor = (time: string) => {
-    const at = times.filter((slot) => toMinutes(slot) <= toMinutes(time)).at(-1);
+    const at = times.find(
+      (slot) => toMinutes(slot) <= toMinutes(time) && toMinutes(time) < toMinutes(slot) + step,
+    );
     return at ? rowOf.get(at) : undefined;
   };
   const placed = active.filter((r) => rowFor(r.time) !== undefined && r.chair <= settings.chairs);
+  const outside = active.filter((r) => !placed.includes(r));
   const chairs = Array.from({ length: settings.chairs }, (_, i) => i + 1);
   const free = times.reduce(
     (sum, time) => sum + chairs.filter((chair) => !covered.has(`${time}-${chair}`)).length,
@@ -126,7 +129,9 @@ export function DayView({ date, reservations, settings, onDate, onOpen, onNew }:
         <button
           type="button"
           className="btn"
-          onClick={() => onNew({ date: day, time: times[0] ?? settings.amStart, chair: 1 })}
+          onClick={() =>
+            onNew({ date: day, time: times[0] ?? settings.week[date.getDay()].am.start, chair: 1 })
+          }
         >
           {text.add}
         </button>
@@ -185,10 +190,28 @@ export function DayView({ date, reservations, settings, onDate, onOpen, onNew }:
           </div>
         </div>
       )}
+      {outside.length > 0 && (
+        <div className="pnl outside">
+          <h3>{text.outsideTitle}</h3>
+          <p className="lead">{text.outsideLead}</p>
+          <ul className="cancel-list">
+            {outside.map((r) => (
+              <li key={r.id}>
+                <button type="button" onClick={() => onOpen(r.id)}>
+                  <span>{r.time}</span>
+                  <b>{r.name}</b>
+                  <span>{r.menu}</span>
+                  <span>{adminPage.chair(r.chair)}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {cancelled.length > 0 && (
         <div className="pnl">
           <h3>{text.cancelledTitle}</h3>
-          <ul className="cancelled">
+          <ul className="cancel-list">
             {cancelled.map((r) => (
               <li key={r.id}>
                 <button type="button" onClick={() => onOpen(r.id)}>
