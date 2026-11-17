@@ -242,14 +242,37 @@ const travel = (t: number) => {
 const fieldTime = (t: number) => (t < FIELD.wrapAt ? t : t - LOOP);
 
 type Slot = { x: number; y: number; k: number; on: boolean };
-export type Layout = { scale: number; viewX: number; viewY: number; slots: Slot[] };
+export type Layout = {
+  scale: number;
+  viewX: number;
+  viewY: number;
+  clearX: number;
+  clearY: number;
+  slots: Slot[];
+};
 
 export const createLayout = (): Layout => ({
   scale: SAKURA_SCALE,
   viewX: 1,
   viewY: 1,
+  clearX: 0,
+  clearY: 0,
   slots: BLOOMS.map(() => ({ x: 0, y: 0, k: 1, on: true })),
 });
+
+const MAIN_BLEED = 0.25;
+
+const hitsText = (layout: Layout, x: number, y: number, r: number) =>
+  Math.hypot(Math.max(0, Math.abs(x) - layout.clearX), Math.max(0, Math.abs(y) - layout.clearY)) <
+  r;
+
+const mainSpot = (layout: Layout, r: number) => {
+  const wide = layout.viewX >= layout.viewY;
+  const x = wide ? layout.clearX + r : 0;
+  const y = wide ? 0 : layout.clearY + r;
+  const room = wide ? layout.viewX - x : layout.viewY - y;
+  return { x, y, fits: room >= r * (1 - MAIN_BLEED) };
+};
 
 const depthShrink = (z: number) => 1 + BLOOM_FIT.depthFalloff * z;
 
@@ -263,23 +286,27 @@ export const layoutBlooms = (layout: Layout, top: number) => {
     slot.on = false;
     for (let k = 1; k > BLOOM_FIT.shrinkLimit && !slot.on; k *= BLOOM_FIT.shrink) {
       const r = (layout.scale * bl.s * k * BLOOM_FIT.margin + pad) * proj + BLOOM_FIT.gap;
+      if (!b) {
+        const spot = mainSpot(layout, r);
+        if (!spot.fits && k * BLOOM_FIT.shrink > BLOOM_FIT.shrinkLimit) continue;
+        taken.push({ x: spot.x, y: spot.y, r });
+        Object.assign(slot, { x: spot.x / proj, y: spot.y / proj, k, on: true });
+        break;
+      }
       for (let a = 0; a < BLOOM_FIT.tries; a++) {
-        const spread = b ? Math.min(1, a / BLOOM_FIT.spreadRamp) * BLOOM_FIT.spread : 0;
+        const spread = Math.min(1, a / BLOOM_FIT.spreadRamp) * BLOOM_FIT.spread;
         const at = b * BLOOM_FIT.seedStride + a * SEED_STRIDE;
         const sx = (bl.nx + (rand(at + SEED.x) * 2 - 1) * spread) * viewX * BLOOM_FIT.viewX;
         const sy = (bl.ny + (rand(at + SEED.y) * 2 - 1) * spread) * viewY * BLOOM_FIT.viewY;
         const edge = r * (bl.s > BLOOM_FIT.large ? BLOOM_FIT.largeEdge : BLOOM_FIT.smallEdge);
-        if (
-          b &&
-          (Math.abs(sx) > viewX + edge || Math.abs(sy) > viewY + edge || sy - r < -viewY + top)
-        )
+        if (Math.abs(sx) > viewX + edge || Math.abs(sy) > viewY + edge || sy - r < -viewY + top)
           continue;
+        if (hitsText(layout, sx, sy, r)) continue;
         if (taken.some((o) => Math.hypot(o.x - sx, o.y - sy) < o.r + r)) continue;
         taken.push({ x: sx, y: sy, r });
         Object.assign(slot, { x: sx / proj, y: sy / proj, k, on: true });
         break;
       }
-      if (!b) break;
     }
   });
 };

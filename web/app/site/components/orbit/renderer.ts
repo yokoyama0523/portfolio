@@ -21,6 +21,7 @@ const VIEW_SCALE = 0.42;
 const NARROW_WIDTH = 640;
 const NARROW_SAKURA_BOOST = 1.14;
 const HEADER_RESERVE = 100;
+const TEXT_CLEARANCE = 16;
 const NEAR_CLIP = 0.2;
 const MIN_SIZE = 0.0004;
 const PERSPECTIVE_GROWTH = 1.2;
@@ -92,6 +93,9 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
     layout.scale = width < NARROW_WIDTH ? SAKURA_SCALE * NARROW_SAKURA_BOOST : SAKURA_SCALE;
     layout.viewX = width / 2 / unit;
     layout.viewY = height / 2 / unit;
+    const text = lines[0]?.parentElement?.parentElement?.getBoundingClientRect();
+    layout.clearX = text ? (text.width / 2 + TEXT_CLEARANCE) / unit : 0;
+    layout.clearY = text ? (text.height / 2 + TEXT_CLEARANCE) / unit : 0;
     layoutBlooms(layout, HEADER_RESERVE / unit);
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
@@ -100,6 +104,7 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   resize();
   const ro = new ResizeObserver(resize);
   ro.observe(canvas);
+  document.fonts?.ready.then(resize);
 
   const project = (p: V3) => {
     const d = FOCAL + p[2];
