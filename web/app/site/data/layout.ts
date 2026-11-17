@@ -1,4 +1,5 @@
 import { site } from "~/config";
+import { specialty } from "./copy";
 
 const { paths } = site;
 
@@ -29,6 +30,7 @@ export const layoutCopy = {
       "掲載事例の企業・店舗・人物はすべて架空のものです。写真はフリー素材（ぱくたそ・Unsplash・Pexels・Pixabay）を使用しており、人物はモデルです。",
       "当サイトでは、アクセス解析のために Google アナリティクスを使用しています。",
     ],
+    tagline: specialty,
     copyright: `© 2026 ${site.name}`,
   },
   notFound: {
