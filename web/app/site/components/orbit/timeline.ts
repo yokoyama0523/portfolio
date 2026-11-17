@@ -23,7 +23,7 @@ type Move = Stage & {
   order: (i: number) => number;
 };
 
-const randomOrder = (i: number) => DOTS[i].order;
+const randomOrder = (i: number) => DOTS[i % DOT_COUNT].order;
 
 const STAGES: (Stage | Move)[] = [
   { from: 0, to: 3.6, form: dotField },
@@ -89,6 +89,9 @@ const STAGES: (Stage | Move)[] = [
 
 const isMove = (s: Stage | Move): s is Move => "next" in s;
 
+export const showsBlooms = (st: Stage | Move) =>
+  st.form === dotSakura || (isMove(st) && st.next === dotSakura);
+
 export const stageAt = (t: number) => STAGES.find((s) => t < s.to) ?? STAGES[STAGES.length - 1];
 
 export const dotAt = (st: Stage | Move, i: number, t: number, layout: Layout): Dot => {
@@ -98,7 +101,12 @@ export const dotAt = (st: Stage | Move, i: number, t: number, layout: Layout): D
   const d = st.to - st.from - st.spread;
   const from = st.from + st.order(i) * st.spread;
   const w = st.ease(seg(t, from, from + d));
-  return { p: mix3(a.p, b.p, w), sz: mix(a.sz, b.sz, w), dc: mix(a.dc, b.dc, w) };
+  return {
+    p: mix3(a.p, b.p, w),
+    sz: mix(a.sz, b.sz, w),
+    dc: mix(a.dc, b.dc, w),
+    bloom: mix(a.bloom ?? 0, b.bloom ?? 0, w),
+  };
 };
 
 export const LIFT = 110;
@@ -145,8 +153,8 @@ const INVERT = {
   seedRadius: 0.034,
   grow: 6.65,
   dark: 7.3,
-  close: 11.65,
-  light: 12.6,
+  close: 18.45,
+  light: 19.4,
 };
 
 export const invertAt = (t: number, unit: number, full: number) => {

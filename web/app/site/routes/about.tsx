@@ -286,7 +286,7 @@ export default function About() {
           </p>
           <div className="mt-14 md:mt-20 lg:ml-66 lg:max-w-access" data-reveal>
             <Photo photo={text.access.photo} sizes="(min-width: 1024px) 656px, 100vw" />
-            <p className="mt-10 font-latin text-display-brand font-medium tracking-2 text-ink">
+            <p className="mt-10 font-brand text-display-brand font-medium tracking-2 text-ink">
               {site.brand}
             </p>
             <address className="mt-5 text-base not-italic leading-relaxed tracking-6">

@@ -4,8 +4,9 @@
 @custom-variant in-current-page (:where(.group)[aria-current="page"] &);
 
 @theme {
-  --font-latin: "Outfit Variable", system-ui, sans-serif;
-  --font-jp: "Noto Sans JP Variable", "Hiragino Sans", sans-serif;
+  --font-brand: "Outfit Variable", system-ui, sans-serif;
+  --font-latin: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
+  --font-jp: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
 
   --color-ink: #000000;
   --color-charcoal: #333333;
@@ -201,7 +202,7 @@
 
 @layer base {
   body {
-    @apply bg-white font-jp text-md leading-body tracking-3 text-text antialiased;
+    @apply bg-white font-jp text-md font-light leading-body tracking-3 text-text antialiased;
     word-break: auto-phrase;
     text-wrap: pretty;
   }

@@ -1,22 +1,27 @@
-import { clamp, TAU, type V3 } from "./math";
+import { clamp, mix, TAU, type V3 } from "./math";
 import {
-  ALL_DOTS,
+  BLOOM_KINDS,
+  bloomCount,
+  bloomsReady,
   createLayout,
+  DOT_COUNT,
   DOTS,
   FOCAL,
   KIND,
   KIND_SCALE,
   LOOP,
   layoutBlooms,
+  prepareBlooms,
   SAKURA_SCALE,
 } from "./scene";
-import { CAPTION, dotAt, invertAt, reveal, stageAt, TAGLINE } from "./timeline";
+import { CAPTION, dotAt, invertAt, reveal, showsBlooms, stageAt, TAGLINE } from "./timeline";
 
 const MAX_PIXEL_RATIO = 1.5;
 const VIEW_SCALE = 0.42;
 const NARROW_WIDTH = 640;
 const NARROW_SAKURA_BOOST = 1.14;
 const HEADER_RESERVE = 100;
+const TEXT_CLEARANCE = 16;
 const NEAR_CLIP = 0.2;
 const MIN_SIZE = 0.0004;
 const PERSPECTIVE_GROWTH = 1.2;
@@ -35,6 +40,10 @@ const MS_PER_SECOND = 1000;
 const MIN_FRAME = 1 / 62;
 const MAX_STEP = 0.1;
 const START = 0;
+const BLOOM_FROM = 0.5;
+const IDLE_RESERVE = 1;
+const SLICE_MS = 8;
+const SLICE_GAP = 40;
 
 type Colors = { ink: string; paper: string };
 type Targets = {
@@ -84,6 +93,9 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
     layout.scale = width < NARROW_WIDTH ? SAKURA_SCALE * NARROW_SAKURA_BOOST : SAKURA_SCALE;
     layout.viewX = width / 2 / unit;
     layout.viewY = height / 2 / unit;
+    const text = lines[0]?.parentElement?.parentElement?.getBoundingClientRect();
+    layout.clearX = text ? (text.width / 2 + TEXT_CLEARANCE) / unit : 0;
+    layout.clearY = text ? (text.height / 2 + TEXT_CLEARANCE) / unit : 0;
     layoutBlooms(layout, HEADER_RESERVE / unit);
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
@@ -92,6 +104,7 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   resize();
   const ro = new ResizeObserver(resize);
   ro.observe(canvas);
+  document.fonts?.ready.then(resize);
 
   const project = (p: V3) => {
     const d = FOCAL + p[2];
@@ -104,14 +117,22 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   const collect = (t: number) => {
     items.length = 0;
     const st = stageAt(t);
-    for (let i = 0; i < ALL_DOTS; i++) {
+    const blooms = showsBlooms(st);
+    if (blooms && !bloomsReady()) prepareBlooms(() => Number.POSITIVE_INFINITY);
+    const count = blooms ? Math.max(DOT_COUNT, bloomCount()) : DOT_COUNT;
+    for (let i = 0; i < count; i++) {
       const d = dotAt(st, i, t, layout);
       if (d.sz <= MIN_SIZE) continue;
       const pt = project(d.p);
       if (!pt) continue;
-      const kind = DOTS[i].kind;
+      const bloom = d.bloom ?? 0;
+      const base = DOTS[i % DOT_COUNT];
+      const kind = bloom > BLOOM_FROM ? (BLOOM_KINDS[i] ?? KIND.solid) : base.kind;
       const r = Math.min(
-        d.sz * pt.s ** (1 + PERSPECTIVE_GROWTH * d.dc) * unit * KIND_SCALE[kind],
+        d.sz *
+          pt.s ** (1 + PERSPECTIVE_GROWTH * d.dc) *
+          unit *
+          mix(KIND_SCALE[base.kind], 1, bloom),
         MAX_RADIUS,
       );
       const a = depthAlpha(pt.s, d.dc);
@@ -185,6 +206,26 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
     return () => ro.disconnect();
   }
 
+  let cancelPrepare = () => {};
+  const schedulePrepare = () => {
+    if (bloomsReady()) return;
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback((deadline) => {
+        prepareBlooms(() => deadline.timeRemaining() - IDLE_RESERVE);
+        schedulePrepare();
+      });
+      cancelPrepare = () => window.cancelIdleCallback(id);
+      return;
+    }
+    const id = window.setTimeout(() => {
+      const start = performance.now();
+      prepareBlooms(() => SLICE_MS - (performance.now() - start));
+      schedulePrepare();
+    }, SLICE_GAP);
+    cancelPrepare = () => window.clearTimeout(id);
+  };
+  schedulePrepare();
+
   let raf = 0;
   let visible = false;
   let last = 0;
@@ -216,6 +257,7 @@ export function startOrbit({ canvas, words, lines, colors, onTone, still }: Targ
   document.addEventListener("visibilitychange", run);
   return () => {
     cancelAnimationFrame(raf);
+    cancelPrepare();
     io.disconnect();
     ro.disconnect();
     document.removeEventListener("visibilitychange", run);
