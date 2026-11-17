@@ -1,10 +1,13 @@
 import { Link } from "react-router";
+import { dotDate, newsPath, usePublicNews } from "../../admin/news";
 import { clinic, hours } from "../../content/clinic";
 import { home } from "../../content/home";
-import { latestNewsCount, newsItems } from "../../content/news";
+import { latestNewsCount } from "../../content/news";
 import { HoursNotes, HoursTable } from "../HoursTable";
+import { NewsTag } from "../NewsTag";
 
 export function Info() {
+  const { posts } = usePublicNews();
   return (
     <div className="info">
       <section className="info-news" aria-labelledby="info-news">
@@ -13,11 +16,12 @@ export function Info() {
           <Link to={clinic.paths.news}>{home.news.more}</Link>
         </div>
         <ul>
-          {newsItems.slice(0, latestNewsCount).map((item) => (
-            <li key={item.id}>
-              <Link to={`${clinic.paths.news}#${item.id}`}>
-                <time dateTime={item.iso}>{item.date}</time>
-                <span>{item.title}</span>
+          {posts.slice(0, latestNewsCount).map((post) => (
+            <li key={post.id}>
+              <Link to={newsPath(post.id)}>
+                <time dateTime={post.date}>{dotDate(post.date)}</time>
+                <NewsTag category={post.category} />
+                <span className="news-title">{post.title}</span>
               </Link>
             </li>
           ))}

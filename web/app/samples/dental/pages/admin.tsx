@@ -6,8 +6,10 @@ import { AdminLogin } from "../admin/AdminLogin";
 import { DayView, type Slot } from "../admin/DayView";
 import { Drawer } from "../admin/Drawer";
 import { ListView } from "../admin/ListView";
+import { NewsEditor } from "../admin/NewsEditor";
+import { NewsView } from "../admin/NewsView";
 import { SettingsView } from "../admin/SettingsView";
-import { clinicActions, useClinic } from "../admin/store";
+import { clinicActions, newNewsId, useClinic } from "../admin/store";
 import { WindowMark } from "../components/Icons";
 import { adminPage as text } from "../content/admin";
 import { clinic as site } from "../content/clinic";
@@ -30,6 +32,7 @@ export default function DentalAdmin() {
   const [date, setDate] = useState<Date | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
   const [slot, setSlot] = useState<Slot | null>(null);
+  const [newsId, setNewsId] = useState<string | null>(null);
 
   useEffect(() => setDate(startOfToday()), []);
 
@@ -37,6 +40,7 @@ export default function DentalAdmin() {
     setOpenId(null);
     setSlot(null);
   }, []);
+  const closeNews = useCallback(() => setNewsId(null), []);
   const openReservation = (id: string) => {
     setSlot(null);
     setOpenId(id);
@@ -115,10 +119,14 @@ export default function DentalAdmin() {
           {view.id === "list" && (
             <ListView reservations={data.reservations} onOpen={openFromList} />
           )}
+          {view.id === "news" && (
+            <NewsView news={data.news} onOpen={setNewsId} onNew={() => setNewsId(newNewsId())} />
+          )}
           {view.id === "settings" && <SettingsView settings={data.settings} />}
         </main>
       </div>
       <Drawer data={data} openId={openId} slot={slot} onClose={close} onCreated={created} />
+      {newsId && <NewsEditor key={newsId} id={newsId} news={data.news} onClose={closeNews} />}
     </div>
   );
 }
