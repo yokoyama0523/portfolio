@@ -27,15 +27,15 @@ export function ServicePanels() {
               ))}
             </p>
           </div>
-          <div className="relative z-10 mt-12" data-reveal>
-            <PillButton href={p.href} {...homeCopy.serviceMore} tone="dark" />
-          </div>
           <ResponsiveImg
             image={p.image.media.thumb}
             sizes="(min-width: 1280px) 560px, 80vw"
-            className="relative -mr-14 -mb-28 mt-12 ml-auto w-4/5 -rotate-4 opacity-90 shadow-float transition-transform duration-700 ease-out-soft group-hover:-translate-y-4 group-hover:-rotate-2 xl:absolute xl:-right-10 xl:-bottom-10 xl:left-100 xl:m-0 xl:w-auto xl:max-w-panel-image"
+            className="relative -mr-14 mt-12 ml-auto w-4/5 -rotate-4 opacity-90 shadow-float transition-transform duration-700 ease-out-soft group-hover:-translate-y-4 group-hover:-rotate-2 xl:absolute xl:-right-10 xl:-bottom-10 xl:left-100 xl:m-0 xl:w-auto xl:max-w-panel-image"
             aria-hidden="true"
           />
+          <div className="relative z-10 mt-12" data-reveal>
+            <PillButton href={p.href} {...homeCopy.serviceMore} tone="dark" />
+          </div>
         </article>
       ))}
     </section>
