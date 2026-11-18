@@ -1,3 +1,4 @@
+import "@fontsource-variable/bodoni-moda";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/noto-sans-jp";
 import { Outlet } from "react-router";
