@@ -19,6 +19,12 @@ export function ServicePanels() {
               {p.en}
             </h3>
             <p className="mt-4 text-sm font-medium tracking-12 text-mute">{p.jp}</p>
+            <ResponsiveImg
+              image={p.image.media.thumb}
+              sizes="80vw"
+              className="mt-10 w-full opacity-90 shadow-float md:hidden"
+              aria-hidden="true"
+            />
             <p className="mt-10 text-md leading-loose tracking-6">
               {p.text.map((line) => (
                 <span key={line} className="md:block">
@@ -30,7 +36,7 @@ export function ServicePanels() {
           <ResponsiveImg
             image={p.image.media.thumb}
             sizes="(min-width: 1280px) 560px, 80vw"
-            className="relative mt-12 w-full opacity-90 shadow-float transition-transform duration-700 ease-out-soft md:-mr-14 md:ml-auto md:w-4/5 md:-rotate-4 md:group-hover:-translate-y-4 md:group-hover:-rotate-2 xl:absolute xl:-right-10 xl:-bottom-10 xl:left-100 xl:m-0 xl:w-auto xl:max-w-panel-image"
+            className="relative mt-12 hidden opacity-90 shadow-float transition-transform duration-700 ease-out-soft md:block md:-mr-14 md:ml-auto md:w-4/5 md:-rotate-4 md:group-hover:-translate-y-4 md:group-hover:-rotate-2 xl:absolute xl:-right-10 xl:-bottom-10 xl:left-100 xl:m-0 xl:w-auto xl:max-w-panel-image"
             aria-hidden="true"
           />
           <div className="relative z-10 mt-12" data-reveal>
