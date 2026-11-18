@@ -1,12 +1,42 @@
 .ship {
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  position: relative;
+  overflow: hidden;
   border-bottom: 1px solid var(--line);
   font-size: 12px;
   color: var(--mute);
+}
+
+.ship .still {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 14px var(--gut);
+}
+
+.ship .run {
+  display: none;
+}
+
+.ship .half {
+  display: flex;
+}
+
+.ship .half span {
+  position: relative;
+  padding: 0 28px;
+  white-space: nowrap;
+}
+
+.ship .half span::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--line);
 }
 
 .cats {
@@ -39,10 +69,26 @@
 }
 
 .hero {
+  padding: 4px var(--gut) 0;
+}
+
+.hero .slides {
+  display: grid;
+}
+
+.hero .slide {
+  grid-area: 1 / 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4px;
-  padding: 4px var(--gut) 0;
+  visibility: hidden;
+  transition: visibility 0s 1.3s;
+}
+
+.hero .slide.on {
+  z-index: 1;
+  visibility: visible;
+  transition: none;
 }
 
 .hero figure {
@@ -67,9 +113,14 @@
   padding: 16px 0 0;
   gap: 16px;
   flex-wrap: wrap;
+  background: var(--w);
 }
 
-.hero .cap h1 {
+.hero .slide:not(.on) .cap {
+  opacity: 0;
+}
+
+.hero .ttl {
   font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -79,6 +130,121 @@
   font-size: 12.5px;
   border-bottom: 1px solid var(--ink);
   padding-bottom: 2px;
+}
+
+.hero .ctl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 10px;
+}
+
+.hero .dot {
+  width: 44px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hero .dot i {
+  position: relative;
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  background: var(--track);
+}
+
+.hero .dot i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform-origin: left;
+  scale: 0 1;
+}
+
+.hero .dot.on i::after {
+  scale: 1 1;
+}
+
+.hero .pause {
+  display: none;
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.h-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.h-tools a {
+  margin-left: 8px;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--w);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    opacity 0.2s;
+}
+
+.arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.arrow:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 48px) / 4);
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail > * {
+  scroll-snap-align: start;
+}
+
+.cats .im img {
+  transition: scale 0.6s ease;
+}
+
+.cats a:hover .im img {
+  scale: 1.05;
 }
 
 .sec.flush {
@@ -213,6 +379,11 @@
     aspect-ratio: 3 / 4;
   }
 
+  .rail {
+    grid-auto-columns: 44%;
+    gap: 10px;
+  }
+
   .cats {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -224,5 +395,61 @@
 
   .member {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ship .still {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .ship .run {
+    display: flex;
+    width: max-content;
+    padding: 14px 0;
+    animation: ec-marquee 70s linear infinite;
+  }
+
+  .ship:hover .run {
+    animation-play-state: paused;
+  }
+
+  .hero .pause {
+    display: grid;
+    place-items: center;
+  }
+
+  .hero .slide.on img {
+    animation: ec-settle 7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  }
+
+  .hero.moved .slide.on figure {
+    animation: ec-wipe 1.2s cubic-bezier(0.7, 0, 0.2, 1) both;
+  }
+
+  .hero.moved .slide.on figure + figure {
+    animation-delay: 0.12s;
+  }
+
+  .hero .slide.on .cap > * {
+    animation: ec-rise 0.8s 0.5s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  }
+
+  .hero .slide.on .cap > * + * {
+    animation-delay: 0.62s;
+  }
+
+  .hero .dot.on i::after {
+    animation: ec-progress 6s linear both;
+  }
+
+  .hero.hold .dot.on i::after,
+  .hero.hold .slide.on img {
+    animation-play-state: paused;
   }
 }

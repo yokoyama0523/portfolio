@@ -1,5 +1,12 @@
-import { shop } from "./catalog";
+import { looks, products, shop } from "./catalog";
 import { amount } from "./format";
+import { paths } from "./paths";
+
+const deepestCut = Math.max(
+  ...products.flatMap((product) =>
+    product.sale ? [Math.floor(((product.price - product.sale) * 100) / product.price)] : [],
+  ),
+);
 
 export const home = {
   meta: {
@@ -11,16 +18,53 @@ export const home = {
     "15時までのご注文は当日発送",
     "返品・交換は到着後14日以内",
   ],
+  promisesLabel: "ご利用のご案内",
   hero: {
-    label: "新作",
-    images: [
-      { name: "look-3", alt: "白いニットにダウンジャケットを持つ女性" },
-      { name: "look-25", alt: "黒いダウンジャケットを羽織った女性" },
+    label: "特集",
+    heading: `${shop.name} 公式オンラインストア`,
+    slideLabel: (n: number, total: number) => `${total}枚中${n}枚目`,
+    tab: (n: number) => `${n}枚目を表示`,
+    pause: "スライドを止める",
+    play: "スライドを再生",
+    slides: [
+      {
+        id: "new",
+        title: "2026 秋冬　ニットとダウンが入荷しました。",
+        link: "新着をすべて見る",
+        to: paths.list("new=1"),
+        images: [
+          { name: "look-3", alt: "白いニットにダウンジャケットを持つ女性" },
+          { name: "look-25", alt: "黒いダウンジャケットを羽織った女性" },
+        ],
+      },
+      {
+        id: "looks",
+        title: `ルックブック　冬の着こなしを${looks.length}つ。`,
+        link: "ルックを見る",
+        to: paths.looks,
+        images: [
+          { name: "look-8", alt: "ボルドーのニットに黒いプリーツスカートの女性" },
+          { name: "look-24", alt: "ピンクのシアーシャツに白いロングスカートの女性" },
+        ],
+      },
+      {
+        id: "sale",
+        title: `セール　対象アイテムが最大${deepestCut}%OFF。`,
+        link: "セールを見る",
+        to: paths.list("sale=1"),
+        images: [
+          { name: "look-10", alt: "赤いケーブルニットにネイビーのコートを持つ女性" },
+          {
+            name: "om-cable-red-d",
+            alt: "赤いケーブルニットにチェックのスカートを合わせた着こなし",
+          },
+        ],
+      },
     ],
-    title: "2026 秋冬　ニットとダウンが入荷しました。",
-    link: "新着をすべて見る",
   },
   newTitle: "新着",
+  railPrev: "前の商品へ",
+  railNext: "次の商品へ",
   newCount: 8,
   seeAll: "すべて見る",
   categoriesTitle: "カテゴリー",

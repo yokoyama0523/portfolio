@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, Link, useLocation, useSearchParams } from "react-router";
 import { useHydrated } from "~/samples/shared/useHydrated";
 import { shop } from "../content/catalog";
@@ -14,8 +14,10 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
   const [params] = useSearchParams();
   const hydrated = useHydrated();
   const here = location.pathname + (hydrated ? location.search : "");
+  const hidden = useHideOnScroll();
+  const bump = useBump(cart.count);
   return (
-    <header className={open ? "hd nav-open" : "hd"}>
+    <header className={open ? "hd nav-open" : hidden ? "hd hide" : "hd"}>
       <div className="hd-in">
         <button
           type="button"
@@ -71,7 +73,11 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
           )}
           <Link to={paths.cart} aria-label={shell.tools.cart}>
             <BagIcon />
-            {cart.count > 0 && <b>{cart.count}</b>}
+            {cart.count > 0 && (
+              <b key={bump} className={bump ? "bump" : undefined}>
+                {cart.count}
+              </b>
+            )}
           </Link>
         </div>
       </div>
@@ -86,4 +92,40 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
       </div>
     </header>
   );
+}
+
+const HIDE_AFTER_PX = 160;
+const JITTER_PX = 6;
+
+function useHideOnScroll() {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (Math.abs(y - last) < JITTER_PX) return;
+        setHidden(y > last && y > HIDE_AFTER_PX);
+        last = y;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+  return hidden;
+}
+
+function useBump(count: number) {
+  const before = useRef(count);
+  const [bump, setBump] = useState(0);
+  useEffect(() => {
+    if (count > before.current) setBump((n) => n + 1);
+    before.current = count;
+  }, [count]);
+  return bump;
 }

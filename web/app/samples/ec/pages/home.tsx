@@ -4,6 +4,9 @@ import { sampleMeta } from "~/samples/shared/meta";
 import { image } from "../assets";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { HeroSlides } from "../components/home/HeroSlides";
+import { NewRail } from "../components/home/NewRail";
+import { Promises } from "../components/home/Promises";
 import { ProductCard } from "../components/ProductCard";
 import { categories, looks, news, products } from "../content/catalog";
 import { home } from "../content/home";
@@ -21,33 +24,9 @@ export default function EcHome() {
     <>
       <Header />
       <main>
-        <div className="wrap ship">
-          {home.promises.map((promise) => (
-            <span key={promise}>{promise}</span>
-          ))}
-        </div>
-        <section className="hero" aria-label={home.hero.label}>
-          {home.hero.images.map((item, i) => (
-            <figure key={item.name}>
-              <Img image={image(item.name)} alt={item.alt} priority={i === 0} />
-            </figure>
-          ))}
-          <div className="cap">
-            <h1>{home.hero.title}</h1>
-            <Link to={paths.list("new=1")}>{home.hero.link}</Link>
-          </div>
-        </section>
-        <section className="sec wrap" id="new">
-          <div className="h">
-            <h2>{home.newTitle}</h2>
-            <Link to={paths.list("new=1")}>{home.seeAll}</Link>
-          </div>
-          <div className="grid">
-            {newest.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
+        <Promises />
+        <HeroSlides />
+        <NewRail products={newest} />
         <section className="sec wrap flush">
           <div className="h">
             <h2>{home.categoriesTitle}</h2>
