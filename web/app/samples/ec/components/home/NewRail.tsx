@@ -4,22 +4,19 @@ import type { Product } from "../../content/catalog";
 import { home } from "../../content/home";
 import { paths } from "../../content/paths";
 import { ProductCard } from "../ProductCard";
-import { SectionHead } from "./SectionHead";
 
 const EDGE_PX = 2;
 
 export function NewRail({ products }: { products: Product[] }) {
   const rail = useRef<HTMLDivElement>(null);
-  const [view, setView] = useState({ start: true, end: false, size: 1, pos: 0 });
+  const [edge, setEdge] = useState({ start: true, end: false });
 
   const measure = useCallback(() => {
     const el = rail.current;
     if (!el) return;
-    setView({
+    setEdge({
       start: el.scrollLeft <= EDGE_PX,
       end: el.scrollLeft + el.clientWidth >= el.scrollWidth - EDGE_PX,
-      size: el.clientWidth / el.scrollWidth,
-      pos: el.scrollLeft / el.scrollWidth,
     });
   }, []);
 
@@ -41,46 +38,44 @@ export function NewRail({ products }: { products: Product[] }) {
   };
 
   return (
-    <section className="sec nr" id="new" aria-labelledby="new-title">
-      <div className="wrap">
-        <SectionHead id="new-title" {...home.newTitle}>
-          <button
-            type="button"
-            className="arrow"
-            aria-label={home.railPrev}
-            disabled={view.start}
-            onClick={() => go(-1)}
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            className="arrow"
-            aria-label={home.railNext}
-            disabled={view.end}
-            onClick={() => go(1)}
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
-            </svg>
-          </button>
-          <Link className="more" to={paths.list("new=1")}>
-            {home.seeAll}
-          </Link>
-        </SectionHead>
-      </div>
-      <div className="rail" ref={rail} onScroll={measure}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-      <div className="wrap">
-        <div className="rail-bar" aria-hidden="true">
-          <i style={{ width: `${view.size * 100}%`, left: `${view.pos * 100}%` }} />
+    <section className="sec row" id="new" aria-labelledby="new-title">
+      <h2 id="new-title" className="sec-title">
+        {home.newTitle}
+      </h2>
+      <div className="row-wrap">
+        <button
+          type="button"
+          className="arrow prev"
+          aria-label={home.railPrev}
+          disabled={edge.start}
+          onClick={() => go(-1)}
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
+        </button>
+        <div className="rail" ref={rail} onScroll={measure}>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
+        <button
+          type="button"
+          className="arrow next"
+          aria-label={home.railNext}
+          disabled={edge.end}
+          onClick={() => go(1)}
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
+        </button>
       </div>
+      <p className="sec-more">
+        <Link className="ul" to={paths.list("new=1")}>
+          {home.seeAll}
+        </Link>
+      </p>
     </section>
   );
 }

@@ -7,7 +7,7 @@
   --sale: #c8322b;
   --ok: #2b7a4b;
   --body-soft: #333;
-  --header-bg: rgb(255 255 255 / 0.96);
+  --header-bg: rgb(247 247 245 / 0.96);
   --swatch-edge: rgb(0 0 0 / 0.12);
   --tag-soft: rgb(255 255 255 / 0.9);
   --received-edge: #c9a227;
@@ -31,6 +31,7 @@
   --row-low: #fff7e6;
   --row-out: #fdecea;
   --asagi: #3d8c92;
+  --paper: #f7f7f5;
   --stone: #efeeea;
   --gut: clamp(20px, 3.4vw, 56px);
   --f: "Noto Sans JP Variable", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
@@ -50,7 +51,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--w);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--f);
   font-size: 13px;
@@ -258,9 +259,9 @@ svg {
 .logo {
   font-family: var(--display);
   font-weight: 500;
-  font-size: 26px;
-  letter-spacing: 0.32em;
-  margin-right: -0.32em;
+  font-size: 24px;
+  letter-spacing: 0.2em;
+  margin-right: -0.2em;
   line-height: 1;
   font-variation-settings: "opsz" 28;
 }
@@ -328,6 +329,15 @@ svg {
   padding: 0 8px 0 0;
   font-size: 12px;
   letter-spacing: 0.14em;
+}
+
+.burger-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .burger-lines {
@@ -551,18 +561,6 @@ svg {
 .ft p {
   margin-top: 10px;
   font-size: 12.5px;
-}
-
-.ft-mark {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: 23.6vw;
-  line-height: 0.8;
-  letter-spacing: 0.04em;
-  text-align: center;
-  font-variation-settings: "opsz" 96;
-  user-select: none;
-  padding-bottom: 0.04em;
 }
 
 .copy {
@@ -806,6 +804,7 @@ table.tb {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  mix-blend-mode: multiply;
   transition: scale 1.2s var(--ease-out-lux);
 }
 
@@ -872,6 +871,7 @@ table.tb {
 
 .card .cl {
   display: flex;
+  justify-content: center;
   gap: 5px;
   align-items: center;
   margin: 14px 0 6px;
@@ -895,13 +895,14 @@ table.tb {
   font-weight: 400;
   letter-spacing: 0.06em;
   line-height: 1.7;
+  text-align: center;
 }
 
 .card .pr {
   margin-top: 4px;
-  font-family: var(--display);
-  font-size: 14.5px;
-  letter-spacing: 0.04em;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-align: center;
 }
 
 .card .pr b {

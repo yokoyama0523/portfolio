@@ -84,11 +84,12 @@
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    .sh,
+    .sec-title,
+    .tile,
+    .band-head,
     .grid > *,
     .rail > *,
     .rank > *,
-    .ci-list li,
     .member,
     .news li {
       --lag: 0%;

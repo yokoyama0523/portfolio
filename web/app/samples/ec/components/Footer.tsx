@@ -40,9 +40,6 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <div className="ft-mark" aria-hidden="true">
-        {shop.name}
-      </div>
       <div className="copy">
         <span>{footer.copy}</span>
         <span>{footer.photos}</span>
