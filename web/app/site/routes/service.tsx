@@ -2,6 +2,7 @@ import { site } from "~/config";
 import { absoluteUrl } from "~/shared/meta";
 import { CtaPanels } from "~/site/components/CtaPanels";
 import { Lines } from "~/site/components/Lines";
+import { ScrubLetters } from "~/site/components/MotionText";
 import { PageTitle } from "~/site/components/PageTitle";
 import { Process } from "~/site/components/Process";
 import { ResponsiveImg } from "~/site/components/ResponsiveImg";
@@ -101,17 +102,21 @@ export default function Service() {
         >
           <div className="mx-auto max-w-content">
             <h2 id={`${s.id}-title`} data-reveal>
-              <span className="block font-latin text-display-service font-light leading-none -tracking-2 text-ink">
-                {s.en}
+              <span
+                data-scrub
+                className="block font-latin text-display-service font-light leading-none -tracking-2 text-ink"
+              >
+                <ScrubLetters text={s.en} />
               </span>
               <span className="mt-5 block text-md font-medium tracking-12 text-mute">{s.jp}</span>
             </h2>
             <div className="mt-14 grid gap-14 md:mt-20 md:grid-cols-feature md:gap-20">
               <div data-reveal>
-                <div className="relative aspect-screen overflow-hidden bg-mist">
+                <div data-curtain className="relative aspect-screen overflow-hidden bg-mist">
                   <ResponsiveImg
                     image={s.image.media.thumb}
                     sizes="(min-width: 768px) 55vw, 100vw"
+                    data-parallax
                     className="absolute inset-0 size-full object-cover"
                   />
                 </div>

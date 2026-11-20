@@ -1,122 +1,111 @@
 import { Link } from "react-router";
-import { Img } from "~/samples/shared/Img";
 import { sampleMeta } from "~/samples/shared/meta";
-import { image } from "../assets";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { HeroSlides } from "../components/home/HeroSlides";
+import { LookBand } from "../components/home/LookBand";
+import { NewRail } from "../components/home/NewRail";
+import { Promises } from "../components/home/Promises";
+import { Tile } from "../components/home/Tile";
 import { ProductCard } from "../components/ProductCard";
-import { categories, looks, news, products } from "../content/catalog";
+import { news, products } from "../content/catalog";
 import { home } from "../content/home";
 import { paths } from "../content/paths";
-import { productById } from "../store/pricing";
 import "../styles/home.css";
 
 export const meta = () => sampleMeta("ec", home.meta);
 
 const newest = products.filter((product) => product.isNew).slice(0, home.newCount);
 const ranking = [...products].sort((a, b) => a.rank - b.rank).slice(0, home.rankingCount);
+const category = (id: string) => paths.list(`cat=${id}`);
 
 export default function EcHome() {
   return (
     <>
-      <Header />
-      <main>
-        <div className="wrap ship">
-          {home.promises.map((promise) => (
-            <span key={promise}>{promise}</span>
+      <Promises />
+      <Header over />
+      <main className="home">
+        <HeroSlides />
+
+        <section className="intro">
+          <h2 className="sec-title">{home.intro.title}</h2>
+          <p>
+            {home.intro.lines.map((line) => (
+              <span key={line} className="intro-line">
+                {line}
+              </span>
+            ))}
+          </p>
+          <Link className="ul" to={home.intro.to}>
+            {home.intro.link}
+          </Link>
+        </section>
+
+        <div className="duo">
+          {home.duo.map((item) => (
+            <Tile
+              key={item.id}
+              to={category(item.id)}
+              label={item.label}
+              photo={item.image}
+              tone={item.tone}
+            />
           ))}
         </div>
-        <section className="hero" aria-label={home.hero.label}>
-          {home.hero.images.map((item, i) => (
-            <figure key={item.name}>
-              <Img image={image(item.name)} alt={item.alt} priority={i === 0} />
-            </figure>
-          ))}
-          <div className="cap">
-            <h1>{home.hero.title}</h1>
-            <Link to={paths.list("new=1")}>{home.hero.link}</Link>
-          </div>
-        </section>
-        <section className="sec wrap" id="new">
-          <div className="h">
-            <h2>{home.newTitle}</h2>
-            <Link to={paths.list("new=1")}>{home.seeAll}</Link>
-          </div>
-          <div className="grid">
-            {newest.map((product) => (
-              <ProductCard key={product.id} product={product} />
+
+        <section className="sec basics" aria-labelledby="basics-title">
+          <h2 id="basics-title" className="sec-title">
+            {home.basicsTitle}
+          </h2>
+          <div className="quad">
+            {home.basics.map((item) => (
+              <Tile
+                key={item.id}
+                to={category(item.id)}
+                label={item.label}
+                photo={item.image}
+                tone={item.tone}
+              />
             ))}
           </div>
         </section>
-        <section className="sec wrap flush">
-          <div className="h">
-            <h2>{home.categoriesTitle}</h2>
-          </div>
-          <div className="cats">
-            {categories.map((category) => (
-              <Link key={category.id} to={paths.list(`cat=${category.id}`)}>
-                <div className="im">
-                  <Img image={image(home.categoryImages[category.id])} />
-                </div>
-                <b>{category.name}</b>
-              </Link>
-            ))}
-          </div>
-        </section>
-        <section className="sec wrap flush">
-          <div className="h">
-            <h2>{home.rankingTitle}</h2>
-            <Link to={paths.list("sort=rank")}>{home.seeAll}</Link>
-          </div>
+
+        <LookBand />
+
+        <NewRail products={newest} />
+
+        <section className="sec row" aria-labelledby="rank-title">
+          <h2 id="rank-title" className="sec-title">
+            {home.rankingTitle}
+          </h2>
           <div className="rank">
             {ranking.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-        </section>
-        <section className="sec wrap flush" id={home.looksId}>
-          <div className="h">
-            <h2>{home.looksTitle}</h2>
-          </div>
-          <div className="looks">
-            {looks.map((look) => (
-              <figure key={look.image}>
-                <div className="im">
-                  <Img image={image(look.image)} alt={look.title} />
-                </div>
-                <figcaption>
-                  <b>{look.title}</b>
-                  <div className="items">
-                    {look.items.map((id) => (
-                      <Link key={id} to={paths.item(id)}>
-                        {productById[id].name}
-                      </Link>
-                    ))}
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-        <section className="sec wrap flush">
-          <div className="member">
-            <div>
-              <h2>{home.member.title}</h2>
-              <p>
-                {home.member.before}
-                <code>{home.member.code}</code>
-                {home.member.after}
-              </p>
-            </div>
-            <Link className="btn" to={paths.account("register")}>
-              {home.member.button}
+          <p className="sec-more">
+            <Link className="ul" to={paths.list("sort=rank")}>
+              {home.seeAll}
             </Link>
-          </div>
+          </p>
         </section>
-        <section className="sec wrap flush">
-          <div className="h">
-            <h2>{home.newsTitle}</h2>
-          </div>
+
+        <section className="member">
+          <h2 className="sec-title">{home.member.title}</h2>
+          <p>
+            {home.member.before}
+            <code>{home.member.code}</code>
+            {home.member.after}
+          </p>
+          <Link className="btn" to={paths.account("register")}>
+            {home.member.button}
+          </Link>
+        </section>
+
+        <section className="sec news-sec" aria-labelledby="news-title">
+          <h2 id="news-title" className="sec-title">
+            {home.newsTitle}
+          </h2>
           <ul className="news">
             {news.map((item) => (
               <li key={item.iso}>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { Img } from "~/samples/shared/Img";
 import { image } from "../assets";
@@ -15,6 +16,8 @@ export function ProductCard({ product }: { product: Product }) {
   const { stockOverrides } = useShop();
   const variant = product.variants[0];
   const left = productStock(stockOverrides, product);
+  const [second, setSecond] = useState<"off" | "load" | "on">("off");
+  const back = variant.images[1];
   const tags = [
     product.sale ? { key: "sale", label: text.sale, className: "tag sale" } : null,
     product.isNew ? { key: "new", label: text.isNew, className: "tag" } : null,
@@ -26,8 +29,19 @@ export function ProductCard({ product }: { product: Product }) {
   ].filter((tag) => tag !== null);
   return (
     <article className="card">
-      <Link className="im" to={paths.item(product.id)}>
+      <Link
+        className="im"
+        to={paths.item(product.id)}
+        onPointerEnter={() => setSecond((s) => (s === "off" ? "load" : s))}
+      >
         <Img image={image(variant.images[0])} alt={`${product.name} ${variant.color}`} />
+        {back && second !== "off" && (
+          <Img
+            image={image(back)}
+            className={second === "on" ? "back on" : "back"}
+            onLoad={() => setSecond("on")}
+          />
+        )}
         {tags.map((tag) => (
           <i key={tag.key} className={tag.className}>
             {tag.label}
