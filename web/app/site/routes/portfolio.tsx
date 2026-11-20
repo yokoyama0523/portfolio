@@ -133,6 +133,7 @@ export default function Portfolio() {
               {shown.map((c, i) => (
                 <li
                   key={`${category ?? "all"}-${c.id}`}
+                  data-reveal
                   className={filtered ? "animate-fade-up motion-reduce:animate-none" : undefined}
                   style={
                     filtered
@@ -141,7 +142,7 @@ export default function Portfolio() {
                   }
                 >
                   <a href={c.path} className="group block">
-                    <span className="block aspect-shot overflow-hidden bg-mist">
+                    <span data-curtain className="block aspect-shot overflow-hidden bg-mist">
                       <ResponsiveImg
                         image={c.media.desktop}
                         sizes={sizes}

@@ -13,6 +13,7 @@ export const shell = {
     { to: paths.guide(), label: "ガイド" },
   ],
   menuLabel: "メニュー",
+  closeLabel: "閉じる",
   categoryLabel: "カテゴリー",
   search: { placeholder: "商品を探す", label: "商品を探す", submit: "検索" },
   tools: { account: "マイページ", wish: "お気に入り", cart: "カート" },
