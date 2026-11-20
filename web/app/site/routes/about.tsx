@@ -5,6 +5,7 @@ import { absoluteUrl } from "~/shared/meta";
 import { Breadcrumb } from "~/site/components/Breadcrumb";
 import { CtaPanels } from "~/site/components/CtaPanels";
 import { Lines } from "~/site/components/Lines";
+import { fadeUpClass, RiseText, ScrubLetters } from "~/site/components/MotionText";
 import { PillButton } from "~/site/components/PillButton";
 import { SakuraPetals } from "~/site/components/SakuraMark";
 import { aboutPageCopy as text } from "~/site/data/aboutPage";
@@ -16,6 +17,7 @@ import { breadcrumb, ids, pageMeta } from "~/site/seo";
 const PHOTO = { width: 1600, height: 1067 };
 const ACTIVE_BAND = "-40% 0px -55% 0px";
 const sectionNumber = (index: number) => String(index).padStart(2, "0");
+const TITLE_DELAY_S = 0.15;
 
 const box =
   "scroll-mt-24 ml-6 -mr-5 px-6 md:ml-12 md:-mr-12 md:px-14 lg:ml-0 lg:-mr-bleed lg:pr-bleed-inset";
@@ -117,16 +119,19 @@ function Photo({
   sizes: string;
 }) {
   return (
-    <img
-      src={photo.src}
-      srcSet={photo.srcSet}
-      sizes={sizes}
-      alt={photo.alt}
-      width={PHOTO.width}
-      height={PHOTO.height}
-      loading="lazy"
-      className="block aspect-photo h-auto w-full object-cover"
-    />
+    <div data-curtain className="overflow-hidden">
+      <img
+        src={photo.src}
+        srcSet={photo.srcSet}
+        sizes={sizes}
+        alt={photo.alt}
+        width={PHOTO.width}
+        height={PHOTO.height}
+        loading="lazy"
+        data-parallax
+        className="block aspect-photo h-auto w-full object-cover"
+      />
+    </div>
   );
 }
 
@@ -158,21 +163,24 @@ export default function About() {
       <section className="relative px-5 pt-36 pb-16 md:px-12 md:pb-24 lg:pt-50 lg:pb-25">
         <div className="mx-auto max-w-content">
           <h1>
-            <span className="block text-base font-medium tracking-12 text-ink">
+            <span className={`block text-base font-medium tracking-12 text-ink ${fadeUpClass}`}>
               {text.title.jp}
             </span>
             <span className="mt-4 block font-latin text-display-about font-light leading-none -tracking-2 text-ink md:mt-6">
-              {text.title.en}
+              <RiseText text={text.title.en} delay={TITLE_DELAY_S} />
             </span>
           </h1>
         </div>
         <svg
+          data-spin
           viewBox="-100 -100 200 200"
           className="pointer-events-none absolute right-13.75 -bottom-8.75 z-10 w-16 text-charcoal md:right-28 md:-bottom-9.5 md:w-24 lg:top-55.75 lg:right-auto lg:bottom-auto lg:left-sakura-x lg:w-50"
           aria-hidden="true"
         >
-          <g transform="scale(9)">
-            <SakuraPetals centerClassName="fill-white" />
+          <g className="origin-center animate-bloom [transform-box:fill-box] motion-reduce:animate-none">
+            <g transform="scale(9)">
+              <SakuraPetals centerClassName="fill-white" />
+            </g>
           </g>
         </svg>
       </section>
@@ -208,13 +216,15 @@ export default function About() {
               className={`${box} pt-20 pb-24 md:pt-28 md:pb-28 lg:pt-28 lg:pb-28.5 lg:pl-20`}
             >
               <SectionLabel id={`${business.id}-label`} index={2} en={business.en} />
-              <p className="mt-8 font-latin text-display-business font-light leading-heading -tracking-2 text-ink md:mt-10">
+              <p
+                data-scrub
+                className="mt-8 font-latin text-display-business font-light leading-heading -tracking-2 text-ink md:mt-10"
+              >
                 {services.map((s, i) => (
                   <Fragment key={s.id}>
                     {i > 0 && " "}
                     <span className="inline-block whitespace-nowrap">
-                      {i > 0 && "/ "}
-                      {s.en}
+                      <ScrubLetters text={`${i > 0 ? "/ " : ""}${s.en}`} />
                     </span>
                   </Fragment>
                 ))}
@@ -260,8 +270,11 @@ export default function About() {
               <dl className="mt-12 grid gap-16 md:gap-20 lg:mt-0 lg:pt-29">
                 {profile.map(([en, value]) => (
                   <div key={en} data-reveal>
-                    <dt className="font-latin text-display-term font-light leading-none -tracking-2 text-ink">
-                      {en}
+                    <dt
+                      data-scrub
+                      className="font-latin text-display-term font-light leading-none -tracking-2 text-ink"
+                    >
+                      <ScrubLetters text={en} />
                     </dt>
                     <dd className="mt-6 text-base leading-body tracking-6 md:mt-8 md:text-lg">
                       {value}

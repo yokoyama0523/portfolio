@@ -113,9 +113,16 @@
   --animate-scroll-line: scroll-line 2.2s var(--ease-in-out-soft) infinite;
   --animate-rise: rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  --animate-bloom: bloom 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   @keyframes fade-up {
     from {
       transform: translate3d(0, 24px, 0);
+      opacity: 0;
+    }
+  }
+  @keyframes bloom {
+    from {
+      transform: scale(0.3) rotate(-120deg);
       opacity: 0;
     }
   }
